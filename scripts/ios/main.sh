@@ -72,6 +72,66 @@ validate_profile_configuration() {
     fi
 }
 
+# Function to clean BOM characters from script files
+clean_bom_characters() {
+    log_info "🧹 Cleaning BOM characters from script files..."
+    
+    # List of critical script files to check
+    local script_files=(
+        "lib/scripts/ios/main.sh"
+        "lib/scripts/ios/email_notifications.sh"
+        "lib/scripts/ios/comprehensive_certificate_validation.sh"
+        "lib/scripts/ios/setup_environment.sh"
+        "lib/scripts/ios/validate_profile_type.sh"
+        "lib/scripts/ios/handle_certificates.sh"
+        "lib/scripts/ios/code_signing.sh"
+        "lib/scripts/ios/branding.sh"
+        "lib/scripts/utils/download_custom_icons.sh"
+    )
+    
+    for script_file in "${script_files[@]}"; do
+        if [ -f "$script_file" ]; then
+            # Check if file has BOM and remove it
+            if file "$script_file" 2>/dev/null | grep -q "UTF-8 Unicode (with BOM)"; then
+                log_warn "⚠️ BOM detected in $script_file, removing..."
+                # Create a temporary file without BOM
+                tail -c +4 "$script_file" > "${script_file}.tmp" && mv "${script_file}.tmp" "$script_file"
+                chmod +x "$script_file"
+                log_success "✅ BOM removed from $script_file"
+            fi
+            
+            # Additional check: if file starts with invisible characters, try to fix
+            if [ -f "$script_file" ]; then
+                local first_line
+                first_line=$(head -1 "$script_file" 2>/dev/null)
+                if [[ "$first_line" != "#!/bin/bash"* ]] && [[ "$first_line" != "#!/bin/sh"* ]]; then
+                    log_warn "⚠️ Invalid shebang detected in $script_file, attempting to fix..."
+                    # Try to find the actual shebang line
+                    local shebang_line
+                    shebang_line=$(grep -m 1 "^#!" "$script_file" 2>/dev/null)
+                    if [ -n "$shebang_line" ]; then
+                        # Create a new file starting from the shebang
+                        local temp_file="${script_file}.tmp"
+                        grep -A 1000 "^#!" "$script_file" > "$temp_file" 2>/dev/null
+                        if [ -s "$temp_file" ]; then
+                            mv "$temp_file" "$script_file"
+                            chmod +x "$script_file"
+                            log_success "✅ Fixed shebang in $script_file"
+                        else
+                            rm -f "$temp_file"
+                            log_error "❌ Failed to fix shebang in $script_file"
+                        fi
+                    else
+                        log_error "❌ No valid shebang found in $script_file"
+                    fi
+                fi
+            fi
+        fi
+    done
+    
+    log_success "✅ BOM cleanup completed"
+}
+
 # Main execution function
 main() {
     log_info "iOS Build Workflow Starting..."
@@ -81,6 +141,9 @@ main() {
         log_error "Environment variable loading failed"
         return 1
     fi
+    
+    # Clean BOM characters before proceeding
+    clean_bom_characters
     
     # Validate profile type configuration early
     if ! validate_profile_configuration; then
@@ -130,16 +193,16 @@ main() {
             
             # Try to extract UUID from the validation log (support both uppercase and lowercase)
             local extracted_uuid
-            extracted_uuid=$(grep -o "UUID: [A-Fa-f0-9-]*" /tmp/cert_validation.log | head -1 | cut -d' ' -f2)
+            extracted_uuid=$(grep -o "UUID: [A-Fa-f0-9-]*" /tmp/cert_validation.log 2>/dev/null | head -1 | cut -d' ' -f2)
             
             # If not found in log, try to extract from MOBILEPROVISION_UUID= format
             if [ -z "$extracted_uuid" ]; then
-                extracted_uuid=$(grep -o "MOBILEPROVISION_UUID=[A-Fa-f0-9-]*" /tmp/cert_validation.log | head -1 | cut -d'=' -f2)
+                extracted_uuid=$(grep -o "MOBILEPROVISION_UUID=[A-Fa-f0-9-]*" /tmp/cert_validation.log 2>/dev/null | head -1 | cut -d'=' -f2)
             fi
             
             # Additional fallback: look for any valid UUID pattern in the log
             if [ -z "$extracted_uuid" ]; then
-                extracted_uuid=$(grep -oE "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}" /tmp/cert_validation.log | head -1)
+                extracted_uuid=$(grep -oE "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}" /tmp/cert_validation.log 2>/dev/null | head -1)
             fi
             
             # Validate extracted UUID format
@@ -184,7 +247,15 @@ main() {
                 fi
             fi
         else
-            log_warn "⚠️ No PROFILE_URL provided - UUID extraction skipped"
+            # Modern code signing approach - no traditional provisioning profile needed
+            if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
+                log_info "📱 Modern code signing detected - skipping traditional provisioning profile UUID extraction"
+                log_info "🔐 Automatic code signing will handle provisioning during build"
+                log_success "✅ Modern code signing configured - no manual provisioning profile required"
+            else
+                log_warn "⚠️ No PROFILE_URL provided and no modern code signing configured"
+                log_warn "💡 Consider using App Store Connect API for automatic code signing"
+            fi
         fi
     else
         log_error "❌ Comprehensive certificate validation failed"
