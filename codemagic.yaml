@@ -272,19 +272,14 @@ workflows:
       xcode: 16.0
       cocoapods: 1.16.2
       vars:
-        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config]
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing]
         WORKFLOW_ID: "ios-workflow"
         BUNDLE_ID: $BUNDLE_ID
         FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
-        # Traditional certificate approach
-        CERT_CER_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/apple_distribution.cer"
-        CERT_KEY_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/privatekey.key"
-        PROFILE_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Garbcode_App_Store.mobileprovision"
-        CERT_PASSWORD: "User@54321"
-        APPLE_TEAM_ID: "9H2AD7NQ49"
-        APNS_KEY_ID: "V566SWNF69"
-        APNS_AUTH_KEY_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8"
-        APP_STORE_CONNECT_KEY_IDENTIFIER: "F5229W2Q8S"
+        # Modern App Store Connect API approach
+        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+        APP_STORE_CONNECT_API_KEY_URL: $APP_STORE_CONNECT_API_KEY_URL
         PROFILE_TYPE: "app-store"
         ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
         EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER

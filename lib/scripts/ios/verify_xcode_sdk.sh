@@ -6,18 +6,6 @@
 set -euo pipefail
 trap 'echo "❌ Error occurred at line $LINENO. Exit code: $?" >&2; exit 1' ERR
 
-# Source environment configuration
-SCRIPT_DIR="$(dirname "$0")"
-if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
-    source "${SCRIPT_DIR}/../../config/env.sh"
-    log "Environment configuration loaded from lib/config/env.sh"
-elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
-    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
-    log "Environment configuration loaded from lib/config/env.sh"
-else
-    warning "Environment configuration file not found, using system environment variables"
-fi
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -41,6 +29,18 @@ warning() {
 error() {
     echo -e "${RED}❌${NC} $1"
 }
+
+# Source environment configuration
+SCRIPT_DIR="$(dirname "$0")"
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+else
+    warning "Environment configuration file not found, using system environment variables"
+fi
 
 log "🔍 Starting Xcode and iOS SDK verification..."
 
