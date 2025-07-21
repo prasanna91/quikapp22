@@ -5,6 +5,39 @@
 
 set -euo pipefail
 
+# Function to clean BOM characters from script files
+clean_bom_characters() {
+    log_info "🧹 Cleaning BOM characters from script files..."
+    
+    # List of critical script files to check
+    local script_files=(
+        "lib/scripts/ios/main.sh"
+        "lib/scripts/ios/email_notifications.sh"
+        "lib/scripts/ios/comprehensive_certificate_validation.sh"
+        "lib/scripts/ios/setup_environment.sh"
+        "lib/scripts/ios/validate_profile_type.sh"
+        "lib/scripts/ios/handle_certificates.sh"
+        "lib/scripts/ios/code_signing.sh"
+        "lib/scripts/ios/branding.sh"
+        "lib/scripts/utils/download_custom_icons.sh"
+    )
+    
+    for script_file in "${script_files[@]}"; do
+        if [ -f "$script_file" ]; then
+            # Check if file has BOM and remove it
+            if file "$script_file" | grep -q "UTF-8 Unicode (with BOM)"; then
+                log_warn "⚠️ BOM detected in $script_file, removing..."
+                # Create a temporary file without BOM
+                tail -c +4 "$script_file" > "${script_file}.tmp" && mv "${script_file}.tmp" "$script_file"
+                chmod +x "$script_file"
+                log_success "✅ BOM removed from $script_file"
+            fi
+        fi
+    done
+    
+    log_success "✅ BOM cleanup completed"
+}
+
 # Get script directory and source utilities
 SCRIPT_DIR="$(dirname "$0")"
 source "${SCRIPT_DIR}/utils.sh"
@@ -21,6 +54,9 @@ else
 fi
 
 log_info "Starting iOS Build Workflow..."
+
+# Clean BOM characters before proceeding
+clean_bom_characters
 
 # Function to send email notifications
 send_email() {

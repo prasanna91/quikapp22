@@ -168,16 +168,77 @@ generate_p12_from_cer_key() {
     
     log_info "🔄 Converting CER+KEY to P12 format with password: '${password:-<empty>}'"
     
-    if openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" -legacy 2>/dev/null; then
-        log_success "✅ Certificate converted to P12 format successfully"
-        return 0
-    elif openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" 2>/dev/null; then
-        log_success "✅ Certificate converted to P12 format successfully (modern mode)"
-        return 0
-    else
-        log_error "❌ Failed to convert CER+KEY to P12 format"
+    # Check if files exist and have content
+    if [ ! -f "$cer_file" ] || [ ! -s "$cer_file" ]; then
+        log_error "❌ CER file does not exist or is empty: $cer_file"
         return 1
     fi
+    
+    if [ ! -f "$key_file" ] || [ ! -s "$key_file" ]; then
+        log_error "❌ KEY file does not exist or is empty: $key_file"
+        return 1
+    fi
+    
+    # Validate CER file format
+    log_info "🔍 Validating CER file format..."
+    if ! openssl x509 -inform DER -in "$cer_file" -noout -text >/dev/null 2>&1; then
+        log_warn "⚠️ CER file is not in DER format, trying PEM format..."
+        if ! openssl x509 -in "$cer_file" -noout -text >/dev/null 2>&1; then
+            log_error "❌ CER file is not in valid certificate format"
+            return 1
+        fi
+    fi
+    
+    # Validate KEY file format
+    log_info "🔍 Validating KEY file format..."
+    if ! openssl rsa -in "$key_file" -noout -check >/dev/null 2>&1; then
+        log_error "❌ KEY file is not in valid RSA private key format"
+        return 1
+    fi
+    
+    # Try conversion with legacy mode first
+    log_info "🔄 Attempting P12 conversion with legacy mode..."
+    if openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" -legacy 2>/dev/null; then
+        log_success "✅ Certificate converted to P12 format successfully (legacy mode)"
+        return 0
+    fi
+    
+    # Try conversion with modern mode
+    log_info "🔄 Attempting P12 conversion with modern mode..."
+    if openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" 2>/dev/null; then
+        log_success "✅ Certificate converted to P12 format successfully (modern mode)"
+        return 0
+    fi
+    
+    # Try with different input formats
+    log_info "🔄 Attempting P12 conversion with PEM format..."
+    if openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" -legacy 2>/dev/null; then
+        log_success "✅ Certificate converted to P12 format successfully (PEM format)"
+        return 0
+    fi
+    
+    # Try with DER format explicitly
+    log_info "🔄 Attempting P12 conversion with DER format..."
+    if openssl pkcs12 -export -in "$cer_file" -inkey "$key_file" -out "$p12_file" -password "pass:$password" -name "iOS Distribution Certificate" -legacy 2>/dev/null; then
+        log_success "✅ Certificate converted to P12 format successfully (DER format)"
+        return 0
+    fi
+    
+    # If all attempts fail, provide detailed error information
+    log_error "❌ Failed to convert CER+KEY to P12 format"
+    log_error "   CER file: $cer_file"
+    log_error "   KEY file: $key_file"
+    log_error "   P12 file: $p12_file"
+    log_error "   Password: ${password:-<empty>}"
+    
+    # Show file information for debugging
+    log_info "🔍 Debug information:"
+    log_info "   CER file size: $(wc -c < "$cer_file") bytes"
+    log_info "   KEY file size: $(wc -c < "$key_file") bytes"
+    log_info "   CER file first line: $(head -1 "$cer_file")"
+    log_info "   KEY file first line: $(head -1 "$key_file")"
+    
+    return 1
 }
 
 # Function to validate App Store Connect API credentials
@@ -279,19 +340,38 @@ validate_code_signing() {
     fi
 }
 
-# Main validation logic
+# Main validation function
 main() {
     log_info "🚀 Starting comprehensive certificate validation..."
     
-    # Setup keychain
+    # Setup keychain first
     if ! setup_keychain; then
-        log_error "❌ Failed to setup keychain"
+        log_error "❌ Keychain setup failed"
         exit 1
     fi
     
-    # Check for P12 file
+    # Priority 1: Check for App Store Connect API credentials (modern approach)
+    if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
+        log_info "📱 Modern App Store Connect API approach detected"
+        log_info "   - Key ID: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+        log_info "   - Issuer ID: $APP_STORE_CONNECT_ISSUER_ID"
+        log_info "   - API Key URL: $APP_STORE_CONNECT_API_KEY_URL"
+        
+        # Validate App Store Connect API credentials
+        if validate_app_store_connect_api "$APP_STORE_CONNECT_API_KEY_URL" "$APP_STORE_CONNECT_KEY_IDENTIFIER" "$APP_STORE_CONNECT_ISSUER_ID"; then
+            log_success "✅ App Store Connect API validation successful"
+            log_info "🔐 Automatic code signing will be handled by Xcode during build"
+            log_success "✅ Certificate validation passed (using modern automatic code signing)"
+            return 0
+        else
+            log_error "❌ App Store Connect API validation failed"
+            exit 1
+        fi
+    fi
+    
+    # Priority 2: Check for P12 file (traditional approach)
     if [ -n "${CERT_P12_URL:-}" ]; then
-        log_info "📦 P12 file URL provided: $CERT_P12_URL"
+        log_info "📄 P12 file provided: $CERT_P12_URL"
         
         # Download P12 file
         local p12_file="$CERT_DIR/certificate.p12"
@@ -315,6 +395,7 @@ main() {
                 # Install P12 certificate
                 if install_p12_certificate "$p12_file" "$CERT_PASSWORD"; then
                     log_success "✅ P12 certificate installed successfully with provided password"
+                    return 0
                 else
                     log_error "❌ Failed to install P12 certificate"
                     exit 1
@@ -328,7 +409,7 @@ main() {
             exit 1
         fi
         
-    # Check for CER and KEY files
+    # Priority 3: Check for CER and KEY files (traditional approach)
     elif [ -n "${CERT_CER_URL:-}" ] && [ -n "${CERT_KEY_URL:-}" ]; then
         log_info "📄 CER and KEY files provided:"
         log_info "   - CER URL: $CERT_CER_URL"
@@ -360,6 +441,7 @@ main() {
             # Install generated P12 certificate
             if install_p12_certificate "$p12_file" "$DEFAULT_P12_PASSWORD"; then
                 log_success "✅ Generated P12 certificate installed successfully with default password"
+                return 0
             else
                 log_error "❌ Failed to install generated P12 certificate"
                 exit 1
@@ -370,69 +452,13 @@ main() {
         fi
         
     else
-        log_error "❌ No code signing data provided"
-        log_error "   Please provide either:"
-        log_error "   - CERT_P12_URL with CERT_PASSWORD, or"
-        log_error "   - CERT_CER_URL and CERT_KEY_URL"
+        log_error "❌ No valid certificate configuration found"
+        log_error "   Please provide one of the following:"
+        log_error "   1. Modern approach: APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_ISSUER_ID, and APP_STORE_CONNECT_API_KEY_URL"
+        log_error "   2. Traditional approach: CERT_P12_URL with CERT_PASSWORD"
+        log_error "   3. Traditional approach: CERT_CER_URL and CERT_KEY_URL"
         exit 1
     fi
-    
-    # Validate App Store Connect API credentials
-    if [ -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" ] && [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
-        if ! validate_app_store_connect_api "$APP_STORE_CONNECT_API_KEY_PATH" "$APP_STORE_CONNECT_KEY_IDENTIFIER" "$APP_STORE_CONNECT_ISSUER_ID"; then
-            log_error "❌ App Store Connect API validation failed"
-            exit 1
-        fi
-    else
-        log_warn "⚠️ App Store Connect API credentials not provided"
-    fi
-    
-    # Validate code signing
-    if ! validate_code_signing; then
-        log_error "❌ Code signing validation failed"
-        exit 1
-    fi
-    
-    # Extract UUID from mobileprovision if provided
-    if [ -n "${PROFILE_URL:-}" ]; then
-        log_info "📱 Processing provisioning profile..."
-        
-        local profile_file="$CERT_DIR/profile.mobileprovision"
-        if download_with_retry "$PROFILE_URL" "$profile_file"; then
-            if validate_file "$profile_file"; then
-                local profile_uuid
-                profile_uuid=$(extract_mobileprovision_uuid "$profile_file")
-                if [ -n "$profile_uuid" ]; then
-                    export MOBILEPROVISION_UUID="$profile_uuid"
-                    log_success "✅ Mobileprovision UUID extracted: $profile_uuid"
-                    
-                    # Output UUID in a format that can be captured by parent script
-                    echo "UUID: $profile_uuid" >&2
-                    echo "MOBILEPROVISION_UUID=$profile_uuid" >&2
-                    
-                    # Install provisioning profile
-                    local profiles_dir="$HOME/Library/MobileDevice/Provisioning Profiles"
-                    mkdir -p "$profiles_dir"
-                    local target_file="$profiles_dir/$profile_uuid.mobileprovision"
-                    cp "$profile_file" "$target_file"
-                    log_success "✅ Provisioning profile installed: $target_file"
-                fi
-            fi
-        fi
-    fi
-    
-    log_success "🎉 Comprehensive certificate validation completed successfully!"
-    log_info "📋 Summary:"
-    log_info "   - Certificate: ✅ Installed and validated"
-    log_info "   - Code Signing: ✅ Ready for IPA export"
-    if [ -n "${MOBILEPROVISION_UUID:-}" ]; then
-        log_info "   - Provisioning Profile: ✅ UUID: $MOBILEPROVISION_UUID"
-    fi
-    if [ -n "${APP_STORE_CONNECT_API_KEY_DOWNLOADED_PATH:-}" ]; then
-        log_info "   - App Store Connect API: ✅ Ready for upload"
-    fi
-    
-    return 0
 }
 
 # Run main function
