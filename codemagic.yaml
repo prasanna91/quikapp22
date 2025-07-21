@@ -272,7 +272,7 @@ workflows:
       xcode: 16.0
       cocoapods: 1.16.2
       vars:
-        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *ios_distribution_options]
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing]
         WORKFLOW_ID: "ios-workflow"
         BUNDLE_ID: $BUNDLE_ID
         FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
@@ -702,7 +702,7 @@ workflows:
       xcode: 16.0
       cocoapods: 1.16.2
       vars:
-        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *ios_distribution_options]
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing]
         WORKFLOW_ID: "ios-new-workflow"
         BUNDLE_ID: $BUNDLE_ID
         FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
@@ -756,7 +756,7 @@ workflows:
       xcode: 16.0
       cocoapods: 1.16.2
       vars:
-        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *ios_distribution_options, *admin_build_env]
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *admin_build_env]
         MAX_RETRIES: "3"
         WORKFLOW_ID: "combined"
         PKG_NAME: $PKG_NAME
