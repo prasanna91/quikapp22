@@ -102,6 +102,7 @@ fi
 
 # Check iOS deployment target
 log "📱 Checking iOS deployment target..."
+DEPLOYMENT_TARGET="unknown"  # Initialize with default value
 if [ -f "ios/Podfile" ]; then
     DEPLOYMENT_TARGET=$(grep -o "platform :ios, '[^']*'" ios/Podfile | cut -d"'" -f2 || echo "unknown")
     if [ -n "$DEPLOYMENT_TARGET" ] && [ "$DEPLOYMENT_TARGET" != "unknown" ]; then
@@ -151,6 +152,8 @@ if [ -n "${SDK_VERSION:-}" ] && [ "$SDK_VERSION" != "unknown" ]; then
 fi
 if [ -n "$DEPLOYMENT_TARGET" ] && [ "$DEPLOYMENT_TARGET" != "unknown" ]; then
     success "Deployment Target: $DEPLOYMENT_TARGET (✓ Compatible)"
+elif [ "$DEPLOYMENT_TARGET" = "unknown" ]; then
+    warning "Deployment Target: Not determined (⚠️ Skipped)"
 fi
 
 log "🎉 Compatibility checks completed!"
