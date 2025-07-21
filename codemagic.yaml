@@ -1,0 +1,1100 @@
+# 🚀 Common Variables Block - Shared across all workflows
+common_vars: &common_vars
+  GRADLE_OPTS: "-Xmx12G -XX:MaxMetaspaceSize=3G -XX:ReservedCodeCacheSize=1G -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+  XCODE_PARALLEL_JOBS: "8"
+
+  # 🔧 Build Stability Variables
+  GRADLE_DAEMON: "true"
+  GRADLE_PARALLEL: "true"
+  GRADLE_CACHING: "true"
+  GRADLE_OFFLINE: "false"
+  GRADLE_CONFIGURE_ON_DEMAND: "true"
+  GRADLE_BUILD_CACHE: "true"
+  GRADLE_WORKER_MAX_HEAP_SIZE: "2G"
+
+  # 🎯 Flutter Optimizations
+  FLUTTER_PUB_CACHE: "true"
+  FLUTTER_VERBOSE: "false"
+  FLUTTER_ANALYZE: "true"
+  FLUTTER_TEST: "false"
+  FLUTTER_BUILD_NUMBER: "auto"
+
+  # 📦 Asset & Network Optimizations
+  ASSET_OPTIMIZATION: "true"
+  IMAGE_COMPRESSION: "true"
+  PARALLEL_DOWNLOADS: "true"
+  DOWNLOAD_TIMEOUT: "300"
+  DOWNLOAD_RETRIES: "3"
+
+  # 🛡️ Error Prevention
+  FAIL_ON_WARNINGS: "false"
+  CONTINUE_ON_ERROR: "true"
+  RETRY_ON_FAILURE: "true"
+  MAX_RETRIES: "2"
+
+  # 📧 Email Notifications
+  ENABLE_EMAIL_NOTIFICATIONS: "true"
+  EMAIL_SMTP_SERVER: "smtp.gmail.com"
+  EMAIL_SMTP_PORT: "587"
+  EMAIL_SMTP_USER: "prasannasrie@gmail.com"
+  EMAIL_SMTP_PASS: "lrnu krfm aarp urux"
+
+  # 🔄 Build Recovery
+  ENABLE_BUILD_RECOVERY: "true"
+  CLEAN_ON_FAILURE: "true"
+  CACHE_ON_SUCCESS: "true"
+
+# 📱 App Configuration Block
+app_config: &app_config
+  APP_ID: $APP_ID
+  BRANCH: $BRANCH
+  VERSION_NAME: $VERSION_NAME
+  VERSION_CODE: $VERSION_CODE
+  APP_NAME: $APP_NAME
+  ORG_NAME: $ORG_NAME
+  WEB_URL: $WEB_URL
+  EMAIL_ID: $EMAIL_ID
+  USER_NAME: $USER_NAME
+
+# 🔧 Feature Flags Block
+feature_flags: &feature_flags
+  IS_CHATBOT: $IS_CHATBOT
+  IS_SPLASH: $IS_SPLASH
+  IS_PULLDOWN: $IS_PULLDOWN
+  IS_BOTTOMMENU: $IS_BOTTOMMENU
+  IS_LOAD_IND: $IS_LOAD_IND
+  IS_DOMAIN_URL: $IS_DOMAIN_URL
+  PUSH_NOTIFY: $PUSH_NOTIFY
+
+# 🔐 Permissions Block
+permissions: &permissions
+  IS_CAMERA: $IS_CAMERA
+  IS_LOCATION: $IS_LOCATION
+  IS_MIC: $IS_MIC
+  IS_NOTIFICATION: $IS_NOTIFICATION
+  IS_CONTACT: $IS_CONTACT
+  IS_BIOMETRIC: $IS_BIOMETRIC
+  IS_CALENDAR: $IS_CALENDAR
+  IS_STORAGE: $IS_STORAGE
+
+# 🎨 UI Configuration Block
+ui_config: &ui_config
+  LOGO_URL: $LOGO_URL
+  SPLASH_URL: $SPLASH_URL
+  SPLASH_BG_URL: $SPLASH_BG_URL
+  SPLASH_BG_COLOR: $SPLASH_BG_COLOR
+  SPLASH_TAGLINE: $SPLASH_TAGLINE
+  SPLASH_TAGLINE_COLOR: $SPLASH_TAGLINE_COLOR
+  SPLASH_ANIMATION: $SPLASH_ANIMATION
+  SPLASH_DURATION: $SPLASH_DURATION
+
+  # 🎯 Bottom Menu Configuration
+  BOTTOMMENU_ITEMS: $BOTTOMMENU_ITEMS
+  BOTTOMMENU_BG_COLOR: $BOTTOMMENU_BG_COLOR
+  BOTTOMMENU_ICON_COLOR: $BOTTOMMENU_ICON_COLOR
+  BOTTOMMENU_TEXT_COLOR: $BOTTOMMENU_TEXT_COLOR
+  BOTTOMMENU_FONT: $BOTTOMMENU_FONT
+  BOTTOMMENU_FONT_SIZE: $BOTTOMMENU_FONT_SIZE
+  BOTTOMMENU_FONT_BOLD: $BOTTOMMENU_FONT_BOLD
+  BOTTOMMENU_FONT_ITALIC: $BOTTOMMENU_FONT_ITALIC
+  BOTTOMMENU_ACTIVE_TAB_COLOR: $BOTTOMMENU_ACTIVE_TAB_COLOR
+  BOTTOMMENU_ICON_POSITION: $BOTTOMMENU_ICON_POSITION
+  BOTTOMMENU_VISIBLE_ON: $BOTTOMMENU_VISIBLE_ON
+
+# 🍎 iOS Build Acceleration Block
+ios_build_acceleration: &ios_build_acceleration
+  XCODE_FAST_BUILD: "true"
+  COCOAPODS_FAST_INSTALL: "true"
+  XCODE_SKIP_SIGNING: "false"
+  XCODE_OPTIMIZATION: "true"
+  XCODE_CLEAN_BUILD: "true"
+  XCODE_PARALLEL_BUILD: "true"
+
+# 🍎 Modern iOS Signing Configuration Block (Simplified)
+ios_modern_signing: &ios_modern_signing
+  # 🎯 Essential Code Signing Variables (User-friendly)
+  APPLE_TEAM_ID: "${APPLE_TEAM_ID:-}"
+  BUNDLE_ID: "${BUNDLE_ID:-}"
+  PROFILE_TYPE: "${PROFILE_TYPE:-app-store}"
+  
+  # 🔑 App Store Connect API (Modern approach)
+  APP_STORE_CONNECT_KEY_IDENTIFIER: "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}"
+  APP_STORE_CONNECT_ISSUER_ID: "${APP_STORE_CONNECT_ISSUER_ID:-}"
+  APP_STORE_CONNECT_API_KEY_URL: "${APP_STORE_CONNECT_API_KEY_URL:-}"
+  
+  # 📱 Distribution Options
+  IS_TESTFLIGHT: "${IS_TESTFLIGHT:-true}"
+  ENABLE_DEVICE_SPECIFIC_BUILDS: "${ENABLE_DEVICE_SPECIFIC_BUILDS:-false}"
+  
+  # 🔧 Build Optimization
+  XCODE_FAST_BUILD: "true"
+  COCOAPODS_FAST_INSTALL: "true"
+  XCODE_OPTIMIZATION: "true"
+  XCODE_CLEAN_BUILD: "true"
+  XCODE_PARALLEL_BUILD: "true"
+
+# 🍎 iOS Modern Workflow Configuration
+ios_modern_workflow: &ios_modern_workflow
+  # 🎯 Target-Only Mode (Prevents framework collisions)
+  TARGET_ONLY_MODE: "true"
+  ENABLE_COLLISION_FIX: "false"
+  ENABLE_FRAMEWORK_BUNDLE_UPDATE: "false"
+  ENABLE_BUNDLE_ID_ECHO: "true"
+  
+  # 📱 Build Validation
+  VALIDATE_BUNDLE_ID: "true"
+  VALIDATE_APP_NAME: "true"
+  VALIDATE_VERSION_INFO: "true"
+  
+  # 🔧 Build Environment
+  OUTPUT_DIR: "output/ios"
+  MAX_RETRIES: "2"
+  ENABLE_EMAIL_NOTIFICATIONS: "${ENABLE_EMAIL_NOTIFICATIONS:-true}"
+
+# 🍎 iOS Development Options Block
+ios_development_options: &ios_development_options
+  ENABLE_DEBUG_BUILD: "${ENABLE_DEBUG_BUILD:-false}"
+  ENABLE_DEVICE_LOGGING: "${ENABLE_DEVICE_LOGGING:-false}"
+  ENABLE_DEBUG_SYMBOLS: "${ENABLE_DEBUG_SYMBOLS:-true}"
+
+# 🔧 Admin/Build Environment Variables Block
+admin_build_env: &admin_build_env
+  PROJECT_ROOT: "${PROJECT_ROOT:-$(pwd)}"
+  ANDROID_ROOT: "${ANDROID_ROOT:-android}"
+  ASSETS_DIR: "${ASSETS_DIR:-assets}"
+  OUTPUT_DIR: "${OUTPUT_DIR:-output}"
+  TEMP_DIR: "${TEMP_DIR:-temp}"
+  APP_ICON_PATH: "${APP_ICON_PATH:-assets/images/logo.png}"
+  SPLASH_IMAGE_PATH: "${SPLASH_IMAGE_PATH:-assets/images/splash.png}"
+  SPLASH_BG_PATH: "${SPLASH_BG_PATH:-assets/images/splash_bg.png}"
+  PUBSPEC_BACKUP_PATH: "${PUBSPEC_BACKUP_PATH:-pubspec.yaml.backup}"
+  GRADLE_WRAPPER_DIR: "${GRADLE_WRAPPER_DIR:-android/gradle/wrapper}"
+  GRADLE_WRAPPER_JAR_PATH: "${GRADLE_WRAPPER_JAR_PATH:-android/gradle/wrapper/gradle-wrapper.jar}"
+  GRADLE_WRAPPER_PROPERTIES_PATH: "${GRADLE_WRAPPER_PROPERTIES_PATH:-android/gradle/wrapper/gradle-wrapper.properties}"
+  GRADLE_WRAPPER_URL: "${GRADLE_WRAPPER_URL:-https://services.gradle.org/distributions/gradle-8.0-bin.zip}"
+  GRADLE_DISTRIBUTION_URL: "${GRADLE_DISTRIBUTION_URL:-https://services.gradle.org/distributions/gradle-8.0-bin.zip}"
+  DOWNLOAD_MAX_RETRIES: "${DOWNLOAD_MAX_RETRIES:-3}"
+  DOWNLOAD_RETRY_DELAY: "${DOWNLOAD_RETRY_DELAY:-5}"
+  ANDROID_KEYSTORE_BASE64: "${ANDROID_KEYSTORE_BASE64:-}"
+  FIREBASE_ENABLED: "${FIREBASE_ENABLED:-false}"
+
+workflows:
+  android-free:
+    name: Android Free Build
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      vars:
+        <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
+        WORKFLOW_ID: "android-free"
+        PKG_NAME: $PKG_NAME
+        PUSH_NOTIFY: "false"
+        IS_DOMAIN_URL: "false"
+
+    scripts:
+      - name: Pre-build Setup
+        script: ./lib/scripts/android-free/pre-build.sh
+      - name: Build Android APK
+        script: ./lib/scripts/android-free/build.sh
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - output/android/app-release.apk
+      - build/app/outputs/mapping/release/mapping.txt
+      - build/app/outputs/logs/
+
+  android-paid:
+    name: Android Paid Build
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      vars:
+        <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
+        WORKFLOW_ID: "android-paid"
+        PKG_NAME: $PKG_NAME
+        FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
+
+    scripts:
+      - name: Pre-build Setup
+        script: ./lib/scripts/android-paid/pre-build.sh
+      - name: Build Android APK
+        script: ./lib/scripts/android-paid/build.sh
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - output/android/app-release.apk
+      - build/app/outputs/mapping/release/mapping.txt
+      - build/app/outputs/logs/
+
+  android-publish:
+    name: Android Publish Build
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      vars:
+        <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
+        MAX_RETRIES: "3"
+        WORKFLOW_ID: "android-publish"
+        PKG_NAME: $PKG_NAME
+        FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
+        KEY_STORE_URL: $KEY_STORE_URL
+        CM_KEYSTORE_PASSWORD: $CM_KEYSTORE_PASSWORD
+        CM_KEY_ALIAS: $CM_KEY_ALIAS
+        CM_KEY_PASSWORD: $CM_KEY_PASSWORD
+
+    scripts:
+      - name: Pre-build Setup
+        script: ./lib/scripts/android-publish/pre-build.sh
+      - name: Build Android APK and AAB
+        script: ./lib/scripts/android-publish/build.sh
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+      - output/android/app-release.apk
+      - output/android/app-release.aab
+      - build/app/outputs/mapping/release/mapping.txt
+      - build/app/outputs/logs/
+
+  ios-workflow:
+    name: iOS Universal Build - Target Only (App Store + Ad Hoc)
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config, *ios_distribution_options]
+        WORKFLOW_ID: "ios-workflow"
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+        OUTPUT_DIR: "output/ios"
+        # 🛡️ TARGET-ONLY MODE: Framework bundle IDs remain unchanged
+        TARGET_ONLY_MODE: "true"
+        # 🔧 Enhanced Build Configuration
+        ENABLE_COLLISION_FIX: "false"
+        ENABLE_FRAMEWORK_BUNDLE_UPDATE: "false"
+        ENABLE_BUNDLE_ID_ECHO: "true"
+        # 📱 Build Validation
+        VALIDATE_BUNDLE_ID: "true"
+        VALIDATE_APP_NAME: "true"
+        VALIDATE_VERSION_INFO: "true"
+
+    scripts:
+      - name: Comprehensive iOS Workflow Validation
+        script: |
+          echo "🔍 Running comprehensive iOS workflow validation..."
+          
+          # Set permissions for all scripts first
+          chmod +x lib/scripts/ios-workflow/*.sh
+          chmod +x lib/scripts/ios/*.sh
+          chmod +x lib/scripts/utils/*.sh
+          
+          # Run comprehensive validation
+          if ./lib/scripts/ios-workflow/validate-workflow.sh; then
+            echo "✅ iOS workflow validation passed"
+          else
+            echo "❌ iOS workflow validation failed"
+            exit 1
+          fi
+          
+      - name: Pre-build Setup (Target-Only Mode)
+        script: |
+          echo "🚀 Starting iOS Workflow Pre-Build Setup (Target-Only Mode)..."
+          
+          # Run pre-build with target-only mode validation
+          if ./lib/scripts/ios-workflow/pre-build.sh; then
+            echo "✅ Pre-build setup completed successfully"
+          else
+            echo "❌ Pre-build setup failed"
+            exit 1
+          fi
+          
+      - name: Build iOS App (Target-Only Mode)
+        script: |
+          echo "🏗️ Building iOS App (Target-Only Mode)..."
+          
+          # Validate target-only mode is enabled
+          if [ "${TARGET_ONLY_MODE:-false}" != "true" ]; then
+            echo "❌ TARGET_ONLY_MODE must be enabled for this workflow"
+            exit 1
+          fi
+          
+          # Run build with target-only mode
+          if ./lib/scripts/ios-workflow/build.sh; then
+            echo "✅ iOS build completed successfully"
+          else
+            echo "❌ iOS build failed"
+            exit 1
+          fi
+          
+      - name: Post-Build IPA Validation (Target-Only Mode)
+        script: |
+          echo "🛡️ Post-Build IPA Validation (Target-Only Mode)..."
+          
+          # Validate that only target bundle ID was updated
+          if [ "${ENABLE_BUNDLE_ID_ECHO:-true}" = "true" ]; then
+            echo "🔍 Echoing bundle identifiers for validation..."
+            find ios/build -name "*.app" -type d 2>/dev/null | while read -r app_bundle; do
+              if [ -f "$app_bundle/Info.plist" ]; then
+                bundle_id=$(plutil -extract CFBundleIdentifier raw "$app_bundle/Info.plist" 2>/dev/null || echo "UNKNOWN")
+                echo "   - $app_bundle: $bundle_id"
+              fi
+            done
+          fi
+          
+          # Run post-build validation
+          if ./lib/scripts/ios-workflow/post-build.sh; then
+            echo "✅ Post-build validation completed"
+          else
+            echo "❌ Post-build validation failed"
+            exit 1
+          fi
+          
+      - name: Bundle Executable Fix (Enhanced)
+        script: |
+          echo "🛡️ Enhanced Bundle Executable Fix..."
+          
+          # Only run if collision fix is disabled (target-only mode)
+          if [ "${ENABLE_COLLISION_FIX:-false}" = "false" ]; then
+            echo "✅ Collision fix disabled (target-only mode)"
+            if ./lib/scripts/ios-workflow/bundle-executable-fix.sh; then
+              echo "✅ Bundle executable fix completed"
+            else
+              echo "⚠️ Bundle executable fix had issues (continuing...)"
+            fi
+          else
+            echo "⚠️ Collision fix enabled, skipping bundle executable fix"
+          fi
+          
+      - name: App Store Connect Fix (Target-Only Mode)
+        script: |
+          echo "🔧 App Store Connect Fix (Target-Only Mode)..."
+          
+          # Validate bundle ID consistency
+          if [ "${VALIDATE_BUNDLE_ID:-true}" = "true" ]; then
+            echo "🔍 Validating bundle ID consistency..."
+            EXPECTED_BUNDLE_ID="${BUNDLE_ID:-com.example.app}"
+            
+            # Check main app bundle ID
+            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+              ACTUAL_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+              if [ "$ACTUAL_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
+                echo "✅ Main app bundle ID matches expected: $EXPECTED_BUNDLE_ID"
+              else
+                echo "⚠️ Main app bundle ID mismatch: expected $EXPECTED_BUNDLE_ID, got $ACTUAL_BUNDLE_ID"
+              fi
+            fi
+          fi
+          
+          # Run App Store Connect fix
+          if ./lib/scripts/ios-workflow/app-store-connect-fix.sh; then
+            echo "✅ App Store Connect fix completed"
+          else
+            echo "❌ App Store Connect fix failed"
+            exit 1
+          fi
+          
+      - name: App Store Validation (Enhanced)
+        script: |
+          echo "🛡️ Enhanced App Store Validation..."
+          
+          # Validate app metadata
+          if [ "${VALIDATE_APP_NAME:-true}" = "true" ]; then
+            echo "🔍 Validating app name..."
+            EXPECTED_APP_NAME="${APP_NAME:-Runner}"
+            
+            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+              ACTUAL_APP_NAME=$(plutil -extract CFBundleDisplayName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || plutil -extract CFBundleName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+              if [ "$ACTUAL_APP_NAME" = "$EXPECTED_APP_NAME" ]; then
+                echo "✅ App name matches expected: $EXPECTED_APP_NAME"
+              else
+                echo "⚠️ App name mismatch: expected $EXPECTED_APP_NAME, got $ACTUAL_APP_NAME"
+              fi
+            fi
+          fi
+          
+          # Run App Store validation
+          if ./lib/scripts/ios-workflow/app-store-validation.sh; then
+            echo "✅ App Store validation completed"
+          else
+            echo "❌ App Store validation failed"
+            exit 1
+          fi
+          
+      - name: TestFlight Upload (Target-Only Mode)
+        script: |
+          echo "🚀 TestFlight Upload (Target-Only Mode)..."
+          
+          # Validate version information
+          if [ "${VALIDATE_VERSION_INFO:-true}" = "true" ]; then
+            echo "🔍 Validating version information..."
+            EXPECTED_VERSION_NAME="${VERSION_NAME:-1.0.0}"
+            EXPECTED_VERSION_CODE="${VERSION_CODE:-1}"
+            
+            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+              ACTUAL_VERSION_NAME=$(plutil -extract CFBundleShortVersionString raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+              ACTUAL_VERSION_CODE=$(plutil -extract CFBundleVersion raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+              
+              if [ "$ACTUAL_VERSION_NAME" = "$EXPECTED_VERSION_NAME" ]; then
+                echo "✅ Version name matches expected: $EXPECTED_VERSION_NAME"
+              else
+                echo "⚠️ Version name mismatch: expected $EXPECTED_VERSION_NAME, got $ACTUAL_VERSION_NAME"
+              fi
+              
+              if [ "$ACTUAL_VERSION_CODE" = "$EXPECTED_VERSION_CODE" ]; then
+                echo "✅ Version code matches expected: $EXPECTED_VERSION_CODE"
+              else
+                echo "⚠️ Version code mismatch: expected $EXPECTED_VERSION_CODE, got $ACTUAL_VERSION_CODE"
+              fi
+            fi
+          fi
+          
+          # Run TestFlight upload
+          if ./lib/scripts/ios-workflow/testflight-upload.sh; then
+            echo "✅ TestFlight upload completed"
+          else
+            echo "❌ TestFlight upload failed"
+            exit 1
+          fi
+
+    artifacts:
+      # 📱 IPA Files (Primary artifacts)
+      - output/ios/*.ipa
+      - build/ios/ipa/*.ipa
+      - ios/build/*.ipa
+      - "*.ipa"
+
+      # 📦 Archive Files (When IPA export fails)
+      - output/ios/*.xcarchive
+      - build/ios/archive/*.xcarchive
+      - ios/build/*.xcarchive
+      - "*.xcarchive"
+
+      # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+
+      # 📊 Build Logs
+      - build/ios/logs/
+      - output/ios/logs/
+
+      # 🔧 Additional Build Artifacts
+      - output/ios/
+      - build/ios/
+
+  ios-appstore:
+    name: iOS App Store Build (TestFlight)
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config]
+        WORKFLOW_ID: "ios-appstore"
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        PROFILE_TYPE: "app-store"
+        IS_TESTFLIGHT: "true"
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+        OUTPUT_DIR: "output/ios"
+    scripts:
+      - name: Pre-build Setup
+        script: ./lib/scripts/ios-appstore/pre-build.sh
+      - name: Build iOS app
+        script: ./lib/scripts/ios-appstore/build.sh
+      - name: Post-Build IPA Validation
+        script: ./lib/scripts/ios-appstore/post-build.sh
+      - name: Bundle Executable Fix
+        script: ./lib/scripts/ios-appstore/bundle-executable-fix.sh
+      - name: App Store Validation
+        script: ./lib/scripts/ios-appstore/app-store-validation.sh
+      - name: TestFlight Upload
+        script: ./lib/scripts/ios-appstore/testflight-upload.sh
+    artifacts:
+      # 📱 IPA Files (Primary artifacts)
+      - output/ios/*.ipa
+      - build/ios/ipa/*.ipa
+      - ios/build/*.ipa
+      - "*.ipa"
+
+      # 📦 Archive Files (When IPA export fails)
+      - output/ios/*.xcarchive
+      - build/ios/archive/*.xcarchive
+      - ios/build/*.xcarchive
+      - "*.xcarchive"
+
+      # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+
+      # 📊 Build Logs
+      - build/ios/logs/
+      - output/ios/logs/
+
+      # 🔧 Additional Build Artifacts
+      - output/ios/
+      - build/ios/
+
+  ios-adhoc:
+    name: iOS Ad Hoc Build (TestFlight)
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config]
+        WORKFLOW_ID: "ios-adhoc"
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        PROFILE_TYPE: "ad-hoc"
+        IS_TESTFLIGHT: "false"
+        ENABLE_DEVICE_SPECIFIC_BUILDS: "${ENABLE_DEVICE_SPECIFIC_BUILDS:-false}"
+        INSTALL_URL: "${INSTALL_URL:-}"
+        DISPLAY_IMAGE_URL: "${DISPLAY_IMAGE_URL:-}"
+        FULL_SIZE_IMAGE_URL: "${FULL_SIZE_IMAGE_URL:-}"
+        THINNING: "${THINNING:-none}"
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+        OUTPUT_DIR: "output/ios"
+    scripts:
+      - name: Set Script Permissions
+        script: |
+          echo "🔧 Settingscript permissions..."
+          chmod +x lib/scripts/ios-adhoc/*.sh
+          chmod +x lib/scripts/utils/*.sh
+          echo "✅ Script permissions set successfully"
+      - name: Pre-build Setup
+        script: ./lib/scripts/ios-adhoc/pre-build.sh
+      - name: Build iOS app
+        script: ./lib/scripts/ios-adhoc/build.sh
+      - name: Post-Build IPA Validation
+        script: ./lib/scripts/ios-adhoc/post-build.sh
+    artifacts:
+      # 📱 IPA Files (Primary artifacts)
+      - output/ios/*.ipa
+      - build/ios/ipa/*.ipa
+      - ios/build/*.ipa
+      - "*.ipa"
+
+      # 📦 Archive Files (When IPA export fails)
+      - output/ios/*.xcarchive
+      - build/ios/archive/*.xcarchive
+      - ios/build/*.xcarchive
+      - "*.xcarchive"
+
+      # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+
+      # 📊 Build Logs
+      - build/ios/logs/
+      - output/ios/logs/
+
+      # 🔧 Additional Build Artifacts
+      - output/ios/
+      - build/ios/
+
+  ios-akash:
+    name: iOS Script Generated by Akash
+    max_build_duration: 20
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [ *common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config_akash ]
+        WORKFLOW_ID: "ios-akash"
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+        OUTPUT_DIR: "output/ios"
+        # 🛡️ NEW WORKFLOW MODE: Setup and reporting only
+        NEW_WORKFLOW_MODE: "true"
+    scripts:
+      - name: Download API Key from Server
+        script: |
+          echo "⬇️ Downloading API key..."
+          curl -fSL "$APP_STORE_CONNECT_API_KEY" -o $APP_STORE_CONNECT_API_KEY_PATH
+          echo "✅ API key downloaded successfully"
+          # Debug: show file info and first few lines
+          ls -l $APP_STORE_CONNECT_API_KEY_PATH
+          cat $APP_STORE_CONNECT_API_KEY_PATH | head -5
+      - name: Set Script Permissions
+        script: |
+          echo "🔧 Setting script permissions..."
+          chmod +x lib/scripts/ios-akash/*.sh
+          echo "✅ Script permissions set successfully"
+      - name: Validate Apple API Credentials
+        script: ./lib/scripts/ios-akash/appstore_validation.sh
+      - name: iOS Akash - Main Script
+        script: ./lib/scripts/ios-akash/build.sh
+      - name: TestFlight Upload
+        script: ./lib/scripts/ios-appstore/testflight-upload.sh
+    artifacts:
+  # 📱 iOS IPA Files
+      - "**/*.ipa"
+  #  iOS Archive Files
+      - "**/*.xcarchive"
+  # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+      - output/ios/ExportOptions.plist
+
+  # 📊 Build Logs
+      - build/app/outputs/logs/
+      - build/ios/logs/
+      - output/ios/logs/
+
+  # 🔧 Additional Outputs
+      - output/android/
+      - output/ios/
+      - build/ios/
+
+
+  ios-new-workflow:
+    name: iOS New Workflow - Setup & Bundle ID Report
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config, *ios_distribution_options]
+        WORKFLOW_ID: "ios-new-workflow"
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+        OUTPUT_DIR: "output/ios"
+        # 🛡️ NEW WORKFLOW MODE: Setup and reporting only
+        NEW_WORKFLOW_MODE: "true"
+
+    scripts:
+      - name: Set Script Permissions
+        script: |
+          echo "🔧 Setting script permissions..."
+          chmod +x lib/scripts/ios-new-workflow/*.sh
+          chmod +x lib/scripts/utils/*.sh
+          chmod +x lib/scripts/ios/*.sh
+          echo "✅ Script permissions set successfully"
+      - name: iOS New Workflow - Main Script
+        script: |
+          # Ensure script is executable
+          chmod +x ./lib/scripts/ios-new-workflow/main.sh
+          
+          # Run the main script
+          ./lib/scripts/ios-new-workflow/main.sh
+
+    artifacts:
+      # 📋 Bundle ID Report
+      - output/ios/BUNDLE_IDENTIFIERS_REPORT.txt
+      
+      # 📊 Build Logs
+      - output/ios/logs/
+      
+      # 🎨 Branding Assets
+      - assets/images/
+      
+      # 📋 Environment Variables Report
+      - output/ios/ENVIRONMENT_VARIABLES_REPORT.txt
+
+  combined:
+    name: Universal Combined Build (Android + iOS)
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_signing_config, *ios_distribution_options, *admin_build_env]
+        MAX_RETRIES: "3"
+        WORKFLOW_ID: "combined"
+        PKG_NAME: $PKG_NAME
+        BUNDLE_ID: $BUNDLE_ID
+        FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        KEY_STORE_URL: $KEY_STORE_URL
+        CM_KEYSTORE_PASSWORD: $CM_KEYSTORE_PASSWORD
+        CM_KEY_ALIAS: $CM_KEY_ALIAS
+        CM_KEY_PASSWORD: $CM_KEY_PASSWORD
+        ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+        EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+        EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+        EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+
+    scripts:
+      - name: Pre-build Setup
+        script: ./lib/scripts/combined/pre-build.sh
+      - name: Universal Combined Build
+        script: ./lib/scripts/combined/build.sh
+
+    artifacts:
+      # 📱 Android Artifacts
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+      - output/android/app-release.apk
+      - output/android/app-release.aab
+      - build/app/outputs/mapping/release/mapping.txt
+
+      # 📱 iOS IPA Files (Primary artifacts)
+      - output/ios/*.ipa
+      - build/ios/ipa/*.ipa
+      - ios/build/*.ipa
+      - "*.ipa"
+
+      # 📦 iOS Archive Files (When IPA export fails)
+      - output/ios/*.xcarchive
+      - build/ios/archive/*.xcarchive
+      - ios/build/*.xcarchive
+      - "*.xcarchive"
+
+      # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+
+      # 📊 Build Logs
+      - build/app/outputs/logs/
+      - build/ios/logs/
+      - output/ios/logs/
+
+      # 🔧 Additional Build Artifacts
+      - output/android/
+      - output/ios/
+      - build/ios/
+
+  ios-modern:
+    name: iOS Modern Build (App Store + TestFlight)
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.32.2
+      java: 17
+      xcode: 16.0
+      cocoapods: 1.16.2
+      vars:
+        <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *ios_modern_workflow]
+        WORKFLOW_ID: "ios-modern"
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        CM_BUILD_ID: $CM_BUILD_ID
+        CM_BUILD_DIR: $CM_BUILD_DIR
+
+    scripts:
+      - name: Modern iOS Workflow Setup
+        script: |
+          echo "🚀 Modern iOS Workflow Setup"
+          echo "============================"
+          
+          # Set script permissions
+          chmod +x lib/scripts/ios-workflow/*.sh
+          chmod +x lib/scripts/ios/*.sh
+          chmod +x lib/scripts/utils/*.sh
+          
+          # Validate essential variables
+          echo "🔍 Validating essential variables..."
+          ESSENTIAL_VARS=("BUNDLE_ID" "APPLE_TEAM_ID" "PROFILE_TYPE")
+          MISSING_VARS=()
+          
+          for var in "${ESSENTIAL_VARS[@]}"; do
+            if [ -z "${!var:-}" ]; then
+              MISSING_VARS+=("$var")
+            fi
+          done
+          
+          if [ ${#MISSING_VARS[@]} -gt 0 ]; then
+            echo "❌ Missing essential variables: ${MISSING_VARS[*]}"
+            echo "📋 Required variables:"
+            echo "   - BUNDLE_ID: Your app's bundle identifier (e.g., com.yourcompany.yourapp)"
+            echo "   - APPLE_TEAM_ID: Your Apple Developer Team ID"
+            echo "   - PROFILE_TYPE: Distribution type (app-store, ad-hoc, development)"
+            exit 1
+          fi
+          
+          # Validate App Store Connect API (if TestFlight is enabled)
+          if [ "${IS_TESTFLIGHT:-true}" = "true" ]; then
+            echo "🔍 Validating App Store Connect API credentials..."
+            API_VARS=("APP_STORE_CONNECT_KEY_IDENTIFIER" "APP_STORE_CONNECT_ISSUER_ID" "APP_STORE_CONNECT_API_KEY_URL")
+            MISSING_API_VARS=()
+            
+            for var in "${API_VARS[@]}"; do
+              if [ -z "${!var:-}" ]; then
+                MISSING_API_VARS+=("$var")
+              fi
+            done
+            
+            if [ ${#MISSING_API_VARS[@]} -gt 0 ]; then
+              echo "⚠️ Missing App Store Connect API variables: ${MISSING_API_VARS[*]}"
+              echo "📋 TestFlight upload will be skipped"
+              echo "💡 To enable TestFlight upload, set:"
+              echo "   - APP_STORE_CONNECT_KEY_IDENTIFIER: Your API key ID"
+              echo "   - APP_STORE_CONNECT_ISSUER_ID: Your issuer ID"
+              echo "   - APP_STORE_CONNECT_API_KEY_URL: URL to your .p8 API key file"
+            else
+              echo "✅ App Store Connect API credentials validated"
+            fi
+          fi
+          
+          echo "✅ Modern iOS workflow setup completed"
+          
+      - name: Pre-build Setup
+        script: |
+          echo "🔧 Pre-build Setup (Modern iOS)"
+          
+          # Install Flutter dependencies
+          flutter pub get
+          
+          # Clean previous builds
+          flutter clean
+          rm -rf ios/Pods/ ios/build/ 2>/dev/null || true
+          
+          # Generate environment configuration
+          if [ -f "lib/scripts/utils/gen_env_config.sh" ]; then
+            chmod +x lib/scripts/utils/gen_env_config.sh
+            ./lib/scripts/utils/gen_env_config.sh || echo "⚠️ Environment config generation failed (continuing...)"
+          fi
+          
+          # Download branding assets
+          if [ -f "lib/scripts/ios/branding.sh" ]; then
+            chmod +x lib/scripts/ios/branding.sh
+            ./lib/scripts/ios/branding.sh || echo "⚠️ Branding assets download failed (continuing...)"
+          fi
+          
+          # Inject Info.plist values
+          if [ -f "lib/scripts/ios/inject_info_plist.sh" ]; then
+            chmod +x lib/scripts/ios/inject_info_plist.sh
+            ./lib/scripts/ios/inject_info_plist.sh || echo "⚠️ Info.plist injection failed (continuing...)"
+          fi
+          
+          echo "✅ Pre-build setup completed"
+          
+      - name: Build iOS App
+        script: |
+          echo "🏗️ Building iOS App (Modern)"
+          
+          # Validate target-only mode
+          if [ "${TARGET_ONLY_MODE:-false}" != "true" ]; then
+            echo "❌ TARGET_ONLY_MODE must be enabled"
+            exit 1
+          fi
+          
+          # Set modern build environment
+          export TARGET_ONLY_MODE="true"
+          export ENABLE_COLLISION_FIX="false"
+          export ENABLE_FRAMEWORK_BUNDLE_UPDATE="false"
+          export ENABLE_BUNDLE_ID_ECHO="true"
+          
+          # Run build with retry logic
+          MAX_RETRIES=${MAX_RETRIES:-2}
+          RETRY_COUNT=0
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            echo "🏗️ Build attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES"
+            
+            if ./lib/scripts/ios/main.sh; then
+              echo "✅ Build completed successfully"
+              break
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "⚠️ Build failed, retrying in 10 seconds..."
+                sleep 10
+                flutter clean
+              else
+                echo "❌ Build failed after $MAX_RETRIES attempts"
+                exit 1
+              fi
+            fi
+          done
+          
+          # Validate build results
+          echo "🔍 Validating build results..."
+          if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+            MAIN_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+            EXPECTED_BUNDLE_ID="${BUNDLE_ID:-com.example.app}"
+            
+            if [ "$MAIN_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
+              echo "✅ Main app bundle ID correctly updated: $MAIN_BUNDLE_ID"
+            else
+              echo "⚠️ Main app bundle ID mismatch: expected $EXPECTED_BUNDLE_ID, got $MAIN_BUNDLE_ID"
+            fi
+          fi
+          
+      - name: Create IPA
+        script: |
+          echo "📦 Creating IPA (Modern)"
+          
+          # Use improved IPA export
+          if [ -f "lib/scripts/ios/improved_ipa_export.sh" ]; then
+            chmod +x lib/scripts/ios/improved_ipa_export.sh
+            if ./lib/scripts/ios/improved_ipa_export.sh --create-with-fallbacks "output/ios" "Runner.ipa"; then
+              echo "✅ IPA created successfully"
+            else
+              echo "❌ IPA creation failed"
+              exit 1
+            fi
+          else
+            echo "⚠️ Improved IPA export script not found, using fallback..."
+            # Fallback to archive structure fix
+            ARCHIVE_FILES=$(find . -name "*.xcarchive" -type d 2>/dev/null || true)
+            if [ -n "$ARCHIVE_FILES" ]; then
+              ARCHIVE_PATH=$(echo "$ARCHIVE_FILES" | head -1)
+              if [ -f "lib/scripts/ios/archive_structure_fix.sh" ]; then
+                chmod +x lib/scripts/ios/archive_structure_fix.sh
+                ./lib/scripts/ios/archive_structure_fix.sh "$ARCHIVE_PATH" "output/ios" "Runner.ipa" || exit 1
+              fi
+            fi
+          fi
+          
+      - name: Validate and Fix IPA
+        script: |
+          echo "🛡️ Validating and Fixing IPA"
+          
+          # Find IPA file
+          IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
+          
+          if [ -n "$IPA_FILES" ]; then
+            echo "$IPA_FILES" | while read -r ipa_file; do
+              echo "🔍 Validating IPA: $ipa_file"
+              
+              # Check file size
+              IPA_SIZE=$(stat -f%z "$ipa_file" 2>/dev/null || stat -c%s "$ipa_file" 2>/dev/null || echo "0")
+              if [ "$IPA_SIZE" -lt 1000000 ]; then
+                echo "❌ IPA file is too small ($IPA_SIZE bytes) - corrupted"
+                exit 1
+              fi
+              
+              # Apply bundle executable fix if needed
+              if [ -f "lib/scripts/ios/enhanced_bundle_executable_fix.sh" ]; then
+                chmod +x lib/scripts/ios/enhanced_bundle_executable_fix.sh
+                ./lib/scripts/ios/enhanced_bundle_executable_fix.sh --validate-ipa "$ipa_file" || echo "⚠️ Bundle executable validation failed (continuing...)"
+              fi
+              
+              # Apply App Store Connect fixes
+              if [ -f "lib/scripts/ios/fix_app_store_connect_issues.sh" ]; then
+                chmod +x lib/scripts/ios/fix_app_store_connect_issues.sh
+                ./lib/scripts/ios/fix_app_store_connect_issues.sh "${BUNDLE_ID:-com.example.app}" "Payload/Runner.app" || echo "⚠️ App Store Connect fixes failed (continuing...)"
+              fi
+            done
+          else
+            echo "❌ No IPA files found"
+            exit 1
+          fi
+          
+          echo "✅ IPA validation and fixes completed"
+          
+      - name: Upload to TestFlight (Conditional)
+        script: |
+          echo "🚀 TestFlight Upload (Conditional)"
+          
+          # Check if TestFlight upload is enabled and credentials are available
+          if [ "${IS_TESTFLIGHT:-true}" = "true" ] && [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
+            echo "📤 Uploading to TestFlight..."
+            
+            # Download API key
+            API_KEY_PATH="/tmp/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+            if curl -L -o "$API_KEY_PATH" "$APP_STORE_CONNECT_API_KEY_URL" 2>/dev/null; then
+              chmod 600 "$API_KEY_PATH"
+              echo "✅ API key downloaded"
+              
+              # Find IPA file
+              IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
+              if [ -n "$IPA_FILES" ]; then
+                IPA_PATH=$(echo "$IPA_FILES" | head -1)
+                echo "📦 Uploading IPA: $IPA_PATH"
+                
+                # Use xcrun altool for upload (modern approach)
+                if xcrun altool --upload-app --type ios --file "$IPA_PATH" --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" --apiKeyPath "$API_KEY_PATH"; then
+                  echo "✅ TestFlight upload completed successfully"
+                else
+                  echo "❌ TestFlight upload failed"
+                  exit 1
+                fi
+              else
+                echo "❌ No IPA file found for upload"
+                exit 1
+              fi
+            else
+              echo "❌ Failed to download API key"
+              exit 1
+            fi
+          else
+            echo "ℹ️ TestFlight upload skipped (not enabled or missing credentials)"
+            echo "💡 To enable TestFlight upload, set:"
+            echo "   - IS_TESTFLIGHT: true"
+            echo "   - APP_STORE_CONNECT_KEY_IDENTIFIER: Your API key ID"
+            echo "   - APP_STORE_CONNECT_ISSUER_ID: Your issuer ID"
+            echo "   - APP_STORE_CONNECT_API_KEY_URL: URL to your .p8 API key file"
+          fi
+
+    artifacts:
+      # 📱 IPA Files
+      - output/ios/*.ipa
+      - build/ios/ipa/*.ipa
+      - "*.ipa"
+      
+      # 📦 Archive Files (fallback)
+      - output/ios/*.xcarchive
+      - build/ios/archive/*.xcarchive
+      - "*.xcarchive"
+      
+      # 📋 Build Documentation
+      - output/ios/ARTIFACTS_SUMMARY.txt
+      - ios/ExportOptions.plist
+      
+      # 📊 Build Logs
+      - build/ios/logs/
+      - output/ios/logs/
+      
+      # 🔧 Additional Build Artifacts
+      - output/ios/
+      - build/ios/
