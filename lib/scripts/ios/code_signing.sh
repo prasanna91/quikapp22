@@ -8,6 +8,18 @@ set -euo pipefail
 # Source common functions
 source "$(dirname "$0")/../utils/safe_run.sh"
 
+# Source environment configuration
+SCRIPT_DIR="$(dirname "$0")"
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+else
+    log "Environment configuration file not found, using system environment variables"
+fi
+
 # Logging function
 log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] 🔐 $1"

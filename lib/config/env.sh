@@ -156,88 +156,8 @@ export CM_KEYSTORE_PASSWORD=${CM_KEYSTORE_PASSWORD:-"opeN@1234"}
 export CM_KEY_ALIAS=${CM_KEY_ALIAS:-"my_key_alias"}
 export CM_KEY_PASSWORD=${CM_KEY_PASSWORD:-"opeN@1234"}
 
-## Local environment variables for development and testing
-## These variables will override values set in lib/scripts/utils/variables.sh if sourced.
-#
-#export APP_NAME="MyTestApp"
-#export PKG_NAME="com.example.mytestapp"
-#export BUNDLE_ID="com.example.mytestapp.ios"
-#export VERSION_NAME="1.0.0-test"
-#export VERSION_CODE="1"
-#export OUTPUT_DIR="output"
-#
-## Firebase (ensure these URLs are valid for testing)
-#export firebase_config_android="https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-gc.json"
-#export firebase_config_ios="https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-gc.plist"
-#
-## Keystore (for Android-Publish testing)
-## export KEY_STORE="/path/to/your/test_keystore.jks"
-## export CM_KEYSTORE_PASSWORD="your_test_keystore_password"
-## export CM_KEY_ALIAS="your_test_key_alias"
-## export CM_KEY_PASSWORD="your_test_key_password"
-#
-## Push Notifications (set to true/false for testing workflow logic)
-#export PUSH_NOTIFY="true"
-#
-## Other variables (can be customized as needed)
-#export ORG_NAME="Test Organization"
-#export WEB_URL="https://test.example.com"
-#export EMAIL_ID="test@example.com"
-#export IS_CHATBOT="false"
-#export IS_DOMAIN_URL="false"
-#export IS_SPLASH="true"
-#export IS_PULLDOWN="true"
-#export IS_BOTTOMMENU="false"
-#export IS_LOAD_IND="true"
-#export IS_CAMERA="false"
-#export IS_LOCATION="false"
-#export IS_MIC="true"
-#export IS_NOTIFICATION="true"
-#export IS_CONTACT="false"
-#export IS_BIOMETRIC="false"
-#export IS_CALENDAR="false"
-#export IS_STORAGE="true"
-#export LOGO_URL="https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png"
-#export SPLASH="https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png"
-#export SPLASH_BG=""
-#export SPLASH_BG_COLOR="#cbdbf5"
-#export SPLASH_TAGLINE="Welcome to Test App"
-#export SPLASH_TAGLINE_COLOR="#a30237"
-#export SPLASH_ANIMATION="zoom"
-#export SPLASH_DURATION="4"
-#export BOTTOMMENU_ITEMS='[{"label": "Home", "icon": "home", "url": "https://test.pixaware.co/"}]'
-#export BOTTOMMENU_BG_COLOR="#F0F0F0"
-#export BOTTOMMENU_ICON_COLOR="#666666"
-#export BOTTOMMENU_TEXT_COLOR="#333333"
-#export BOTTOMMENU_FONT="Arial"
-#export BOTTOMMENU_FONT_SIZE="14"
-#export BOTTOMMENU_FONT_BOLD="false"
-#export BOTTOMMENU_FONT_ITALIC="false"
-#export BOTTOMMENU_ACTIVE_TAB_COLOR="#FF0000"
-#export BOTTOMMENU_ICON_POSITION="above"
-#export BOTTOMMENU_VISIBLE_ON="home"
-#
-## iOS Signing Variables (for iOS-Only or Combined workflow testing)
-## export APPLE_TEAM_ID="YOUR_APPLE_TEAM_ID"
-## export APNS_KEY_ID="YOUR_APNS_KEY_ID"
-## export APNS_AUTH_KEY_URL="/path/to/your/AuthKey.p8"
-## export CERT_PASSWORD="your_cert_password"
-## export PROFILE_URL="/path/to/your/profile.mobileprovision"
-## export CERT_CER_URL="/path/to/your/apple_distribution.cer"
-## export CERT_KEY_URL="/path/to/your/privatekey.key"
-## export APP_STORE_CONNECT_KEY_IDENTIFIER="YOUR_APP_STORE_KEY_ID"
-
 # iOS Signing Variables
-export CERT_CER_URL="https://raw.githubusercontent.com/prasanna91/QuikApp/main/apple_distribution.cer"
-export CERT_KEY_URL="https://raw.githubusercontent.com/prasanna91/QuikApp/main/privatekey.key"
-export PROFILE_URL="https://raw.githubusercontent.com/prasanna91/QuikApp/main/Garbcode_App_Store.mobileprovision"
-export CERT_PASSWORD="your_cert_password"
-export APPLE_TEAM_ID="your_team_id"
-export APNS_KEY_ID="your_apns_key_id"
-export APNS_AUTH_KEY_URL="https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey.p8"
-export APP_STORE_CONNECT_KEY_IDENTIFIER="your_key_identifier"
-export BUNDLE_ID="com.garbcode.garbcodeapp"
-export PROFILE_TYPE="app-store"
+export PROFILE_TYPE=${PROFILE_TYPE:-"app-store"}
 
 # Email Configuration
 export EMAIL_SMTP_SERVER="smtp.gmail.com"

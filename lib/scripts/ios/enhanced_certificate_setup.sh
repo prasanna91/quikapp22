@@ -11,6 +11,17 @@ set -euo pipefail
 SCRIPT_DIR="$(dirname "$0")"
 source "${SCRIPT_DIR}/utils.sh"
 
+# Source environment configuration
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log_info "Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log_info "Environment configuration loaded from lib/config/env.sh"
+else
+    log_warning "Environment configuration file not found, using system environment variables"
+fi
+
 log_info "🔐 Enhanced Certificate Setup for IPA Export (v2.0)"
 log_info "🎯 Purpose: Fix 'No signing certificate iOS Distribution found' error"
 log_info "✨ Features: Auto P12 generation from CER/KEY files"

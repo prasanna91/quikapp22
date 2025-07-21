@@ -20,6 +20,17 @@ else
     log_error() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $1"; }
 fi
 
+# Source environment configuration
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log_info "Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log_info "Environment configuration loaded from lib/config/env.sh"
+else
+    log_warning "Environment configuration file not found, using system environment variables"
+fi
+
 # Ensure logging functions are always available (more robust approach)
 log_info() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] INFO: $1"; }
 log_success() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] SUCCESS: $1"; }
@@ -129,10 +140,14 @@ main() {
     validate_required_field "APP_STORE_CONNECT_KEY_IDENTIFIER" "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" "APP_STORE_CONNECT_KEY_IDENTIFIER" || validation_errors=$((validation_errors + 1))
 
     # Certificate validation (one of these combinations required)
-    if [ -z "${CERT_P12_URL:-}" ] && [ -z "${CERT_CER_URL:-}" ]; then
-        log_error "Either CERT_P12_URL or CERT_CER_URL is required but neither is set"
-        validation_errors=$((validation_errors + 1))
-    else
+    # Check for modern App Store Connect API approach first
+    if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
+        log_success "Modern App Store Connect API approach detected"
+        log_success "APP_STORE_CONNECT_KEY_IDENTIFIER provided"
+        log_success "APP_STORE_CONNECT_ISSUER_ID provided"
+        log_success "APP_STORE_CONNECT_API_KEY_URL provided"
+    # Check for traditional certificate URLs
+    elif [ -n "${CERT_P12_URL:-}" ] || [ -n "${CERT_CER_URL:-}" ]; then
         if [ -n "${CERT_P12_URL:-}" ]; then
             log_success "CERT_P12_URL provided"
         else
@@ -144,6 +159,11 @@ main() {
                 log_success "CERT_KEY_URL provided"
             fi
         fi
+    else
+        log_error "Either App Store Connect API credentials or certificate URLs are required"
+        log_error "Modern approach: Set APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_ISSUER_ID, and APP_STORE_CONNECT_API_KEY_URL"
+        log_error "Traditional approach: Set CERT_P12_URL or CERT_CER_URL+CERT_KEY_URL"
+        validation_errors=$((validation_errors + 1))
     fi
 
     # Firebase validation based on PUSH_NOTIFY

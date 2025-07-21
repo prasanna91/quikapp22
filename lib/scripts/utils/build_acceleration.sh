@@ -6,6 +6,18 @@ set -euo pipefail
 
 log() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] 🚀 $1"; }
 
+# Source environment configuration
+SCRIPT_DIR="$(dirname "$0")"
+if [ -f "${SCRIPT_DIR}/../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../lib/config/env.sh"
+    log "Environment configuration loaded from lib/config/env.sh"
+else
+    log "Environment configuration file not found, using system environment variables"
+fi
+
 # Initialize build acceleration
 init_build_acceleration() {
     log "Initializing build acceleration..."
