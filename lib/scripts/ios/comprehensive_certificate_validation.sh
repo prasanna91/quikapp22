@@ -359,11 +359,26 @@ main() {
         fi
         
     else
-        log_error "❌ No code signing data provided"
-        log_error "   Please provide either:"
-        log_error "   - CERT_P12_URL with CERT_PASSWORD, or"
-        log_error "   - CERT_CER_URL and CERT_KEY_URL"
-        exit 1
+        log_info "📱 No manual certificate provided - using App Store Connect API for automatic code signing"
+        log_info "🔐 This is the recommended approach for App Store distribution"
+        
+        # Validate App Store Connect API credentials are available
+        if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
+            log_success "✅ App Store Connect API credentials are configured"
+            log_info "   - Key ID: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+            log_info "   - Issuer ID: $APP_STORE_CONNECT_ISSUER_ID"
+            
+            # For automatic code signing, we don't need to install manual certificates
+            log_info "🔐 Automatic code signing will be handled by Xcode during build"
+            log_success "✅ Certificate validation passed (using automatic code signing)"
+        else
+            log_error "❌ App Store Connect API credentials not provided"
+            log_error "   Please provide either:"
+            log_error "   - CERT_P12_URL with CERT_PASSWORD, or"
+            log_error "   - CERT_CER_URL and CERT_KEY_URL, or"
+            log_error "   - APP_STORE_CONNECT_KEY_IDENTIFIER and APP_STORE_CONNECT_ISSUER_ID"
+            exit 1
+        fi
     fi
     
     # Validate App Store Connect API credentials
@@ -376,10 +391,14 @@ main() {
         log_warn "⚠️ App Store Connect API credentials not provided"
     fi
     
-    # Validate code signing
-    if ! validate_code_signing; then
-        log_error "❌ Code signing validation failed"
-        exit 1
+    # Validate code signing (skip for automatic code signing)
+    if [ -n "${CERT_P12_URL:-}" ] || [ -n "${CERT_CER_URL:-}" ]; then
+        if ! validate_code_signing; then
+            log_error "❌ Code signing validation failed"
+            exit 1
+        fi
+    else
+        log_info "🔐 Skipping manual code signing validation (using automatic code signing)"
     fi
     
     # Extract UUID from mobileprovision if provided

@@ -276,7 +276,8 @@ workflows:
         WORKFLOW_ID: "ios-workflow"
         BUNDLE_ID: $BUNDLE_ID
         FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
-        CERT_P12_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/ios_distribution_certificate.p12"
+        # Using App Store Connect API for automatic code signing
+        # CERT_P12_URL: "https://raw.githubusercontent.com/prasanna91/QuikApp/main/ios_distribution_certificate.p12"
         ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
         EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
         EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
