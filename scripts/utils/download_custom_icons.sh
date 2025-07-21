@@ -55,90 +55,56 @@ download_custom_icons() {
     # Create assets/icons directory if it doesn't exist
     mkdir -p assets/icons
     
-    # Use Python to parse JSON and download icons
-    python3 -c "
-import json
-import os
-import requests
-import sys
-from urllib.parse import urlparse
-
-try:
-    # Parse the JSON string
-    menu_items = json.loads('$bottom_menu_items')
-    
-    if not isinstance(menu_items, list):
-        print('BOTTOMMENU_ITEMS is not a valid JSON array')
-        sys.exit(1)
-    
-    downloaded_count = 0
-    
-    for item in menu_items:
-        if not isinstance(item, dict):
-            continue
-            
-        icon_data = item.get('icon')
-        label = item.get('label', 'unknown')
+    # Check if BOTTOMMENU_ITEMS contains custom icons
+    if [[ "$bottom_menu_items" == *"custom"* ]] && [[ "$bottom_menu_items" == *"icon_url"* ]]; then
+        log "Custom icons detected in BOTTOMMENU_ITEMS"
         
-        # Skip if icon is not a custom type
-        if not isinstance(icon_data, dict) or icon_data.get('type') != 'custom':
-            continue
-            
-        icon_url = icon_data.get('icon_url')
-        if not icon_url:
-            continue
-            
-        # Sanitize label for filename
-        label_sanitized = label.lower().replace(' ', '_').replace('-', '_')
-        filename = f'{label_sanitized}.svg'
-        filepath = f'assets/icons/{filename}'
+        # Extract icon URLs using grep and sed (simple approach)
+        # This is a simplified approach that looks for icon_url patterns
+        local icon_urls=$(echo "$bottom_menu_items" | grep -o 'icon_url[^,}]*' | sed 's/icon_url[^"]*"//g' | sed 's/"[^"]*$//g')
         
-        # Download icon if it doesn't exist or if forced
-        if not os.path.exists(filepath):
-            try:
-                print(f'Downloading {label} icon from {icon_url}...')
-                response = requests.get(icon_url, timeout=30)
-                response.raise_for_status()
-                
-                with open(filepath, 'wb') as f:
-                    f.write(response.content)
-                
-                print(f'✓ Downloaded {filename}')
-                downloaded_count += 1
-                
-            except requests.exceptions.RequestException as e:
-                print(f'✗ Failed to download {label} icon: {e}')
-                continue
-        else:
-            print(f'✓ {filename} already exists, skipping download')
-    
-    print(f'Downloaded {downloaded_count} new custom icons')
-    
-except json.JSONDecodeError as e:
-    print(f'Invalid JSON in BOTTOMMENU_ITEMS: {e}')
-    sys.exit(1)
-except Exception as e:
-    print(f'Error processing BOTTOMMENU_ITEMS: {e}')
-    sys.exit(1)
-"
-    
-    if [ $? -eq 0 ]; then
-        success "Custom icons download completed successfully"
+        if [ -n "$icon_urls" ]; then
+            local downloaded_count=0
+            
+            # Process each icon URL
+            while IFS= read -r icon_url; do
+                if [ -n "$icon_url" ] && [[ "$icon_url" == http* ]]; then
+                    # Extract filename from URL
+                    local filename=$(basename "$icon_url")
+                    if [ -z "$filename" ] || [ "$filename" = "$icon_url" ]; then
+                        filename="custom_icon_$downloaded_count.svg"
+                    fi
+                    
+                    local filepath="assets/icons/$filename"
+                    
+                    log "Downloading custom icon from $icon_url..."
+                    if curl -fsSL -o "$filepath" "$icon_url"; then
+                        success "✓ Downloaded $filename"
+                        downloaded_count=$((downloaded_count + 1))
+                    else
+                        warning "Failed to download icon from $icon_url"
+                    fi
+                fi
+            done <<< "$icon_urls"
+            
+            if [ $downloaded_count -gt 0 ]; then
+                success "Downloaded $downloaded_count custom icons"
+            else
+                warning "No custom icons were downloaded"
+            fi
+        else
+            log "No valid icon URLs found in BOTTOMMENU_ITEMS"
+        fi
     else
-        error "Failed to download custom icons"
-        return 1
+        log "No custom icons found in BOTTOMMENU_ITEMS, skipping download"
     fi
+    
+    return 0
 }
 
 # Main execution
 main() {
     log "Starting custom icons download process..."
-    
-    # Check if bottom menu is enabled
-    if [ "${IS_BOTTOMMENU:-false}" != "true" ]; then
-        log "Bottom menu disabled (IS_BOTTOMMENU=false), skipping custom icon download"
-        return 0
-    fi
     
     # Check if BOTTOMMENU_ITEMS environment variable is set
     if [ -z "$BOTTOMMENU_ITEMS" ]; then
@@ -148,9 +114,13 @@ main() {
     fi
     
     # Download custom icons
-    download_custom_icons "$BOTTOMMENU_ITEMS"
-    
-    log "Custom icons download process completed"
+    if download_custom_icons "$BOTTOMMENU_ITEMS"; then
+        success "Custom icons download process completed"
+        return 0
+    else
+        error "Custom icons download failed"
+        return 1
+    fi
 }
 
 # Run main function
