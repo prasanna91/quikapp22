@@ -857,41 +857,26 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
 </plist>
 EOF
     
-    # Export IPA using enhanced framework-safe export script
-    log_info "📦 Exporting IPA with enhanced framework-safe export script..."
-    log_info "🔐 Using keychain: $keychain_path"
-    log_info "🎯 Using certificate: $CERT_IDENTITY"
-    log_info "📱 Using profile UUID: $MOBILEPROVISION_UUID"
+    # Export IPA using modern App Store Connect API
+    log_info "📦 Exporting IPA with modern App Store Connect API..."
+    log_info "🔐 Using modern code signing: App Store Connect API"
+    log_info "📱 Bundle ID: ${BUNDLE_ID}"
+    log_info "🔐 Team ID: ${APPLE_TEAM_ID}"
     
     # Make the enhanced export script executable
     chmod +x "${SCRIPT_DIR}/export_ipa_framework_fix.sh"
     
-    # Use the enhanced export script that handles framework provisioning profile issues
+    # Use the modern export script for App Store Connect API
     if "${SCRIPT_DIR}/export_ipa_framework_fix.sh" \
         "${OUTPUT_DIR:-output/ios}/Runner.xcarchive" \
         "${OUTPUT_DIR:-output/ios}" \
-        "$CERT_IDENTITY" \
-        "$MOBILEPROVISION_UUID" \
         "${BUNDLE_ID}" \
-        "${APPLE_TEAM_ID}" \
-        "$keychain_path"; then
+        "${APPLE_TEAM_ID}"; then
         
-        log_success "✅ Enhanced IPA export completed successfully"
+        log_success "✅ Modern IPA export completed successfully"
     else
-        log_error "❌ Enhanced IPA export failed"
-        log_error "🔧 Framework provisioning profile issues could not be resolved"
-        
-        # Show logs for debugging
-        if [ -f export_method1.log ]; then
-            log_info "📋 Manual signing log (last 10 lines):"
-            tail -10 export_method1.log
-        fi
-        
-        if [ -f export_method2.log ]; then
-            log_info "📋 Automatic signing log (last 10 lines):"
-            tail -10 export_method2.log
-        fi
-        
+        log_error "❌ Modern IPA export failed"
+        log_error "🔧 App Store Connect API export issues"
         return 1
     fi
     
