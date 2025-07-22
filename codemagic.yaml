@@ -310,20 +310,24 @@ workflows:
       - build/app/outputs/logs/
 
   ios-workflow:
-    name: iOS Workflow
+    name: Build iOS App using Dynamic Config
     max_build_duration: 120
     environment:
       vars:
-        <<: [*common_vars, *ios_vars]
-        CM_BUILD_ID: $CM_BUILD_ID
-        CM_BUILD_DIR: $CM_BUILD_DIR
-        XCODE_WORKSPACE: "ios/Runner.xcworkspace"
-        XCODE_SCHEME: "Runner"
+        <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
+        WORKFLOW_ID: $WORKFLOW_ID
+        PKG_NAME: $PKG_NAME
         BUNDLE_ID: $BUNDLE_ID
         APPLE_TEAM_ID: $APPLE_TEAM_ID
         PROFILE_TYPE: $PROFILE_TYPE
-        PUSH_NOTIFY: $PUSH_NOTIFY
         IS_TESTFLIGHT: $IS_TESTFLIGHT
+        FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+        APNS_KEY_ID: $APNS_KEY_ID
+        APNS_AUTH_KEY_URL: $APNS_AUTH_KEY_URL
+        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+        APP_STORE_CONNECT_API_KEY_URL: $APP_STORE_CONNECT_API_KEY_URL
+        PROFILE_URL: $PROFILE_URL
       xcode: latest
       cocoapods: default
       flutter: stable
@@ -332,55 +336,83 @@ workflows:
         - firebase_credentials
         - email_credentials
 
-    scripts:
-      - name: Setup Environment
-        script: |
-          echo "🚀 Setting up iOS Workflow Environment"
-          echo "======================================"
-          
-          # Set script permissions
-          chmod +x scripts/ios-workflow/*.sh
-          chmod +x lib/scripts/utils/*.sh
-          
-          # Create output directories
-          mkdir -p output/ios
-          mkdir -p build/ios/logs
-          
-          # Validate essential variables
-          echo "🔍 Validating essential variables..."
-          ESSENTIAL_VARS=("BUNDLE_ID" "APPLE_TEAM_ID" "PROFILE_TYPE")
-          MISSING_VARS=()
-          
-          for var in "${ESSENTIAL_VARS[@]}"; do
-            if [ -z "${!var:-}" ]; then
-              MISSING_VARS+=("$var")
-            fi
-          done
-          
-          if [ ${#MISSING_VARS[@]} -gt 0 ]; then
-            echo "❌ Missing essential variables: ${MISSING_VARS[*]}"
-            echo "📋 Required variables:"
-            echo "   - BUNDLE_ID: Your app's bundle identifier"
-            echo "   - APPLE_TEAM_ID: Your Apple Developer Team ID"
-            echo "   - PROFILE_TYPE: Distribution type (app-store, ad-hoc, development)"
-            exit 1
-          fi
-          
-          echo "✅ Environment setup completed"
+    cache:
+      cache_paths:
+        - "$HOME/Library/Caches/CocoaPods"
 
-      - name: Run Main Workflow
+    scripts:
+      - name: 🔍 Validate Required Environment Vars
         script: |
-          echo "🏗️ Running Main iOS Workflow"
-          echo "============================"
-          
-          # Execute main workflow script
-          if [ -f "scripts/ios-workflow/main_workflow.sh" ]; then
-            chmod +x scripts/ios-workflow/main_workflow.sh
-            ./scripts/ios-workflow/main_workflow.sh
-          else
-            echo "❌ Main workflow script not found"
-            exit 1
+          chmod +x scripts/validate_env.sh
+          ./scripts/validate_env.sh
+
+      - name: ⬇️ Download Assets (icons, splash, certificates)
+        script: |
+          chmod +x scripts/download_assets.sh
+          ./scripts/download_assets.sh
+
+      - name: 🎨 Change App Name and Icons
+        script: |
+          chmod +x scripts/change_app_name.sh
+          chmod +x scripts/change_app_icon.sh
+          ./scripts/change_app_name.sh "$APP_NAME"
+          ./scripts/change_app_icon.sh "$LOGO_URL"
+
+      - name: 🎯 Update Bundle ID and Versioning
+        script: |
+          chmod +x scripts/update_bundle_id.sh
+          chmod +x scripts/set_version.sh
+          ./scripts/update_bundle_id.sh "$BUNDLE_ID"
+          ./scripts/set_version.sh "$VERSION_NAME" "$VERSION_CODE"
+
+      - name: ⚙️ Inject Permissions and Features
+        script: |
+          chmod +x scripts/configure_permissions.sh
+          ./scripts/configure_permissions.sh
+
+      - name: 🚀 Generate Env Configs (env_config.dart, Info.plist, etc)
+        script: |
+          chmod +x scripts/gen_env_config.sh
+          ./scripts/gen_env_config.sh
+
+      - name: 🧪 Run Flutter Tests
+        script: |
+          flutter test
+
+      - name: 🏗️ Build and Archive iOS (.ipa)
+        script: |
+          flutter build ios --release --no-codesign
+          xcodebuild \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -sdk iphoneos \
+            -configuration Release archive \
+            -archivePath build/Runner.xcarchive \
+            DEVELOPMENT_TEAM=$APPLE_TEAM_ID \
+            PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID
+
+      - name: 📦 Export IPA
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath build/Runner.xcarchive \
+            -exportOptionsPlist ./scripts/exportOptions.plist \
+            -exportPath build/export \
+            -allowProvisioningUpdates
+
+      - name: ⬆️ Upload to TestFlight (optional)
+        script: |
+          if [ "$IS_TESTFLIGHT" == "true" ]; then
+            xcrun altool --upload-app \
+              --type ios \
+              --file build/export/Runner.ipa \
+              --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
+              --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
           fi
+
+      - name: ✉️ Email Notification
+        script: |
+          chmod +x scripts/send_email_notification.sh
+          ./scripts/send_email_notification.sh "$EMAIL_ID" "$WORKFLOW_ID" "success"
 
       - name: Validate Build Results
         script: |
@@ -424,32 +456,8 @@ workflows:
           echo "✅ Build validation completed successfully"
 
     artifacts:
-      # 📱 IPA Files
-      - output/ios/*.ipa
-      - build/ios/ipa/*.ipa
-      - "*.ipa"
-      
-      # 📦 Archive Files (fallback)
-      - output/ios/*.xcarchive
-      - build/ios/archive/*.xcarchive
-      - "*.xcarchive"
-      
-      # 📋 Build Documentation
-      - output/ios/WORKFLOW_SUMMARY.txt
-      - output/ios/ASSET_SUMMARY.txt
-      - output/ios/FIREBASE_SUMMARY.txt
-      - output/ios/TESTFLIGHT_SUMMARY.txt
-      - output/ios/EMAIL_SUMMARY.txt
-      - output/ios/ARTIFACTS_SUMMARY.txt
-      - ios/ExportOptions.plist
-      
-      # 📊 Build Logs
-      - build/ios/logs/
-      - output/ios/logs/
-      
-      # 🔧 Additional Build Artifacts
-      - output/ios/
-      - build/ios/
+      - build/export/*.ipa
+      - flutter_drive.log
 
     publishing:
       app_store_connect:
