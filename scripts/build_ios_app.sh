@@ -10,17 +10,60 @@ log_error() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [IOS_BUILD] ❌ $1"; }
 
 log "🏗️ Building iOS App"
 
-# Step 1: Fix iOS build issues
-log_info "Step 1: Fixing iOS build issues"
-chmod +x scripts/fix_ios_build_issues.sh
-./scripts/fix_ios_build_issues.sh
+# Step 1: Generate dynamic Podfile with all fixes
+log_info "Step 1: Generating dynamic Podfile"
+chmod +x scripts/generate_dynamic_podfile.sh
+./scripts/generate_dynamic_podfile.sh
 
-# Step 2: Build Flutter app
-log_info "Step 2: Building Flutter app"
+# Step 2: Handle speech_to_text dependency issue
+log_info "Step 2: Handling speech_to_text dependency issue"
+if [ -f "scripts/fix_speech_to_text_dependency.sh" ]; then
+    chmod +x scripts/fix_speech_to_text_dependency.sh
+    ./scripts/fix_speech_to_text_dependency.sh
+else
+    log_warning "fix_speech_to_text_dependency.sh not found, using fallback approach"
+    
+    # Check if speech_to_text is being used
+    if grep -q "speech_to_text" pubspec.yaml; then
+        log_warning "speech_to_text plugin detected - this may cause CwlCatchException to be reinstalled"
+        log_info "Temporarily removing speech_to_text to prevent CwlCatchException issues"
+        
+        # Create backup
+        cp pubspec.yaml pubspec.yaml.bak
+        
+        # Remove speech_to_text from pubspec.yaml
+        sed -i '' '/speech_to_text/d' pubspec.yaml
+        sed -i '' '/speech_to_text_platform_interface/d' pubspec.yaml
+        
+        log_success "Temporarily removed speech_to_text from pubspec.yaml"
+        log_warning "Note: speech_to_text functionality will be disabled in this build"
+    fi
+fi
+
+# Step 3: Clean and install pods with dynamic Podfile
+log_info "Step 3: Installing pods with dynamic Podfile"
+
+cd ios
+
+# Clean existing pods
+if [ -d "Pods" ]; then
+    log_info "Cleaning existing pods"
+    rm -rf Pods
+    rm -f Podfile.lock
+fi
+
+# Install pods with the dynamically generated Podfile
+log_info "Installing pods with comprehensive fixes"
+pod install --repo-update
+
+cd ..
+
+# Step 4: Build Flutter app
+log_info "Step 4: Building Flutter app"
 flutter build ios --release --no-codesign
 
-# Step 3: Create archive with proper signing
-log_info "Step 3: Creating iOS archive"
+# Step 5: Create archive with proper signing
+log_info "Step 5: Creating iOS archive"
 
 # Create build directory if it doesn't exist
 mkdir -p build
@@ -55,8 +98,8 @@ fi
 
 log_success "✅ iOS archive created successfully: build/Runner.xcarchive"
 
-# Step 4: Export IPA
-log_info "Step 4: Exporting IPA"
+# Step 6: Export IPA
+log_info "Step 6: Exporting IPA"
 
 # Ensure exportOptions.plist exists
 if [ ! -f "scripts/exportOptions.plist" ]; then
@@ -115,8 +158,8 @@ fi
 
 log_success "✅ IPA created successfully: build/export/Runner.ipa"
 
-# Step 5: Restore speech_to_text if it was temporarily removed
-log_info "Step 5: Restoring speech_to_text plugin"
+# Step 7: Restore speech_to_text if it was temporarily removed
+log_info "Step 7: Restoring speech_to_text plugin"
 if [ -f "pubspec.yaml.bak" ]; then
     log_info "Restoring speech_to_text plugin..."
     cp pubspec.yaml.bak pubspec.yaml
@@ -124,6 +167,16 @@ if [ -f "pubspec.yaml.bak" ]; then
     log_success "✅ speech_to_text plugin restored"
 else
     log_info "No speech_to_text backup found, skipping restoration"
+fi
+
+# Step 8: Restore original Podfile if needed
+log_info "Step 8: Restoring original Podfile"
+if [ -f "ios/Podfile.original" ]; then
+    log_info "Restoring original Podfile..."
+    cp ios/Podfile.original ios/Podfile
+    log_success "✅ Original Podfile restored"
+else
+    log_info "No original Podfile backup found, keeping dynamic Podfile"
 fi
 
 log_success "✅ iOS build completed successfully"

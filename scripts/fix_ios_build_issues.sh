@@ -40,8 +40,45 @@ fi
 
 log_success "CwlCatchException pods removed successfully"
 
-# Step 2: Fix provisioning profile issues
-log_info "Step 2: Fixing provisioning profile issues"
+# Step 2: Fix GoogleUtilities header file issues
+log_info "Step 2: Fixing GoogleUtilities header file issues"
+
+if [ -d "ios/Pods/GoogleUtilities" ]; then
+    log_info "Fixing GoogleUtilities header paths"
+    
+    # Create missing header directories
+    mkdir -p ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted
+    mkdir -p ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities
+    mkdir -p ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
+    mkdir -p ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities
+    mkdir -p ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities
+    
+    # Copy header files to the expected locations
+    if [ -f "ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h" ]; then
+        cp ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted/
+    fi
+    
+    if [ -f "ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h" ]; then
+        cp ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h" ]; then
+        cp ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h" ]; then
+        cp ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h" ]; then
+        cp ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/
+    fi
+    
+    log_success "GoogleUtilities header files fixed"
+fi
+
+# Step 3: Fix provisioning profile issues
+log_info "Step 3: Fixing provisioning profile issues"
 
 # Ensure exportOptions.plist exists with correct configuration
 log_info "Creating/updating exportOptions.plist"
@@ -80,8 +117,8 @@ EOF
 
 log_success "Created exportOptions.plist"
 
-# Step 3: Update Xcode project settings for automatic signing
-log_info "Step 3: Updating Xcode project settings"
+# Step 4: Update Xcode project settings for automatic signing
+log_info "Step 4: Updating Xcode project settings"
 
 if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
     log_info "Updating project.pbxproj for automatic signing"
@@ -103,8 +140,8 @@ if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
     log_success "Updated project.pbxproj"
 fi
 
-# Step 4: Handle speech_to_text dependency issue
-log_info "Step 4: Handling speech_to_text dependency issue"
+# Step 5: Handle speech_to_text dependency issue
+log_info "Step 5: Handling speech_to_text dependency issue"
 
 # Use the dedicated script to handle speech_to_text dependency
 if [ -f "scripts/fix_speech_to_text_dependency.sh" ]; then
@@ -158,8 +195,8 @@ EOF
     fi
 fi
 
-# Step 5: Clean and reinstall pods with fix
-log_info "Step 5: Cleaning and reinstalling pods"
+# Step 6: Clean and reinstall pods with fix
+log_info "Step 6: Cleaning and reinstalling pods"
 
 cd ios
 if [ -d "Pods" ]; then
@@ -171,8 +208,8 @@ fi
 log_info "Installing pods"
 pod install --repo-update
 
-# Step 6: Remove CwlCatchException again after pod install
-log_info "Step 6: Removing CwlCatchException after pod install"
+# Step 7: Remove CwlCatchException again after pod install
+log_info "Step 7: Removing CwlCatchException after pod install"
 
 if [ -d "Pods/CwlCatchException" ]; then
     log_info "Removing CwlCatchException pod (post-install)"
@@ -196,6 +233,43 @@ if [ -f "Pods/Pods.xcodeproj/project.pbxproj" ]; then
     sed -i '' '/CwlCatchExceptionSupport/d' Pods/Pods.xcodeproj/project.pbxproj
     
     log_success "Updated Pods project file (post-install)"
+fi
+
+# Step 8: Fix GoogleUtilities headers again after pod install
+log_info "Step 8: Fixing GoogleUtilities headers after pod install"
+
+if [ -d "Pods/GoogleUtilities" ]; then
+    log_info "Fixing GoogleUtilities header paths (post-install)"
+    
+    # Create missing header directories
+    mkdir -p Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted
+    mkdir -p Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities
+    mkdir -p Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
+    mkdir -p Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities
+    mkdir -p Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities
+    
+    # Copy header files to the expected locations
+    if [ -f "Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h" ]; then
+        cp Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted/
+    fi
+    
+    if [ -f "Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h" ]; then
+        cp Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h" ]; then
+        cp Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h" ]; then
+        cp Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/
+    fi
+    
+    if [ -f "Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h" ]; then
+        cp Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/
+    fi
+    
+    log_success "GoogleUtilities header files fixed (post-install)"
 fi
 
 cd ..
