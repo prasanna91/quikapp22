@@ -350,18 +350,17 @@ workflows:
             exit 1
           fi
           
-      - name: Build iOS App (Simplified)
+      - name: Build iOS App (Comprehensive)
         script: |
-          echo "🏗️ Building iOS App (Simplified)..."
+          echo "🏗️ Building iOS App (Comprehensive)..."
           
           # Set permissions for essential scripts
-          chmod +x lib/scripts/ios-workflow/simple_main.sh
-          chmod +x lib/scripts/ios-workflow/simple_export.sh
+          chmod +x lib/scripts/ios-workflow/comprehensive_build.sh
           chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
           chmod +x lib/scripts/utils/*.sh
           
-          # Run simplified build workflow
-          if ./lib/scripts/ios-workflow/simple_main.sh; then
+          # Run comprehensive build workflow (build + archive + export + upload)
+          if ./lib/scripts/ios-workflow/comprehensive_build.sh; then
             echo "✅ iOS build completed successfully"
           else
             echo "❌ iOS build failed"
@@ -370,9 +369,9 @@ workflows:
           
 
           
-      - name: Post-Build Validation (Simplified)
+      - name: Post-Build Validation (Comprehensive)
         script: |
-          echo "🛡️ Post-Build Validation (Simplified)..."
+          echo "🛡️ Post-Build Validation (Comprehensive)..."
           
           # Check if IPA was created
           IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
@@ -383,10 +382,22 @@ workflows:
               # Check file size
               IPA_SIZE=$(stat -f%z "$ipa_file" 2>/dev/null || stat -c%s "$ipa_file" 2>/dev/null || echo "0")
               echo "     Size: $IPA_SIZE bytes"
+              if [ "$IPA_SIZE" -gt 1000000 ]; then
+                echo "     ✅ IPA size is valid (>1MB)"
+              else
+                echo "     ⚠️ IPA size seems small"
+              fi
             done
           else
             echo "❌ No IPA files found in output/ios"
             exit 1
+          fi
+          
+          # Check if archive was created
+          if [ -d "output/ios/Runner.xcarchive" ]; then
+            echo "✅ Archive found: output/ios/Runner.xcarchive"
+          else
+            echo "⚠️ Archive not found"
           fi
           
           # Validate bundle ID
@@ -433,44 +444,7 @@ workflows:
           
           echo "✅ App Store validation completed"
           
-      - name: TestFlight Upload (Simplified)
-        script: |
-          echo "🚀 TestFlight Upload (Simplified)..."
-          
-          # Check if TestFlight upload is enabled and credentials are available
-          if [ "${IS_TESTFLIGHT:-true}" = "true" ] && [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
-            echo "📤 Uploading to TestFlight..."
-            
-            # Download API key
-            API_KEY_PATH="/tmp/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
-            if curl -L -o "$API_KEY_PATH" "$APP_STORE_CONNECT_API_KEY_URL" 2>/dev/null; then
-              chmod 600 "$API_KEY_PATH"
-              echo "✅ API key downloaded"
-              
-              # Find IPA file
-              IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
-              if [ -n "$IPA_FILES" ]; then
-                IPA_PATH=$(echo "$IPA_FILES" | head -1)
-                echo "📦 Uploading IPA: $IPA_PATH"
-                
-                # Use xcrun altool for upload (modern approach)
-                if xcrun altool --upload-app --type ios --file "$IPA_PATH" --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" --apiKeyPath "$API_KEY_PATH"; then
-                  echo "✅ TestFlight upload completed successfully"
-                else
-                  echo "❌ TestFlight upload failed"
-                  exit 1
-                fi
-              else
-                echo "❌ No IPA files found for upload"
-                exit 1
-              fi
-            else
-              echo "❌ Failed to download API key"
-              exit 1
-            fi
-          else
-            echo "⚠️ TestFlight upload skipped (credentials not available or disabled)"
-          fi
+
 
     artifacts:
       # 📱 IPA Files (Primary artifacts)

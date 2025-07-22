@@ -12,10 +12,17 @@ UTILS_DIR="$(dirname "$SCRIPT_DIR")/utils"
 # Source utilities from centralized location
 if [ -f "${UTILS_DIR}/utils.sh" ]; then
     source "${UTILS_DIR}/utils.sh"
-    log_info "✅ Utilities loaded from ${UTILS_DIR}/utils.sh"
+    echo "✅ Utilities loaded from ${UTILS_DIR}/utils.sh"
 else
-    log_error "❌ Utilities file not found at ${UTILS_DIR}/utils.sh"
-    exit 1
+    echo "❌ Utilities file not found at ${UTILS_DIR}/utils.sh"
+    echo "⚠️ Using fallback logging functions"
+    
+    # Define fallback logging functions
+    log_info() { echo "INFO: $*"; }
+    log_error() { echo "ERROR: $*"; }
+    log_success() { echo "SUCCESS: $*"; }
+    log_warn() { echo "WARN: $*"; }
+    log_warning() { echo "WARN: $*"; }
 fi
 
 # Source environment configuration
@@ -35,6 +42,13 @@ log_info "🚀 Starting Simple iOS Build Workflow..."
 validate_environment() {
     log_info "🔍 Validating environment variables..."
     
+    # Use utility function if available
+    if command -v validate_ios_environment >/dev/null 2>&1; then
+        validate_ios_environment
+        return $?
+    fi
+    
+    # Fallback validation
     local required_vars=(
         "BUNDLE_ID"
         "APPLE_TEAM_ID"
@@ -86,11 +100,21 @@ fix_swift_optimization() {
 build_flutter_app() {
     log_info "🏗️ Building Flutter app..."
     
+    # Check if Flutter is available
+    if ! command -v flutter >/dev/null 2>&1; then
+        log_error "❌ Flutter is not available"
+        return 1
+    fi
+    
     # Set output directory
     local output_dir="${OUTPUT_DIR:-output/ios}"
     mkdir -p "$output_dir"
     
     # Build Flutter app for iOS
+    log_info "📦 Building Flutter app for iOS..."
+    log_info "📁 Output directory: $output_dir"
+    log_info "📦 Version: ${VERSION_NAME:-1.0.0} (${VERSION_CODE:-1})"
+    
     if flutter build ios \
         --release \
         --no-codesign \
@@ -109,8 +133,25 @@ build_flutter_app() {
 create_archive() {
     log_info "📦 Creating Xcode archive..."
     
+    # Check if Xcode is available
+    if ! command -v xcodebuild >/dev/null 2>&1; then
+        log_error "❌ Xcode is not available"
+        return 1
+    fi
+    
+    # Check if workspace exists
+    if [ ! -f "ios/Runner.xcworkspace/contents.xcworkspacedata" ]; then
+        log_error "❌ iOS workspace not found: ios/Runner.xcworkspace"
+        return 1
+    fi
+    
     local output_dir="${OUTPUT_DIR:-output/ios}"
     mkdir -p "$output_dir"
+    
+    log_info "📁 Archive path: ${output_dir}/Runner.xcarchive"
+    log_info "📁 Workspace: ios/Runner.xcworkspace"
+    log_info "📦 Scheme: Runner"
+    log_info "🔧 Configuration: Release"
     
     # Create archive using xcodebuild
     if xcodebuild -workspace ios/Runner.xcworkspace \

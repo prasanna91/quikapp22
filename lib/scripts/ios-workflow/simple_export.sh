@@ -12,10 +12,17 @@ UTILS_DIR="$(dirname "$SCRIPT_DIR")/utils"
 # Source utilities from centralized location
 if [ -f "${UTILS_DIR}/utils.sh" ]; then
     source "${UTILS_DIR}/utils.sh"
-    log_info "✅ Utilities loaded from ${UTILS_DIR}/utils.sh"
+    echo "✅ Utilities loaded from ${UTILS_DIR}/utils.sh"
 else
-    log_error "❌ Utilities file not found at ${UTILS_DIR}/utils.sh"
-    exit 1
+    echo "❌ Utilities file not found at ${UTILS_DIR}/utils.sh"
+    echo "⚠️ Using fallback logging functions"
+    
+    # Define fallback logging functions
+    log_info() { echo "INFO: $*"; }
+    log_error() { echo "ERROR: $*"; }
+    log_success() { echo "SUCCESS: $*"; }
+    log_warn() { echo "WARN: $*"; }
+    log_warning() { echo "WARN: $*"; }
 fi
 
 log_info "🚀 Simple IPA Export for Modern App Store Connect API"
