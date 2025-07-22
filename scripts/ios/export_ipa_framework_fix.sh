@@ -121,6 +121,53 @@ EOF
     log_success "✅ Automatic framework signing export options created"
 }
 
+# Function to create modern App Store Connect API export options
+create_modern_export_options() {
+    local bundle_id="$1"
+    local team_id="$2"
+    
+    log_info "📝 Creating modern App Store Connect API export options..."
+    
+    cat > "ios/ExportOptionsModern.plist" << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>teamID</key>
+    <string>${team_id}</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>uploadBitcode</key>
+    <false/>
+    <key>compileBitcode</key>
+    <false/>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>manageAppVersionAndBuildNumber</key>
+    <false/>
+    <key>destination</key>
+    <string>export</string>
+    <key>iCloudContainerEnvironment</key>
+    <string>Production</string>
+    <key>onDemandInstallCapable</key>
+    <false/>
+    <key>embedOnDemandResourcesAssetPacksInBundle</key>
+    <false/>
+    <key>generateAppStoreInformation</key>
+    <true/>
+    <key>distributionBundleIdentifier</key>
+    <string>${bundle_id}</string>
+</dict>
+</plist>
+EOF
+    
+    log_success "✅ Modern App Store Connect API export options created"
+}
+
 # Function to export IPA with multiple fallback methods
 export_ipa_with_framework_fix() {
     local archive_path="$1"
@@ -396,6 +443,50 @@ EOF
     return 1
 }
 
+# Function to export IPA using modern App Store Connect API
+export_ipa_modern() {
+    local archive_path="$1"
+    local export_path="$2"
+    local bundle_id="$3"
+    local team_id="$4"
+    
+    log_info "🚀 Exporting IPA using modern App Store Connect API..."
+    
+    # Create modern export options
+    create_modern_export_options "$bundle_id" "$team_id"
+    
+    # Export IPA using modern approach
+    log_info "📦 Exporting IPA with modern App Store Connect API..."
+    
+    if xcodebuild -exportArchive \
+        -archivePath "$archive_path" \
+        -exportPath "$export_path" \
+        -exportOptionsPlist "ios/ExportOptionsModern.plist" \
+        -allowProvisioningUpdates \
+        -allowProvisioningDeviceRegistration; then
+        
+        log_success "✅ IPA exported successfully using modern App Store Connect API"
+        
+        # Find the exported IPA
+        local exported_ipa
+        exported_ipa=$(find "$export_path" -name "*.ipa" -type f | head -1)
+        
+        if [ -n "$exported_ipa" ]; then
+            log_success "✅ IPA file created: $exported_ipa"
+            log_info "📱 Bundle ID: $bundle_id"
+            log_info "🔐 Team ID: $team_id"
+            log_info "🔐 Modern code signing: App Store Connect API"
+            return 0
+        else
+            log_error "❌ IPA file not found in export directory"
+            return 1
+        fi
+    else
+        log_error "❌ IPA export failed using modern App Store Connect API"
+        return 1
+    fi
+}
+
 # Main function
 main() {
     log_info "🚀 Enhanced IPA Export with Framework Fix"
@@ -458,8 +549,8 @@ main() {
         return 1
     fi
     
-    # Export IPA with framework fix
-    export_ipa_with_framework_fix "$archive_path" "$export_path" "$cert_identity" "$profile_uuid" "$bundle_id" "$team_id" "$keychain_path"
+    # Export IPA with modern App Store Connect API
+    export_ipa_modern "$archive_path" "$export_path" "$bundle_id" "$team_id"
 }
 
 # Run main function if script is executed directly

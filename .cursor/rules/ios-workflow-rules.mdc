@@ -45,3 +45,39 @@ usage: |
     - Upload the generated IPA to TestFlight automatically.
 
   For more details, see: https://docs.codemagic.io/publishing-yaml/distribution/#publishing-to-app-store-connect-using-api-key
+  # Rule: Centralize iOS Workflow Scripts
+
+  description: |
+    All scripts required for the iOS workflow must be located under the `lib/scripts/ios-workflow` directory.
+    This ensures maintainability, discoverability, and consistency across iOS build and deployment processes.
+
+  requirement: |
+    - All shell, Python, or utility scripts invoked by the iOS workflow (e.g., build, code signing, certificate handling, email notifications, environment setup, validation, etc.) must be present in `lib/scripts/ios-workflow/`.
+    - If scripts currently exist elsewhere (e.g., `lib/scripts/ios/` or `lib/scripts/utils/`), copy or refactor them into `lib/scripts/ios-workflow/`.
+    - Update all workflow references (in YAML, shell scripts, or CI/CD configs) to use the new path.
+    - Remove or deprecate the old script locations after migration.
+
+  usage: |
+    Example migration steps:
+      1. Move or copy all required scripts to `lib/scripts/ios-workflow/`.
+         For example:
+           mv lib/scripts/ios/main.sh lib/scripts/ios-workflow/main.sh
+           mv lib/scripts/ios/email_notifications.sh lib/scripts/ios-workflow/email_notifications.sh
+           mv lib/scripts/utils/send_email.py lib/scripts/ios-workflow/send_email.py
+      2. Update all references in your workflow files:
+           - codemagic.yaml
+           - Any shell scripts that call these scripts
+           - Documentation
+      3. Test the workflow to ensure all scripts are correctly referenced and functional.
+      4. Remove the old script files from their previous locations to avoid confusion.
+
+    Benefits:
+      - All iOS workflow scripts are organized in a single directory.
+      - Easier onboarding for new developers and maintainers.
+      - Reduces risk of missing or outdated scripts during workflow changes.
+
+  severity: warning
+
+  message: |
+    All scripts required for the iOS workflow should be present under `lib/scripts/ios-workflow/`.
+    Please move, copy, or recreate any necessary scripts into this directory and update all references accordingly.
