@@ -378,7 +378,8 @@ workflows:
 
       - name: 🧪 Run Flutter Tests
         script: |
-          flutter test
+          chmod +x scripts/run_flutter_tests.sh
+          ./scripts/run_flutter_tests.sh
 
       - name: 🏗️ Build and Archive iOS (.ipa)
         script: |
