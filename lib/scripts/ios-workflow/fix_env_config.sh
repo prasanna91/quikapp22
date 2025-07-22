@@ -27,6 +27,17 @@ fi
 
 log_info "🔧 Fixing Environment Configuration..."
 
+# Source environment configuration to ensure variables are available
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log_info "✅ Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log_info "✅ Environment configuration loaded from lib/config/env.sh"
+else
+    log_warning "⚠️ Environment configuration file not found, using system environment variables"
+fi
+
 # Function to regenerate env_config.dart
 regenerate_env_config() {
     log_info "📝 Regenerating env_config.dart..."
@@ -93,6 +104,20 @@ verify_fix() {
 # Main execution function
 main() {
     log_info "🚀 Fixing Environment Configuration..."
+    
+    # Verify environment variables are available
+    log_info "🔍 Verifying environment variables..."
+    if [ -n "${APPLE_TEAM_ID:-}" ]; then
+        log_success "✅ APPLE_TEAM_ID is set: ${APPLE_TEAM_ID}"
+    else
+        log_warn "⚠️ APPLE_TEAM_ID is not set"
+    fi
+    
+    if [ -n "${BUNDLE_ID:-}" ]; then
+        log_success "✅ BUNDLE_ID is set: ${BUNDLE_ID}"
+    else
+        log_warn "⚠️ BUNDLE_ID is not set"
+    fi
     
     # Regenerate env_config.dart
     if ! regenerate_env_config; then

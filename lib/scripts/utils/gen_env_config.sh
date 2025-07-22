@@ -147,6 +147,9 @@ generate_env_config() {
     log "   APP_ID: ${APP_ID:-not_set}"
     log "   VERSION_NAME: ${VERSION_NAME:-not_set}"
     log "   VERSION_CODE: ${VERSION_CODE:-not_set}"
+    log "   APPLE_TEAM_ID: ${APPLE_TEAM_ID:-not_set}"
+    log "   APNS_KEY_ID: ${APNS_KEY_ID:-not_set}"
+    log "   IS_IOS_WORKFLOW: ${IS_IOS_WORKFLOW:-false}"
 
     # Create the directory if it doesn't exist
     mkdir -p lib/config || log "⚠️ Failed to create lib/config directory, continuing anyway"
@@ -354,6 +357,13 @@ EOF
                 log "✅ iOS bundle ID correctly set to: ${BUNDLE_ID:-}"
             else
                 log "⚠️ iOS bundle ID not found or incorrect"
+            fi
+            
+            # Check if APPLE_TEAM_ID was properly substituted
+            if grep -q "static const String appleTeamId = \"${APPLE_TEAM_ID:-}\"" lib/config/env_config.dart; then
+                log "✅ iOS team ID correctly set to: ${APPLE_TEAM_ID:-}"
+            else
+                log "⚠️ iOS team ID not found or incorrect"
             fi
         fi
         

@@ -87,7 +87,7 @@ fix_code_signing_project() {
     local updated_count=0
     
     if sed -i '' "s/DEVELOPMENT_TEAM = .*;/DEVELOPMENT_TEAM = $team_id;/g" "$project_file"; then
-        updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+        updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" 2>/dev/null || echo "0")
         log_success "✅ Updated existing DEVELOPMENT_TEAM entries"
     fi
     
@@ -100,13 +100,13 @@ fix_code_signing_project() {
         # First, try to find the Runner target and add DEVELOPMENT_TEAM to its build settings
         if sed -i '' "/Runner.*buildSettings = {/,/};/ s/};/DEVELOPMENT_TEAM = $team_id;\n};/" "$project_file"; then
             log_success "✅ Added DEVELOPMENT_TEAM to Runner target"
-            updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+            updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" 2>/dev/null || echo "0")
         else
             # If that didn't work, try a more generic approach
             log_info "📝 Trying alternative approach to add DEVELOPMENT_TEAM..."
             if sed -i '' "/buildSettings = {/,/};/ s/};/DEVELOPMENT_TEAM = $team_id;\n};/" "$project_file"; then
                 log_success "✅ Added DEVELOPMENT_TEAM using generic approach"
-                updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+                updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" 2>/dev/null || echo "0")
             else
                 log_error "❌ Failed to add DEVELOPMENT_TEAM to any target"
                 return 1
@@ -114,11 +114,18 @@ fix_code_signing_project() {
         fi
     fi
     
+    # Ensure updated_count is a valid integer
+    updated_count=$(echo "$updated_count" | tr -d ' ')
+    if ! [[ "$updated_count" =~ ^[0-9]+$ ]]; then
+        updated_count=0
+    fi
+    
     log_info "📋 Total DEVELOPMENT_TEAM entries: $updated_count"
     
     # Verify the changes
     local verification_count
-    verification_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+    verification_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" 2>/dev/null || echo "0")
+    verification_count=$(echo "$verification_count" | tr -d ' ')
     
     if [ "$verification_count" -gt 0 ]; then
         log_success "✅ Code signing successfully configured: $verification_count entries found"
