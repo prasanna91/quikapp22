@@ -30,14 +30,14 @@ common_vars: &common_vars
   FAIL_ON_WARNINGS: "false"
   CONTINUE_ON_ERROR: "true"
   RETRY_ON_FAILURE: "false"
-  MAX_RETRIES: "2"
+  MAX_RETRIES: $MAX_RETRIES
 
   # 📧 Email Notifications
-  ENABLE_EMAIL_NOTIFICATIONS: "true"
-  EMAIL_SMTP_SERVER: "smtp.gmail.com"
-  EMAIL_SMTP_PORT: "587"
-  EMAIL_SMTP_USER: "prasannasrie@gmail.com"
-  EMAIL_SMTP_PASS: "lrnu krfm aarp urux"
+  ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+  EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+  EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+  EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+  EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
 
   # 🔄 Build Recovery
   ENABLE_BUILD_RECOVERY: "true"
@@ -114,7 +114,7 @@ ios_modern_signing: &ios_modern_signing
   # 🎯 Essential Code Signing Variables (User-friendly)
   APPLE_TEAM_ID: "${APPLE_TEAM_ID:-}"
   BUNDLE_ID: "${BUNDLE_ID:-}"
-  PROFILE_TYPE: "${PROFILE_TYPE:-app-store}"
+  PROFILE_TYPE: $PROFILE_TYPE
   
   # 🔑 App Store Connect API (Modern approach)
   APP_STORE_CONNECT_KEY_IDENTIFIER: "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}"
@@ -123,7 +123,7 @@ ios_modern_signing: &ios_modern_signing
   APP_STORE_CONNECT_PRIVATE_KEY: "${APP_STORE_CONNECT_PRIVATE_KEY:-}"
   
   # 📱 Distribution Options
-  IS_TESTFLIGHT: "${IS_TESTFLIGHT:-true}"
+  IS_TESTFLIGHT: $IS_TESTFLIGHT
   ENABLE_DEVICE_SPECIFIC_BUILDS: "${ENABLE_DEVICE_SPECIFIC_BUILDS:-false}"
   
   # 🔧 Build Optimization
@@ -148,12 +148,12 @@ ios_modern_workflow: &ios_modern_workflow
   
   # 🔧 Build Environment
   OUTPUT_DIR: "output/ios"
-  MAX_RETRIES: "2"
-  ENABLE_EMAIL_NOTIFICATIONS: "${ENABLE_EMAIL_NOTIFICATIONS:-true}"
+  MAX_RETRIES: $MAX_RETRIES
+  ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
 
 # 🍎 iOS-specific variables block
 ios_vars: &ios_vars
-  WORKFLOW_ID: "ios-workflow"
+  WORKFLOW_ID: $WORKFLOW_ID
   APP_NAME: $APP_NAME
   VERSION_NAME: $VERSION_NAME
   VERSION_CODE: $VERSION_CODE
@@ -235,10 +235,10 @@ workflows:
       java: 17
       vars:
         <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
-        WORKFLOW_ID: "android-free"
+        WORKFLOW_ID: $WORKFLOW_ID
         PKG_NAME: $PKG_NAME
-        PUSH_NOTIFY: "false"
-        IS_DOMAIN_URL: "false"
+        PUSH_NOTIFY: $PUSH_NOTIFY
+        IS_DOMAIN_URL: $IS_DOMAIN_URL
 
     scripts:
       - name: Pre-build Setup
@@ -261,7 +261,7 @@ workflows:
       java: 17
       vars:
         <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
-        WORKFLOW_ID: "android-paid"
+        WORKFLOW_ID: $WORKFLOW_ID
         PKG_NAME: $PKG_NAME
         FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
 
@@ -286,8 +286,8 @@ workflows:
       java: 17
       vars:
         <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config]
-        MAX_RETRIES: "3"
-        WORKFLOW_ID: "android-publish"
+        MAX_RETRIES: $MAX_RETRIES
+        WORKFLOW_ID: $WORKFLOW_ID
         PKG_NAME: $PKG_NAME
         FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
         KEY_STORE_URL: $KEY_STORE_URL
@@ -470,8 +470,8 @@ workflows:
       cocoapods: 1.16.2
       vars:
         <<: [*common_vars, *ios_build_acceleration, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *admin_build_env]
-        MAX_RETRIES: "3"
-        WORKFLOW_ID: "combined"
+        MAX_RETRIES: $MAX_RETRIES
+        WORKFLOW_ID: $WORKFLOW_ID
         PKG_NAME: $PKG_NAME
         BUNDLE_ID: $BUNDLE_ID
         FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID
@@ -537,7 +537,7 @@ workflows:
       cocoapods: 1.16.2
       vars:
         <<: [*common_vars, *app_config, *feature_flags, *permissions, *ui_config, *ios_modern_signing, *ios_modern_workflow]
-        WORKFLOW_ID: "ios-modern"
+        WORKFLOW_ID: $WORKFLOW_ID
         FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
         CM_BUILD_ID: $CM_BUILD_ID
         CM_BUILD_DIR: $CM_BUILD_DIR

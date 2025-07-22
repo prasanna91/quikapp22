@@ -191,6 +191,18 @@ flutter pub get
 # Generate Flutter configuration files for iOS
 log "Generating Flutter configuration files..."
 cd ios
+
+# Ensure iOS deployment target is set correctly for Firebase
+log "Setting iOS deployment target to 13.0 for Firebase compatibility..."
+if [ -f "Podfile" ]; then
+    sed -i '' 's/platform :ios, '"'"'[0-9.]*'"'"'/platform :ios, '"'"'13.0'"'"'/g' Podfile
+fi
+
+# Update project.pbxproj deployment target
+if [ -f "Runner.xcodeproj/project.pbxproj" ]; then
+    sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 13.0;/g' Runner.xcodeproj/project.pbxproj
+fi
+
 flutter build ios --no-codesign --debug --verbose || {
     log_warning "Failed to generate iOS configuration, trying alternative approach"
     cd ..
@@ -202,6 +214,60 @@ flutter build ios --no-codesign --debug --verbose || {
 # Step 6: iOS Dependencies
 log_info "Step 6: iOS Dependencies"
 log "Installing iOS dependencies..."
+
+# Ensure Podfile exists and is properly configured
+if [ ! -f "Podfile" ]; then
+    log_error "Podfile not found. Creating Podfile..."
+    cat > Podfile << 'EOF'
+# Uncomment this line to define a global platform for your project
+platform :ios, '13.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    
+    # Set minimum deployment target for all pods
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
+  end
+end
+EOF
+    log_success "Podfile created successfully"
+fi
 
 # Validate that Flutter configuration files exist
 if [ ! -f "Flutter/Generated.xcconfig" ]; then
