@@ -357,7 +357,7 @@ workflows:
           # Set permissions for essential scripts
           chmod +x lib/scripts/ios-workflow/comprehensive_build.sh
           chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
-          chmod +x lib/scripts/ios-workflow/fix_deployment_target.sh
+          chmod +x lib/scripts/ios-workflow/simple_deployment_target_fix.sh
           chmod +x lib/scripts/ios-workflow/simple_bundle_id_inject.sh
           chmod +x lib/scripts/utils/*.sh
           

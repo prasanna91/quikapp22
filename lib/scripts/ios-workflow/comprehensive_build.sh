@@ -93,9 +93,9 @@ fix_swift_optimization() {
 fix_deployment_target() {
     log_info "🔧 Fixing iOS deployment target..."
     
-    if [ -f "${SCRIPT_DIR}/fix_deployment_target.sh" ]; then
-        chmod +x "${SCRIPT_DIR}/fix_deployment_target.sh"
-        if "${SCRIPT_DIR}/fix_deployment_target.sh"; then
+    if [ -f "${SCRIPT_DIR}/simple_deployment_target_fix.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/simple_deployment_target_fix.sh"
+        if "${SCRIPT_DIR}/simple_deployment_target_fix.sh"; then
             log_success "✅ iOS deployment target fixed to 13.0"
             return 0
         else
@@ -374,6 +374,16 @@ main() {
     
     # Fix Swift optimization warnings
     fix_swift_optimization
+    
+    # Run flutter pub get first to generate required files
+    log_info "📦 Running flutter pub get to generate required files..."
+    if flutter pub get; then
+        log_success "✅ Flutter pub get completed successfully"
+    else
+        log_error "❌ Flutter pub get failed"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Flutter pub get failed."
+        return 1
+    fi
     
     # Fix iOS deployment target
     if ! fix_deployment_target; then

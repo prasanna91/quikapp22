@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fix iOS Deployment Target Script
-# Purpose: Update iOS deployment target to 13.0 for Firebase compatibility
+# Simple iOS Deployment Target Fix Script
+# Purpose: Update iOS deployment target to 13.0 for Firebase compatibility (without pod regeneration)
 
 set -euo pipefail
 
@@ -25,7 +25,18 @@ else
     log_warning() { echo "WARN: $*"; }
 fi
 
-log_info "🔧 Fixing iOS Deployment Target..."
+# Source environment configuration
+if [ -f "${SCRIPT_DIR}/../../config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../config/env.sh"
+    log_info "✅ Environment configuration loaded from lib/config/env.sh"
+elif [ -f "${SCRIPT_DIR}/../../../lib/config/env.sh" ]; then
+    source "${SCRIPT_DIR}/../../../lib/config/env.sh"
+    log_info "✅ Environment configuration loaded from lib/config/env.sh"
+else
+    log_warning "⚠️ Environment configuration file not found, using system environment variables"
+fi
+
+log_info "🔧 Simple iOS Deployment Target Fix..."
 
 # Function to update iOS deployment target in project.pbxproj
 update_project_deployment_target() {
@@ -48,11 +59,6 @@ update_project_deployment_target() {
     # Also update any other deployment target references
     if sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11\.0;/IPHONEOS_DEPLOYMENT_TARGET = 13.0;/g' "$project_file"; then
         log_success "✅ Updated additional IPHONEOS_DEPLOYMENT_TARGET references"
-    fi
-    
-    # Update TARGETED_DEVICE_FAMILY if needed
-    if sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = "1,2";/g' "$project_file"; then
-        log_info "✅ Verified TARGETED_DEVICE_FAMILY settings"
     fi
     
     return 0
@@ -141,37 +147,44 @@ update_info_plist() {
     return 0
 }
 
-# Function to clean and regenerate pods
-regenerate_pods() {
-    log_info "🧹 Cleaning and regenerating pods..."
+# Function to verify deployment target changes
+verify_deployment_target() {
+    log_info "🔍 Verifying deployment target changes..."
     
-    # Remove existing pods
-    if [ -d "ios/Pods" ]; then
-        rm -rf ios/Pods
-        log_info "✅ Removed existing Pods directory"
-    fi
+    local project_file="ios/Runner.xcodeproj/project.pbxproj"
+    local info_plist="ios/Runner/Info.plist"
     
-    if [ -f "ios/Podfile.lock" ]; then
-        rm -f ios/Podfile.lock
-        log_info "✅ Removed Podfile.lock"
-    fi
+    log_info "📋 Deployment target verification summary:"
     
-    # Run pod install (flutter pub get already run in main script)
-    cd ios
-    if pod install --repo-update; then
-        log_success "✅ Pod install completed successfully"
-        cd ..
-        return 0
+    # Check project.pbxproj
+    local project_count
+    project_count=$(grep -c "IPHONEOS_DEPLOYMENT_TARGET = 13.0;" "$project_file" 2>/dev/null || echo "0")
+    
+    if [ "$project_count" -gt 0 ]; then
+        log_success "✅ iOS 13.0 deployment target found in project.pbxproj: $project_count entries"
     else
-        log_error "❌ Pod install failed"
-        cd ..
+        log_error "❌ iOS 13.0 deployment target not found in project.pbxproj"
         return 1
     fi
+    
+    # Check Info.plist
+    if [ -f "$info_plist" ]; then
+        local plist_version
+        plist_version=$(plutil -extract MinimumOSVersion raw "$info_plist" 2>/dev/null || echo "NOT_FOUND")
+        
+        if [ "$plist_version" = "13.0" ]; then
+            log_success "✅ MinimumOSVersion matches in Info.plist: 13.0"
+        else
+            log_warn "⚠️ MinimumOSVersion mismatch in Info.plist: expected 13.0, got $plist_version"
+        fi
+    fi
+    
+    return 0
 }
 
 # Main execution function
 main() {
-    log_info "🚀 Fixing iOS Deployment Target..."
+    log_info "🚀 Simple iOS Deployment Target Fix..."
     
     # Update project deployment target
     if ! update_project_deployment_target; then
@@ -188,9 +201,9 @@ main() {
     # Update Info.plist
     update_info_plist
     
-    # Regenerate pods
-    if ! regenerate_pods; then
-        log_error "❌ Failed to regenerate pods"
+    # Verify the changes
+    if ! verify_deployment_target; then
+        log_error "❌ Deployment target verification failed"
         return 1
     fi
     
@@ -199,7 +212,8 @@ main() {
     log_info "   ✅ Updated project.pbxproj deployment target"
     log_info "   ✅ Created Podfile with iOS 13.0"
     log_info "   ✅ Updated Info.plist MinimumOSVersion"
-    log_info "   ✅ Regenerated pods with new deployment target"
+    log_info "   ✅ Verified deployment target changes"
+    log_info "   📝 Note: Pod install will be handled by main build process"
     return 0
 }
 
