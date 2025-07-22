@@ -60,44 +60,40 @@ else
         log_warning "pubspec.yaml not found in current or parent directory"
     fi
 fi
+
+# Update iOS deployment target in project.pbxproj if needed
+if [ -f "Runner.xcodeproj/project.pbxproj" ]; then
+    log_info "Updating iOS deployment target for Firebase compatibility"
     
-    # Update iOS deployment target in project.pbxproj if needed
-    if [ -f "Runner.xcodeproj/project.pbxproj" ]; then
-        log_info "Updating iOS deployment target for Firebase compatibility"
-        
-        # Create backup
-        cp Runner.xcodeproj/project.pbxproj Runner.xcodeproj/project.pbxproj.firebase_backup
-        
-        # Update deployment target to 13.0 (Firebase requirement)
-        sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 13.0;/g' Runner.xcodeproj/project.pbxproj
-        sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = "[0-9.]*";/IPHONEOS_DEPLOYMENT_TARGET = "13.0";/g' Runner.xcodeproj/project.pbxproj
-        
-        log_success "Updated iOS deployment target to 13.0"
-    fi
+    # Create backup
+    cp Runner.xcodeproj/project.pbxproj Runner.xcodeproj/project.pbxproj.firebase_backup
     
-    # Check if GoogleService-Info.plist exists
-    if [ ! -f "Runner/GoogleService-Info.plist" ]; then
-        log_warning "GoogleService-Info.plist not found in Runner directory"
-        log_info "This is required for Firebase to work properly"
-        log_info "Please ensure GoogleService-Info.plist is placed in ios/Runner/"
-    else
-        log_success "GoogleService-Info.plist found"
-    fi
+    # Update deployment target to 13.0 (Firebase requirement)
+    sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 13.0;/g' Runner.xcodeproj/project.pbxproj
+    sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = "[0-9.]*";/IPHONEOS_DEPLOYMENT_TARGET = "13.0";/g' Runner.xcodeproj/project.pbxproj
     
-    # Check if Firebase configuration is properly set up
-    if [ -f "Runner/GoogleService-Info.plist" ]; then
-        log_info "Validating Firebase configuration..."
-        
-        # Check for required Firebase keys
-        if grep -q "REVERSED_CLIENT_ID" Runner/GoogleService-Info.plist; then
-            log_success "Firebase configuration appears valid"
-        else
-            log_warning "Firebase configuration may be incomplete"
-        fi
-    fi
-    
+    log_success "Updated iOS deployment target to 13.0"
+fi
+
+# Check if GoogleService-Info.plist exists
+if [ ! -f "Runner/GoogleService-Info.plist" ]; then
+    log_warning "GoogleService-Info.plist not found in Runner directory"
+    log_info "This is required for Firebase to work properly"
+    log_info "Please ensure GoogleService-Info.plist is placed in ios/Runner/"
 else
-    log_info "No Firebase dependencies detected"
+    log_success "GoogleService-Info.plist found"
+fi
+
+# Check if Firebase configuration is properly set up
+if [ -f "Runner/GoogleService-Info.plist" ]; then
+    log_info "Validating Firebase configuration..."
+    
+    # Check for required Firebase keys
+    if grep -q "REVERSED_CLIENT_ID" Runner/GoogleService-Info.plist; then
+        log_success "Firebase configuration appears valid"
+    else
+        log_warning "Firebase configuration may be incomplete"
+    fi
 fi
 
 # Navigate back to root if we changed directories
