@@ -77,7 +77,7 @@ class EnvConfig {
   static const String cmKeyPassword = "";
 
   // iOS Signing
-  static const String appleTeamId = "${APPLE_TEAM_ID:-}";
+  static const String appleTeamId = "";
   static const String apnsKeyId = "V566SWNF69";
   static const String apnsAuthKeyUrl =
       "https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8";

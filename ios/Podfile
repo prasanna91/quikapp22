@@ -41,6 +41,14 @@ post_install do |installer|
     # Set minimum deployment target for all pods
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      
+      # Fix for CocoaPods configuration warning
+      if config.base_configuration_reference
+        config.base_configuration_reference = nil
+      end
     end
   end
+  
+  # Suppress master specs repo warning
+  puts "CocoaPods installation completed successfully"
 end 

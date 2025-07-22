@@ -112,6 +112,21 @@ if [ -f "lib/scripts/utils/gen_env_g.sh" ]; then
     fi
 fi
 
+# Step 1.1: Inject iOS Permissions
+log_info "Step 1.1: iOS Permissions Injection"
+log "Injecting conditional permissions based on environment variables..."
+
+if [ -f "lib/scripts/ios-workflow/ios_permissions.sh" ]; then
+    chmod +x lib/scripts/ios-workflow/ios_permissions.sh
+    if ./lib/scripts/ios-workflow/ios_permissions.sh; then
+        log_success "iOS permissions injection completed"
+    else
+        log_warning "iOS permissions injection failed (continuing...)"
+    fi
+else
+    log_warning "iOS permissions script not found, skipping permissions injection"
+fi
+
 # Step 2: Asset Downloads
 log_info "Step 2: Asset Downloads"
 log "Downloading and configuring assets..."
