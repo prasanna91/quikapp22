@@ -89,6 +89,44 @@ fix_swift_optimization() {
     fi
 }
 
+# Function to fix iOS deployment target
+fix_deployment_target() {
+    log_info "🔧 Fixing iOS deployment target..."
+    
+    if [ -f "${SCRIPT_DIR}/fix_deployment_target.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/fix_deployment_target.sh"
+        if "${SCRIPT_DIR}/fix_deployment_target.sh"; then
+            log_success "✅ iOS deployment target fixed to 13.0"
+            return 0
+        else
+            log_error "❌ iOS deployment target fix failed"
+            return 1
+        fi
+    else
+        log_error "❌ iOS deployment target fix script not found"
+        return 1
+    fi
+}
+
+# Function to inject bundle ID for Runner target
+inject_bundle_id() {
+    log_info "🔧 Injecting bundle ID for Runner target..."
+    
+    if [ -f "${SCRIPT_DIR}/simple_bundle_id_inject.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/simple_bundle_id_inject.sh"
+        if "${SCRIPT_DIR}/simple_bundle_id_inject.sh"; then
+            log_success "✅ Bundle ID injected for Runner target"
+            return 0
+        else
+            log_error "❌ Bundle ID injection failed"
+            return 1
+        fi
+    else
+        log_error "❌ Bundle ID injection script not found"
+        return 1
+    fi
+}
+
 # Function to build and archive in one step
 build_and_archive() {
     log_info "🏗️ Building and archiving iOS app..."
@@ -336,6 +374,20 @@ main() {
     
     # Fix Swift optimization warnings
     fix_swift_optimization
+    
+    # Fix iOS deployment target
+    if ! fix_deployment_target; then
+        log_error "❌ iOS deployment target fix failed"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "iOS deployment target fix failed."
+        return 1
+    fi
+    
+    # Inject bundle ID for Runner target
+    if ! inject_bundle_id; then
+        log_error "❌ Bundle ID injection failed"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Bundle ID injection failed."
+        return 1
+    fi
     
     # Build and archive
     if ! build_and_archive; then
