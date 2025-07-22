@@ -383,35 +383,20 @@ workflows:
 
       - name: 🏗️ Build and Archive iOS (.ipa)
         script: |
-          # Fix iOS build issues (CwlCatchException + provisioning profiles)
-          chmod +x scripts/fix_ios_build_issues.sh
-          ./scripts/fix_ios_build_issues.sh
-          
-          flutter build ios --release --no-codesign
-          xcodebuild \
-            -workspace ios/Runner.xcworkspace \
-            -scheme Runner \
-            -sdk iphoneos \
-            -configuration Release archive \
-            -archivePath build/Runner.xcarchive \
-            DEVELOPMENT_TEAM=$APPLE_TEAM_ID \
-            PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID \
-            -allowProvisioningUpdates
-          
-          # Restore speech_to_text if it was temporarily removed
-          if [ -f "pubspec.yaml.bak" ]; then
-            echo "Restoring speech_to_text plugin..."
-            cp pubspec.yaml.bak pubspec.yaml
-            flutter pub get
-          fi
+          chmod +x scripts/build_ios_app.sh
+          ./scripts/build_ios_app.sh
 
       - name: 📦 Export IPA
         script: |
-          xcodebuild -exportArchive \
-            -archivePath build/Runner.xcarchive \
-            -exportOptionsPlist ./scripts/exportOptions.plist \
-            -exportPath build/export \
-            -allowProvisioningUpdates
+          # Export is now handled by build_ios_app.sh
+          # This step is kept for compatibility and additional export options if needed
+          if [ -f "build/export/Runner.ipa" ]; then
+            echo "✅ IPA already exported by build script: build/export/Runner.ipa"
+            ls -la build/export/
+          else
+            echo "❌ IPA not found. Build may have failed."
+            exit 1
+          fi
 
       - name: ⬆️ Upload to TestFlight (optional)
         script: |

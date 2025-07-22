@@ -89,10 +89,16 @@ if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
     # Create backup
     cp ios/Runner.xcodeproj/project.pbxproj ios/Runner.xcodeproj/project.pbxproj.bak
     
-    # Update code signing settings
+    # Update code signing settings - be more aggressive about automatic signing
     sed -i '' 's/CODE_SIGN_STYLE = Manual;/CODE_SIGN_STYLE = Automatic;/g' ios/Runner.xcodeproj/project.pbxproj
+    sed -i '' 's/CODE_SIGN_STYLE = "Manual";/CODE_SIGN_STYLE = "Automatic";/g' ios/Runner.xcodeproj/project.pbxproj
     sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = '"$APPLE_TEAM_ID"';/g' ios/Runner.xcodeproj/project.pbxproj
+    sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = "'"$APPLE_TEAM_ID"'";/g' ios/Runner.xcodeproj/project.pbxproj
     sed -i '' 's/PRODUCT_BUNDLE_IDENTIFIER = ".*";/PRODUCT_BUNDLE_IDENTIFIER = "'"$BUNDLE_ID"'";/g' ios/Runner.xcodeproj/project.pbxproj
+    
+    # Also set automatic signing for all configurations
+    sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Development";/g' ios/Runner.xcodeproj/project.pbxproj
+    sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Distribution";/CODE_SIGN_IDENTITY = "Apple Development";/g' ios/Runner.xcodeproj/project.pbxproj
     
     log_success "Updated project.pbxproj"
 fi
