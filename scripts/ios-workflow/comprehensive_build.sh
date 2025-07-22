@@ -186,12 +186,37 @@ log "Installing Flutter dependencies..."
 
 flutter pub get
 flutter clean
+flutter pub get
+
+# Generate Flutter configuration files for iOS
+log "Generating Flutter configuration files..."
+cd ios
+flutter build ios --no-codesign --debug --verbose || {
+    log_warning "Failed to generate iOS configuration, trying alternative approach"
+    cd ..
+    flutter pub get
+    cd ios
+    flutter pub get
+}
 
 # Step 6: iOS Dependencies
 log_info "Step 6: iOS Dependencies"
 log "Installing iOS dependencies..."
 
-cd ios
+# Validate that Flutter configuration files exist
+if [ ! -f "Flutter/Generated.xcconfig" ]; then
+    log_error "Flutter configuration files not found. Generated.xcconfig is missing."
+    log "Attempting to regenerate Flutter configuration..."
+    cd ..
+    flutter clean
+    flutter pub get
+    cd ios
+    flutter build ios --no-codesign --debug --verbose || {
+        log_error "Failed to generate Flutter configuration files"
+        exit 1
+    }
+fi
+
 rm -rf Pods/ Podfile.lock
 pod install --repo-update
 cd ..
