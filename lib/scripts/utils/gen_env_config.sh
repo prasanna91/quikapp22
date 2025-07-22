@@ -17,6 +17,59 @@ else
     log "Environment configuration file not found, using system environment variables"
 fi
 
+# 🔥 CRITICAL FIX: Prioritize Codemagic API variables over defaults
+# This ensures that dynamic API variables take precedence over static defaults
+log "🔍 Checking for Codemagic API variables..."
+
+# Function to safely get environment variable with fallback
+get_api_var() {
+    local var_name="$1"
+    local fallback="$2"
+    local value="${!var_name:-}"
+    
+    if [ -n "$value" ]; then
+        log "✅ Found API variable $var_name: $value"
+        echo "$value"
+    else
+        log "⚠️ API variable $var_name not set, using fallback: $fallback"
+        echo "$fallback"
+    fi
+}
+
+# Override with actual API variables (prioritize Codemagic API variables)
+# This ensures that environment variables passed by Codemagic API take precedence
+export APP_NAME=$(get_api_var "APP_NAME" "QuikApp")
+export VERSION_NAME=$(get_api_var "VERSION_NAME" "1.0.0")
+export VERSION_CODE=$(get_api_var "VERSION_CODE" "1")
+export BUNDLE_ID=$(get_api_var "BUNDLE_ID" "")
+export ORG_NAME=$(get_api_var "ORG_NAME" "")
+export WEB_URL=$(get_api_var "WEB_URL" "")
+export USER_NAME=$(get_api_var "USER_NAME" "")
+export EMAIL_ID=$(get_api_var "EMAIL_ID" "")
+export PKG_NAME=$(get_api_var "PKG_NAME" "")
+export OUTPUT_DIR=$(get_api_var "OUTPUT_DIR" "output")
+export APP_ID=$(get_api_var "APP_ID" "")
+export WORKFLOW_ID=$(get_api_var "WORKFLOW_ID" "unknown")
+export APPLE_TEAM_ID=$(get_api_var "APPLE_TEAM_ID" "")
+export APNS_KEY_ID=$(get_api_var "APNS_KEY_ID" "")
+
+# Log the final values being used
+log "📋 Final API variable values:"
+log "   APP_NAME: $APP_NAME"
+log "   VERSION_NAME: $VERSION_NAME"
+log "   VERSION_CODE: $VERSION_CODE"
+log "   BUNDLE_ID: $BUNDLE_ID"
+log "   ORG_NAME: $ORG_NAME"
+log "   WEB_URL: $WEB_URL"
+log "   USER_NAME: $USER_NAME"
+log "   EMAIL_ID: $EMAIL_ID"
+log "   PKG_NAME: $PKG_NAME"
+log "   OUTPUT_DIR: $OUTPUT_DIR"
+log "   APP_ID: $APP_ID"
+log "   WORKFLOW_ID: $WORKFLOW_ID"
+log "   APPLE_TEAM_ID: $APPLE_TEAM_ID"
+log "   APNS_KEY_ID: $APNS_KEY_ID"
+
 # Network connectivity test (made optional)
 test_network_connectivity() {
     log "🌐 Testing network connectivity..."
@@ -151,15 +204,8 @@ generate_env_config() {
     log "   APNS_KEY_ID: ${APNS_KEY_ID:-not_set}"
     log "   IS_IOS_WORKFLOW: ${IS_IOS_WORKFLOW:-false}"
     
-    # Ensure we use environment variables over defaults
-    local actual_app_name="${APP_NAME:-QuikApp}"
-    local actual_bundle_id="${BUNDLE_ID:-}"
-    local actual_version_name="${VERSION_NAME:-1.0.0}"
-    local actual_version_code="${VERSION_CODE:-1}"
-    local actual_org_name="${ORG_NAME:-}"
-    local actual_web_url="${WEB_URL:-}"
-    local actual_user_name="${USER_NAME:-}"
-    local actual_email_id="${EMAIL_ID:-}"
+    # Use environment variables directly (these are already overridden above)
+    # No need for local variables since we've already exported the correct values
 
     # Create the directory if it doesn't exist
     mkdir -p lib/config || log "⚠️ Failed to create lib/config directory, continuing anyway"
@@ -183,13 +229,13 @@ generate_env_config() {
 class EnvConfig {
   // App Metadata
   static const String appId = "${APP_ID:-}";
-  static const String versionName = "$actual_version_name";
-  static const int versionCode = $actual_version_code;
-  static const String appName = "$actual_app_name";
-  static const String orgName = "$actual_org_name";
-  static const String webUrl = "$actual_web_url";
-  static const String userName = "$actual_user_name";
-  static const String emailId = "$actual_email_id";
+  static const String versionName = "$VERSION_NAME";
+  static const int versionCode = $VERSION_CODE;
+  static const String appName = "$APP_NAME";
+  static const String orgName = "$ORG_NAME";
+  static const String webUrl = "$WEB_URL";
+  static const String userName = "$USER_NAME";
+  static const String emailId = "$EMAIL_ID";
   static const String branch = "main";
   static const String workflowId = "${WORKFLOW_ID:-}";
 
@@ -205,7 +251,7 @@ ANDROID_PKG
 fi)
 $(if [ "$IS_IOS_WORKFLOW" = true ]; then
 cat <<IOS_PKG
-  static const String bundleId = "$actual_bundle_id";
+  static const String bundleId = "$BUNDLE_ID";
 IOS_PKG
 else
 cat <<IOS_PKG

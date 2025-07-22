@@ -437,11 +437,45 @@ main() {
         return 1
     fi
     
-    # Fix environment configuration (remove unused variables)
+    # Fix environment configuration
     if ! fix_env_config; then
         log_error "❌ Environment configuration fix failed"
         send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Environment configuration fix failed."
         return 1
+    fi
+    
+    # Verify environment variable injection
+    if [ -f "${SCRIPT_DIR}/verify_env_injection.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/verify_env_injection.sh"
+        if ! "${SCRIPT_DIR}/verify_env_injection.sh"; then
+            log_error "❌ Environment variable injection verification failed"
+            send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Environment variable injection verification failed."
+            return 1
+        fi
+    else
+        log_warning "⚠️ verify_env_injection.sh not found, skipping verification"
+    fi
+    
+    # Test API variable injection
+    if [ -f "${SCRIPT_DIR}/test_api_variables.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/test_api_variables.sh"
+        if ! "${SCRIPT_DIR}/test_api_variables.sh"; then
+            log_error "❌ API variable injection test failed"
+            send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "API variable injection test failed."
+            return 1
+        fi
+    else
+        log_warning "⚠️ test_api_variables.sh not found, skipping API test"
+    fi
+    
+    # Debug API variable injection if issues detected
+    if [ -f "${SCRIPT_DIR}/debug_api_injection.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/debug_api_injection.sh"
+        if ! "${SCRIPT_DIR}/debug_api_injection.sh"; then
+            log_warning "⚠️ API variable injection debug failed (continuing anyway)"
+        fi
+    else
+        log_warning "⚠️ debug_api_injection.sh not found, skipping debug"
     fi
     
     # Fix code signing configuration
