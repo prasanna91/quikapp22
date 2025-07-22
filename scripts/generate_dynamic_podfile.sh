@@ -30,7 +30,7 @@ cat > Podfile << 'EOF'
 # This Podfile includes all necessary fixes for iOS build issues
 
 # Uncomment this line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '13.0' # Updated to 13.0 for Firebase compatibility
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -48,7 +48,7 @@ def flutter_root
   end
 
   File.foreach(generated_xcode_build_settings_path) do |line|
-    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    matches = line.match(/FLUTTER_ROOT=(.*)/)
     return matches[1].strip if matches
   end
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
@@ -73,7 +73,7 @@ post_install do |installer|
     
     # Set minimum deployment target for all pods
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0' # Updated to 13.0
       
       # Fix for CocoaPods configuration warning
       if config.base_configuration_reference
@@ -85,13 +85,21 @@ post_install do |installer|
     if target.name == 'GoogleUtilities'
       puts "🔧 Fixing GoogleUtilities header paths..."
       target.build_configurations.each do |config|
-        # Add header search paths for GoogleUtilities
+        # Add comprehensive header search paths for GoogleUtilities
         config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
-        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted'
-        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/UserDefaults'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities'
         config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler'
-        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Reachability'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Common'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Environment'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Logger'
         config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Network'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Reachability'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/UserDefaults'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted'
+        config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted/Public'
       end
     end
     
@@ -149,27 +157,77 @@ post_install do |installer|
   if Dir.exist?(google_utilities_path)
     puts "🔧 Fixing GoogleUtilities header files..."
     
-    # Create missing header directories and copy files
+    # Create a comprehensive header mapping
+    header_mappings = {
+      'IsAppEncrypted.h' => [
+        'third_party/IsAppEncrypted/IsAppEncrypted.h',
+        'third_party/IsAppEncrypted/Public/IsAppEncrypted.h'
+      ],
+      'GULUserDefaults.h' => [
+        'GoogleUtilities/UserDefaults/GULUserDefaults.h',
+        'GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h'
+      ],
+      'GULSceneDelegateSwizzler.h' => [
+        'GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h',
+        'GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h'
+      ],
+      'GULReachabilityChecker.h' => [
+        'GoogleUtilities/Reachability/GULReachabilityChecker.h',
+        'GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h'
+      ],
+      'GULNetworkURLSession.h' => [
+        'GoogleUtilities/Network/GULNetworkURLSession.h',
+        'GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h'
+      ]
+    }
+    
+    # Copy headers to all expected locations
+    header_mappings.each do |header_name, expected_paths|
+      # Find the actual header file
+      actual_header = nil
+      Dir.glob(File.join(google_utilities_path, '**', header_name)).each do |found_header|
+        actual_header = found_header
+        break
+      end
+      
+      if actual_header
+        puts "  ✅ Found #{header_name} at: #{actual_header}"
+        
+        # Copy to all expected locations
+        expected_paths.each do |expected_path|
+          target_dir = File.join(google_utilities_path, File.dirname(expected_path))
+          target_file = File.join(target_dir, header_name)
+          
+          unless Dir.exist?(target_dir)
+            FileUtils.mkdir_p(target_dir)
+            puts "    ✅ Created directory: #{target_dir}"
+          end
+          
+          unless File.exist?(target_file)
+            FileUtils.cp(actual_header, target_file)
+            puts "    ✅ Copied #{header_name} to: #{target_file}"
+          end
+        end
+      else
+        puts "  ⚠️ Could not find #{header_name}"
+      end
+    end
+    
+    # Also copy all .h files to their Public directories for broader coverage
     Dir.glob(File.join(google_utilities_path, '**', '*.h')).each do |header_file|
       relative_path = Pathname.new(header_file).relative_path_from(Pathname.new(google_utilities_path))
       public_dir = File.join(File.dirname(header_file), 'Public', File.dirname(relative_path))
       
       unless Dir.exist?(public_dir)
         FileUtils.mkdir_p(public_dir)
-        puts "  ✅ Created directory: #{public_dir}"
       end
       
       public_header = File.join(public_dir, File.basename(header_file))
       unless File.exist?(public_header)
         FileUtils.cp(header_file, public_header)
-        puts "  ✅ Copied header: #{File.basename(header_file)}"
       end
     end
   end
-  
-  # Fix any other missing headers by copying all .h files to their Public directories
-  # Note: This section was removed due to Ruby compatibility issues
-  # The GoogleUtilities header fix above should handle most cases
   
   # Suppress master specs repo warning
   puts "✅ CocoaPods installation completed successfully with all fixes applied"

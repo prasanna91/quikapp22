@@ -61,6 +61,13 @@ fi
 log_info "Installing pods with comprehensive fixes"
 pod install --repo-update
 
+# Step 4.5: Apply comprehensive GoogleUtilities header fix
+log_info "Step 4.5: Applying comprehensive GoogleUtilities header fix"
+cd ..
+chmod +x scripts/fix_google_utilities_headers_comprehensive.sh
+./scripts/fix_google_utilities_headers_comprehensive.sh
+cd ios
+
 cd ..
 
 # Step 5: Build Flutter app
