@@ -233,8 +233,19 @@ build_flutter_app() {
 export_ipa() {
     log_info "📦 Exporting IPA..."
     
+    # Debug information
+    log_info "🔧 Debug information for IPA export:"
+    log_info "📁 Archive path: ${OUTPUT_DIR}/Runner.xcarchive"
+    log_info "📁 Export path: ${OUTPUT_DIR}"
+    log_info "📦 Bundle ID: ${BUNDLE_ID}"
+    log_info "👥 Team ID: ${APPLE_TEAM_ID}"
+    log_info "📁 Archive exists: $([ -d "${OUTPUT_DIR}/Runner.xcarchive" ] && echo "YES" || echo "NO")"
+    log_info "📁 Export dir exists: $([ -d "${OUTPUT_DIR}" ] && echo "YES" || echo "NO")"
+    
     if [ -f "${SCRIPT_DIR}/export_ipa_framework_fix.sh" ]; then
         chmod +x "${SCRIPT_DIR}/export_ipa_framework_fix.sh"
+        
+        # Run export with detailed error handling
         if "${SCRIPT_DIR}/export_ipa_framework_fix.sh" \
             "${OUTPUT_DIR}/Runner.xcarchive" \
             "${OUTPUT_DIR}" \
@@ -247,10 +258,29 @@ export_ipa() {
             return 0
         else
             log_error "❌ IPA export failed"
+            log_error "🔧 Export script exit code: $?"
+            log_error "🔧 Checking for export artifacts..."
+            
+            # Check if any IPA files were created
+            local ipa_files
+            ipa_files=$(find "${OUTPUT_DIR}" -name "*.ipa" -type f 2>/dev/null || true)
+            if [ -n "$ipa_files" ]; then
+                log_info "📦 Found IPA files: $ipa_files"
+            else
+                log_error "❌ No IPA files found in ${OUTPUT_DIR}"
+            fi
+            
+            # Check if ExportOptionsModern.plist was created
+            if [ -f "ios/ExportOptionsModern.plist" ]; then
+                log_info "✅ ExportOptionsModern.plist exists"
+            else
+                log_error "❌ ExportOptionsModern.plist not found"
+            fi
+            
             return 1
         fi
     else
-        log_error "❌ IPA export script not found"
+        log_error "❌ IPA export script not found at ${SCRIPT_DIR}/export_ipa_framework_fix.sh"
         return 1
     fi
 }

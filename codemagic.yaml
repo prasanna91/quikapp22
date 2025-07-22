@@ -322,6 +322,26 @@ workflows:
         script: |
           echo "🚀 Starting iOS Workflow Pre-Build Setup (Target-Only Mode)..."
           
+          # Fix Swift optimization warnings BEFORE build
+          echo "🔧 Fixing Swift optimization warnings (Pre-Build)..."
+          if [ -f "lib/scripts/ios-workflow/fix_swift_optimization.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
+            if ./lib/scripts/ios-workflow/fix_swift_optimization.sh; then
+              echo "✅ Swift optimization warnings fixed successfully"
+            else
+              echo "⚠️ Swift optimization fix failed (continuing...)"
+            fi
+          else
+            echo "⚠️ Swift optimization fix script not found (continuing...)"
+          fi
+          
+          # Also fix run script phases if possible
+          echo "🔧 Attempting to fix run script phases..."
+          if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
+            echo "ℹ️ Run script phases should be configured to run 'Based on dependency analysis'"
+            echo "ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'"
+          fi
+          
           # Run pre-build with target-only mode validation
           if ./lib/scripts/ios-workflow/pre-build.sh; then
             echo "✅ Pre-build setup completed successfully"
@@ -348,17 +368,7 @@ workflows:
             exit 1
           fi
           
-      - name: Fix Swift Optimization Warnings
-        script: |
-          echo "🔧 Fixing Swift optimization warnings..."
-          
-          # Fix Swift optimization warnings
-          if [ -f "lib/scripts/ios-workflow/fix_swift_optimization.sh" ]; then
-            chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
-            ./lib/scripts/ios-workflow/fix_swift_optimization.sh || echo "⚠️ Swift optimization fix failed (continuing...)"
-          else
-            echo "⚠️ Swift optimization fix script not found (continuing...)"
-          fi
+
           
       - name: Post-Build IPA Validation (Target-Only Mode)
         script: |

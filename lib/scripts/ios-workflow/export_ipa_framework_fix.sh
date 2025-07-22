@@ -139,8 +139,21 @@ create_modern_export_options() {
     log_info "📦 Bundle ID: $bundle_id"
     log_info "👥 Team ID: $team_id"
     
+    # Validate inputs
+    if [ -z "$bundle_id" ]; then
+        log_error "❌ Bundle ID is required"
+        return 1
+    fi
+    
+    if [ -z "$team_id" ]; then
+        log_error "❌ Team ID is required"
+        return 1
+    fi
+    
     # Ensure ios directory exists
     mkdir -p "ios"
+    
+    log_info "📁 iOS directory created/verified"
     
     cat > "ios/ExportOptionsModern.plist" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -484,8 +497,17 @@ export_ipa_modern() {
     
     # Create modern export options
     log_info "📝 Creating enhanced export options..."
+    
+    # Ensure ios directory exists
+    mkdir -p "ios"
+    
     if ! create_modern_export_options "$bundle_id" "$team_id"; then
         log_error "❌ Failed to create export options"
+        log_error "🔧 Debugging export options creation..."
+        log_info "📦 Bundle ID: $bundle_id"
+        log_info "👥 Team ID: $team_id"
+        log_info "📁 Current directory: $(pwd)"
+        log_info "📁 iOS directory exists: $([ -d "ios" ] && echo "YES" || echo "NO")"
         return 1
     fi
     
@@ -561,11 +583,13 @@ main() {
     
     if [ -z "$bundle_id" ]; then
         log_error "❌ Bundle ID is required"
+        log_error "🔧 Please set BUNDLE_ID environment variable"
         return 1
     fi
     
     if [ -z "$team_id" ]; then
         log_error "❌ Apple Team ID is required"
+        log_error "🔧 Please set APPLE_TEAM_ID environment variable"
         return 1
     fi
     

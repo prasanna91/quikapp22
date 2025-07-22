@@ -81,3 +81,26 @@ usage: |
   message: |
     All scripts required for the iOS workflow should be present under `lib/scripts/ios-workflow/`.
     Please move, copy, or recreate any necessary scripts into this directory and update all references accordingly.
+    // ⚠️ Do NOT hardcode workflow variables for ios-workflow!
+    //
+    // Codemagic automatically injects all required variables (such as APP_NAME, VERSION_NAME, EMAIL_ID, BUNDLE_ID, APPLE_TEAM_ID, PROFILE_TYPE, API keys, etc.)
+    // into the workflow environment at runtime.
+    //
+    // Best Practices:
+    // - Always reference variables using environment variable syntax (e.g., $APP_NAME, $EMAIL_ID, $BUNDLE_ID) in your scripts and YAML.
+    // - Do NOT copy-paste or hardcode values for these variables in scripts, YAML, or code.
+    // - If you need to use a variable in a shell script, use: "$VARIABLE_NAME" (e.g., "$APP_NAME")
+    // - If you need to use a variable in Python, use: os.environ.get("VARIABLE_NAME")
+    //
+    // Example (shell):
+    //   echo "Building $APP_NAME version $VERSION_NAME for bundle $BUNDLE_ID"
+    //
+    // Example (Python):
+    //   import os
+    //   app_name = os.environ.get("APP_NAME")
+    //
+    // This ensures your workflow is portable, secure, and always uses the latest values provided by Codemagic.
+    //
+    // If you need a full list of available variables, refer to the Codemagic documentation or print the environment in your workflow:
+    //   - In shell: env | sort
+    //   - In Python: import os; print(dict(os.environ))
