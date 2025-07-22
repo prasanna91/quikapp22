@@ -17,7 +17,7 @@ export APP_NAME="QuikApp"
 export VERSION_NAME="1.0.0"
 export VERSION_CODE="1"
 export PKG_NAME="com.quikapp.app"
-export BUNDLE_ID="com.quikapp.app"
+# Bundle ID will be set from codemagic.yaml environment variables
 
 # Organization
 export ORG_NAME="QuikApp"
@@ -88,7 +88,9 @@ export EMAIL_SMTP_PASS="jbbf nzhm zoay lbwb"
 # Application Details
 export APP_NAME=${APP_NAME:-"Garbcode App"}
 export PKG_NAME=${PKG_NAME:-"com.garbcode.garbcodeapp"}
-export BUNDLE_ID=${BUNDLE_ID:-"com.garbcode.garbcodeapp"}
+# Bundle ID should be set from codemagic.yaml environment variables
+# If not set, use a generic fallback
+export BUNDLE_ID=${BUNDLE_ID:-"com.example.app"}
 export VERSION_NAME=${VERSION_NAME:-"1.0.22"}
 export VERSION_CODE=${VERSION_CODE:-"27"}
 export OUTPUT_DIR=${OUTPUT_DIR:-"output"}

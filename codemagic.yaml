@@ -308,7 +308,6 @@ workflows:
           
           # Set permissions for all scripts first
           chmod +x lib/scripts/ios-workflow/*.sh
-          chmod +x lib/scripts/ios/*.sh
           chmod +x lib/scripts/utils/*.sh
           
           # Run comprehensive validation
@@ -727,9 +726,8 @@ workflows:
       - name: Set Script Permissions
         script: |
           echo "🔧 Setting script permissions..."
-          chmod +x lib/scripts/ios-new-workflow/*.sh
+          chmod +x lib/scripts/ios-workflow/*.sh
           chmod +x lib/scripts/utils/*.sh
-          chmod +x lib/scripts/ios/*.sh
           echo "✅ Script permissions set successfully"
       - name: iOS New Workflow - Main Script
         script: |
@@ -843,7 +841,6 @@ workflows:
           
           # Set script permissions
           chmod +x lib/scripts/ios-workflow/*.sh
-          chmod +x lib/scripts/ios/*.sh
           chmod +x lib/scripts/utils/*.sh
           
           # Validate essential variables
@@ -910,15 +907,15 @@ workflows:
           fi
           
           # Download branding assets
-          if [ -f "lib/scripts/ios/branding.sh" ]; then
-            chmod +x lib/scripts/ios/branding.sh
-            ./lib/scripts/ios/branding.sh || echo "⚠️ Branding assets download failed (continuing...)"
+          if [ -f "lib/scripts/ios-workflow/branding_assets.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/branding_assets.sh
+            ./lib/scripts/ios-workflow/branding_assets.sh || echo "⚠️ Branding assets download failed (continuing...)"
           fi
           
           # Inject Info.plist values
-          if [ -f "lib/scripts/ios/inject_info_plist.sh" ]; then
-            chmod +x lib/scripts/ios/inject_info_plist.sh
-            ./lib/scripts/ios/inject_info_plist.sh || echo "⚠️ Info.plist injection failed (continuing...)"
+          if [ -f "lib/scripts/ios-workflow/inject_info_plist.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/inject_info_plist.sh
+            ./lib/scripts/ios-workflow/inject_info_plist.sh || echo "⚠️ Info.plist injection failed (continuing...)"
           fi
           
           echo "✅ Pre-build setup completed"
@@ -946,7 +943,7 @@ workflows:
           while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
             echo "🏗️ Build attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES"
             
-            if ./lib/scripts/ios/main.sh; then
+            if ./lib/scripts/ios-workflow/main.sh; then
               echo "✅ Build completed successfully"
               break
             else
@@ -980,9 +977,9 @@ workflows:
           echo "📦 Creating IPA (Modern)"
           
           # Use improved IPA export
-          if [ -f "lib/scripts/ios/improved_ipa_export.sh" ]; then
-            chmod +x lib/scripts/ios/improved_ipa_export.sh
-            if ./lib/scripts/ios/improved_ipa_export.sh --create-with-fallbacks "output/ios" "Runner.ipa"; then
+          if [ -f "lib/scripts/ios-workflow/improved_ipa_export.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/improved_ipa_export.sh
+            if ./lib/scripts/ios-workflow/improved_ipa_export.sh --create-with-fallbacks "output/ios" "Runner.ipa"; then
               echo "✅ IPA created successfully"
             else
               echo "❌ IPA creation failed"
@@ -994,9 +991,9 @@ workflows:
             ARCHIVE_FILES=$(find . -name "*.xcarchive" -type d 2>/dev/null || true)
             if [ -n "$ARCHIVE_FILES" ]; then
               ARCHIVE_PATH=$(echo "$ARCHIVE_FILES" | head -1)
-              if [ -f "lib/scripts/ios/archive_structure_fix.sh" ]; then
-                chmod +x lib/scripts/ios/archive_structure_fix.sh
-                ./lib/scripts/ios/archive_structure_fix.sh "$ARCHIVE_PATH" "output/ios" "Runner.ipa" || exit 1
+                        if [ -f "lib/scripts/ios-workflow/archive_structure_fix.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/archive_structure_fix.sh
+            ./lib/scripts/ios-workflow/archive_structure_fix.sh "$ARCHIVE_PATH" "output/ios" "Runner.ipa" || exit 1
               fi
             fi
           fi
@@ -1020,15 +1017,15 @@ workflows:
               fi
               
               # Apply bundle executable fix if needed
-              if [ -f "lib/scripts/ios/enhanced_bundle_executable_fix.sh" ]; then
-                chmod +x lib/scripts/ios/enhanced_bundle_executable_fix.sh
-                ./lib/scripts/ios/enhanced_bundle_executable_fix.sh --validate-ipa "$ipa_file" || echo "⚠️ Bundle executable validation failed (continuing...)"
+                        if [ -f "lib/scripts/ios-workflow/enhanced_bundle_executable_fix.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/enhanced_bundle_executable_fix.sh
+            ./lib/scripts/ios-workflow/enhanced_bundle_executable_fix.sh --validate-ipa "$ipa_file" || echo "⚠️ Bundle executable validation failed (continuing...)"
               fi
               
               # Apply App Store Connect fixes
-              if [ -f "lib/scripts/ios/fix_app_store_connect_issues.sh" ]; then
-                chmod +x lib/scripts/ios/fix_app_store_connect_issues.sh
-                ./lib/scripts/ios/fix_app_store_connect_issues.sh "${BUNDLE_ID:-com.example.app}" "Payload/Runner.app" || echo "⚠️ App Store Connect fixes failed (continuing...)"
+                        if [ -f "lib/scripts/ios-workflow/fix_app_store_connect_issues.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/fix_app_store_connect_issues.sh
+            ./lib/scripts/ios-workflow/fix_app_store_connect_issues.sh "${BUNDLE_ID:-com.example.app}" "Payload/Runner.app" || echo "⚠️ App Store Connect fixes failed (continuing...)"
               fi
             done
           else
