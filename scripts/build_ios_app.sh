@@ -68,6 +68,13 @@ chmod +x scripts/fix_google_utilities_headers_comprehensive.sh
 ./scripts/fix_google_utilities_headers_comprehensive.sh
 cd ios
 
+# Step 4.6: Apply import path fix for GoogleUtilities
+log_info "Step 4.6: Applying import path fix for GoogleUtilities"
+cd ..
+chmod +x scripts/fix_google_utilities_import_paths.sh
+./scripts/fix_google_utilities_import_paths.sh
+cd ios
+
 cd ..
 
 # Step 5: Build Flutter app

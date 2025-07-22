@@ -30,32 +30,61 @@ fi
 log_info "Found GoogleUtilities pod at: $(pwd)/Pods/GoogleUtilities"
 
 # Define the problematic headers and their expected locations
-declare -A header_mappings=(
-    ["IsAppEncrypted.h"]="third_party/IsAppEncrypted/Public/IsAppEncrypted.h"
-    ["GULUserDefaults.h"]="GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h"
-    ["GULSceneDelegateSwizzler.h"]="GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h"
-    ["GULReachabilityChecker.h"]="GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h"
-    ["GULNetworkURLSession.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h"
-    ["GULAppDelegateSwizzler.h"]="GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h"
-    ["GULApplication.h"]="GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h"
-    ["GULReachabilityChecker+Internal.h"]="GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker+Internal.h"
-    ["GULReachabilityMessageCode.h"]="GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityMessageCode.h"
-    ["GULNetwork.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h"
-    ["GULNetworkConstants.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h"
-    ["GULNetworkLoggerProtocol.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h"
-    ["GULNetworkMessageCode.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h"
-    ["GULMutableDictionary.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h"
-    ["GULNetworkInternal.h"]="GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkInternal.h"
-    ["GULLogger.h"]="GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h"
-    ["GULLoggerLevel.h"]="GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h"
-    ["GULLoggerCodes.h"]="GoogleUtilities/Common/Public/GoogleUtilities/GULLoggerCodes.h"
-    ["GULAppEnvironmentUtil.h"]="GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h"
-    ["GULKeychainStorage.h"]="GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h"
-    ["GULKeychainUtils.h"]="GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h"
-    ["GULNetworkInfo.h"]="GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h"
-    ["GULNSData+zlib.h"]="GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h"
-    ["GULAppDelegateSwizzler_Private.h"]="GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULAppDelegateSwizzler_Private.h"
-    ["GULSceneDelegateSwizzler_Private.h"]="GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULSceneDelegateSwizzler_Private.h"
+# Using arrays instead of associative arrays to avoid bash syntax issues
+header_names=(
+    "IsAppEncrypted.h"
+    "GULUserDefaults.h"
+    "GULSceneDelegateSwizzler.h"
+    "GULReachabilityChecker.h"
+    "GULNetworkURLSession.h"
+    "GULAppDelegateSwizzler.h"
+    "GULApplication.h"
+    "GULReachabilityChecker+Internal.h"
+    "GULReachabilityMessageCode.h"
+    "GULNetwork.h"
+    "GULNetworkConstants.h"
+    "GULNetworkLoggerProtocol.h"
+    "GULNetworkMessageCode.h"
+    "GULMutableDictionary.h"
+    "GULNetworkInternal.h"
+    "GULLogger.h"
+    "GULLoggerLevel.h"
+    "GULLoggerCodes.h"
+    "GULAppEnvironmentUtil.h"
+    "GULKeychainStorage.h"
+    "GULKeychainUtils.h"
+    "GULNetworkInfo.h"
+    "GULNSData+zlib.h"
+    "GULAppDelegateSwizzler_Private.h"
+    "GULSceneDelegateSwizzler_Private.h"
+)
+
+expected_paths=(
+    "third_party/IsAppEncrypted/Public/IsAppEncrypted.h"
+    "GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h"
+    "GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h"
+    "GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h"
+    "GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h"
+    "GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h"
+    "GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker+Internal.h"
+    "GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityMessageCode.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkInternal.h"
+    "GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h"
+    "GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h"
+    "GoogleUtilities/Common/Public/GoogleUtilities/GULLoggerCodes.h"
+    "GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h"
+    "GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h"
+    "GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h"
+    "GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h"
+    "GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h"
+    "GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULAppDelegateSwizzler_Private.h"
+    "GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULSceneDelegateSwizzler_Private.h"
 )
 
 # Function to find a header file in the GoogleUtilities directory
@@ -101,9 +130,10 @@ log_info "Processing header mappings..."
 success_count=0
 total_count=0
 
-for header_name in "${!header_mappings[@]}"; do
+for i in "${!header_names[@]}"; do
     total_count=$((total_count + 1))
-    expected_path="${header_mappings[$header_name]}"
+    header_name="${header_names[$i]}"
+    expected_path="${expected_paths[$i]}"
     
     if copy_header_to_location "$header_name" "$expected_path"; then
         success_count=$((success_count + 1))

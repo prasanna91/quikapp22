@@ -157,7 +157,7 @@ post_install do |installer|
   if Dir.exist?(google_utilities_path)
     puts "🔧 Fixing GoogleUtilities header files..."
     
-    # Create a comprehensive header mapping
+    # Define the problematic headers and their expected locations
     header_mappings = {
       'IsAppEncrypted.h' => [
         'third_party/IsAppEncrypted/IsAppEncrypted.h',
