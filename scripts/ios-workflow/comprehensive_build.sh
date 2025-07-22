@@ -300,6 +300,20 @@ fi
 
 rm -rf Pods/ Podfile.lock
 pod install --repo-update
+
+# Step 6.1: Fix CwlCatchException Swift compiler error
+log_info "Step 6.1: Fixing CwlCatchException Swift compiler error"
+if [ -f "../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh" ]; then
+    chmod +x ../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh
+    if ../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh; then
+        log_success "CwlCatchException fix completed"
+    else
+        log_warning "CwlCatchException fix failed (continuing...)"
+    fi
+else
+    log_warning "CwlCatchException fix script not found"
+fi
+
 cd ..
 
 # Step 7: Build Configuration
