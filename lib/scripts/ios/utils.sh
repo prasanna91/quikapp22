@@ -16,6 +16,10 @@ log_warn() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] WARNING: $1"
 }
 
+log_warning() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] WARNING: $1"
+}
+
 log_error() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1" >&2
 }

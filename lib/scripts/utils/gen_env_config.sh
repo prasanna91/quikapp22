@@ -150,6 +150,16 @@ generate_env_config() {
     log "   APPLE_TEAM_ID: ${APPLE_TEAM_ID:-not_set}"
     log "   APNS_KEY_ID: ${APNS_KEY_ID:-not_set}"
     log "   IS_IOS_WORKFLOW: ${IS_IOS_WORKFLOW:-false}"
+    
+    # Ensure we use environment variables over defaults
+    local actual_app_name="${APP_NAME:-QuikApp}"
+    local actual_bundle_id="${BUNDLE_ID:-}"
+    local actual_version_name="${VERSION_NAME:-1.0.0}"
+    local actual_version_code="${VERSION_CODE:-1}"
+    local actual_org_name="${ORG_NAME:-}"
+    local actual_web_url="${WEB_URL:-}"
+    local actual_user_name="${USER_NAME:-}"
+    local actual_email_id="${EMAIL_ID:-}"
 
     # Create the directory if it doesn't exist
     mkdir -p lib/config || log "⚠️ Failed to create lib/config directory, continuing anyway"
@@ -173,13 +183,13 @@ generate_env_config() {
 class EnvConfig {
   // App Metadata
   static const String appId = "${APP_ID:-}";
-  static const String versionName = "${VERSION_NAME:-1.0.0}";
-  static const int versionCode = ${VERSION_CODE:-1};
-  static const String appName = "${APP_NAME:-QuikApp}";
-  static const String orgName = "${ORG_NAME:-}";
-  static const String webUrl = "${WEB_URL:-}";
-  static const String userName = "${USER_NAME:-}";
-  static const String emailId = "${EMAIL_ID:-}";
+  static const String versionName = "$actual_version_name";
+  static const int versionCode = $actual_version_code;
+  static const String appName = "$actual_app_name";
+  static const String orgName = "$actual_org_name";
+  static const String webUrl = "$actual_web_url";
+  static const String userName = "$actual_user_name";
+  static const String emailId = "$actual_email_id";
   static const String branch = "main";
   static const String workflowId = "${WORKFLOW_ID:-}";
 
@@ -195,7 +205,7 @@ ANDROID_PKG
 fi)
 $(if [ "$IS_IOS_WORKFLOW" = true ]; then
 cat <<IOS_PKG
-  static const String bundleId = "${BUNDLE_ID:-}";
+  static const String bundleId = "$actual_bundle_id";
 IOS_PKG
 else
 cat <<IOS_PKG

@@ -114,8 +114,8 @@ fix_code_signing_project() {
         fi
     fi
     
-    # Ensure updated_count is a valid integer
-    updated_count=$(echo "$updated_count" | tr -d ' ')
+    # Ensure updated_count is a valid integer and handle the "0 0" issue
+    updated_count=$(echo "$updated_count" | tr -d ' ' | head -1)
     if ! [[ "$updated_count" =~ ^[0-9]+$ ]]; then
         updated_count=0
     fi
@@ -125,7 +125,7 @@ fix_code_signing_project() {
     # Verify the changes
     local verification_count
     verification_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" 2>/dev/null || echo "0")
-    verification_count=$(echo "$verification_count" | tr -d ' ')
+    verification_count=$(echo "$verification_count" | tr -d ' ' | head -1)
     
     if [ "$verification_count" -gt 0 ]; then
         log_success "✅ Code signing successfully configured: $verification_count entries found"
