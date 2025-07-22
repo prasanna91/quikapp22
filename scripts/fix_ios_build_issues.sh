@@ -137,6 +137,10 @@ if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
     sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Development";/g' ios/Runner.xcodeproj/project.pbxproj
     sed -i '' 's/CODE_SIGN_IDENTITY = "iPhone Distribution";/CODE_SIGN_IDENTITY = "Apple Development";/g' ios/Runner.xcodeproj/project.pbxproj
     
+    # Update iOS deployment target to 13.0 for Firebase compatibility
+    sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 13.0;/g' ios/Runner.xcodeproj/project.pbxproj
+    sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = "[0-9.]*";/IPHONEOS_DEPLOYMENT_TARGET = "13.0";/g' ios/Runner.xcodeproj/project.pbxproj
+    
     log_success "Updated project.pbxproj"
 fi
 

@@ -30,7 +30,7 @@ cat > Podfile << 'EOF'
 # This Podfile includes all necessary fixes for iOS build issues
 
 # Uncomment this line to define a global platform for your project
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -73,7 +73,7 @@ post_install do |installer|
     
     # Set minimum deployment target for all pods
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
       
       # Fix for CocoaPods configuration warning
       if config.base_configuration_reference
@@ -128,6 +128,15 @@ post_install do |installer|
     # Fix for firebase_messaging module issues
     if target.name == 'firebase_messaging'
       puts "🔧 Fixing firebase_messaging module configuration..."
+      target.build_configurations.each do |config|
+        config.build_settings['DEFINES_MODULE'] = 'YES'
+        config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+      end
+    end
+    
+    # Fix for firebase_core module issues
+    if target.name == 'firebase_core'
+      puts "🔧 Fixing firebase_core module configuration..."
       target.build_configurations.each do |config|
         config.build_settings['DEFINES_MODULE'] = 'YES'
         config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'

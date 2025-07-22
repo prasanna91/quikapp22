@@ -15,8 +15,13 @@ log_info "Step 1: Generating dynamic Podfile"
 chmod +x scripts/generate_dynamic_podfile.sh
 ./scripts/generate_dynamic_podfile.sh
 
-# Step 2: Handle speech_to_text dependency issue
-log_info "Step 2: Handling speech_to_text dependency issue"
+# Step 2: Handle Firebase dependencies
+log_info "Step 2: Handling Firebase dependencies"
+chmod +x scripts/fix_firebase_dependencies.sh
+./scripts/fix_firebase_dependencies.sh
+
+# Step 3: Handle speech_to_text dependency issue
+log_info "Step 3: Handling speech_to_text dependency issue"
 if [ -f "scripts/fix_speech_to_text_dependency.sh" ]; then
     chmod +x scripts/fix_speech_to_text_dependency.sh
     ./scripts/fix_speech_to_text_dependency.sh
@@ -40,8 +45,8 @@ else
     fi
 fi
 
-# Step 3: Clean and install pods with dynamic Podfile
-log_info "Step 3: Installing pods with dynamic Podfile"
+# Step 4: Clean and install pods with dynamic Podfile
+log_info "Step 4: Installing pods with dynamic Podfile"
 
 cd ios
 
@@ -58,12 +63,12 @@ pod install --repo-update
 
 cd ..
 
-# Step 4: Build Flutter app
-log_info "Step 4: Building Flutter app"
+# Step 5: Build Flutter app
+log_info "Step 5: Building Flutter app"
 flutter build ios --release --no-codesign
 
-# Step 5: Create archive with proper signing
-log_info "Step 5: Creating iOS archive"
+# Step 6: Create archive with proper signing
+log_info "Step 6: Creating iOS archive"
 
 # Create build directory if it doesn't exist
 mkdir -p build
@@ -98,8 +103,8 @@ fi
 
 log_success "✅ iOS archive created successfully: build/Runner.xcarchive"
 
-# Step 6: Export IPA
-log_info "Step 6: Exporting IPA"
+# Step 7: Export IPA
+log_info "Step 7: Exporting IPA"
 
 # Ensure exportOptions.plist exists
 if [ ! -f "scripts/exportOptions.plist" ]; then
@@ -158,8 +163,8 @@ fi
 
 log_success "✅ IPA created successfully: build/export/Runner.ipa"
 
-# Step 7: Restore speech_to_text if it was temporarily removed
-log_info "Step 7: Restoring speech_to_text plugin"
+# Step 8: Restore speech_to_text if it was temporarily removed
+log_info "Step 8: Restoring speech_to_text plugin"
 if [ -f "pubspec.yaml.bak" ]; then
     log_info "Restoring speech_to_text plugin..."
     cp pubspec.yaml.bak pubspec.yaml
@@ -169,8 +174,8 @@ else
     log_info "No speech_to_text backup found, skipping restoration"
 fi
 
-# Step 8: Restore original Podfile if needed
-log_info "Step 8: Restoring original Podfile"
+# Step 9: Restore original Podfile if needed
+log_info "Step 9: Restoring original Podfile"
 if [ -f "ios/Podfile.original" ]; then
     log_info "Restoring original Podfile..."
     cp ios/Podfile.original ios/Podfile
