@@ -5,6 +5,7 @@ set -euo pipefail
 log() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [BUNDLE_ID] $1"; }
 log_info() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [BUNDLE_ID] 🔍 $1"; }
 log_success() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [BUNDLE_ID] ✅ $1"; }
+log_warning() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [BUNDLE_ID] ⚠️ $1"; }
 log_error() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [BUNDLE_ID] ❌ $1"; }
 
 log "🎯 Updating Bundle ID"

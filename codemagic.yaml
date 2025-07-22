@@ -356,7 +356,8 @@ workflows:
           chmod +x scripts/change_app_name.sh
           chmod +x scripts/change_app_icon.sh
           ./scripts/change_app_name.sh "$APP_NAME"
-          ./scripts/change_app_icon.sh "$LOGO_URL"
+          # Use the downloaded logo file instead of URL
+          ./scripts/change_app_icon.sh "assets/images/logo.png"
 
       - name: 🎯 Update Bundle ID and Versioning
         script: |

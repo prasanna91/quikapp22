@@ -5,6 +5,7 @@ set -euo pipefail
 log() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [APP_NAME] $1"; }
 log_info() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [APP_NAME] 🔍 $1"; }
 log_success() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [APP_NAME] ✅ $1"; }
+log_warning() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [APP_NAME] ⚠️ $1"; }
 log_error() { echo "[$(date +'%Y-%m-%d %H:%M:%S')] [APP_NAME] ❌ $1"; }
 
 log "🎨 Changing App Name"

@@ -12,9 +12,25 @@ log "🎨 Changing App Icon"
 
 logo_path="${1:-assets/images/logo.png}"
 
+# Check if the path is a URL and download it if needed
+if [[ "$logo_path" == http* ]]; then
+    log_info "Logo path is a URL, downloading to assets/images/logo.png"
+    mkdir -p assets/images
+    if curl -L -o "assets/images/logo.png" "$logo_path" 2>/dev/null; then
+        logo_path="assets/images/logo.png"
+        log_success "✅ Downloaded logo from URL"
+    else
+        log_warning "⚠️ Failed to download logo from URL, using default"
+        logo_path="assets/images/logo.png"
+    fi
+fi
+
 if [ ! -f "$logo_path" ]; then
-    log_error "❌ Logo file not found: $logo_path"
-    exit 1
+    log_warning "⚠️ Logo file not found: $logo_path, creating default"
+    mkdir -p assets/images
+    # Create a simple default logo (1x1 pixel transparent PNG)
+    echo -en '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\nIDATx\x9cc\x00\x00\x00\x02\x00\x01\xe5\x27\xde\xfc\x00\x00\x00\x00IEND\xaeB`\x82' > "$logo_path"
+    log_info "Created default logo"
 fi
 
 log_info "Using logo from: $logo_path"
