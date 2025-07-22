@@ -238,8 +238,11 @@ export_ipa() {
         if "${SCRIPT_DIR}/export_ipa_framework_fix.sh" \
             "${OUTPUT_DIR}/Runner.xcarchive" \
             "${OUTPUT_DIR}" \
+            "modern-signing-no-cert-required" \
+            "00000000-0000-0000-0000-000000000000" \
             "${BUNDLE_ID}" \
-            "${APPLE_TEAM_ID}"; then
+            "${APPLE_TEAM_ID}" \
+            ""; then
             log_success "✅ IPA export completed successfully"
             return 0
         else
@@ -249,6 +252,44 @@ export_ipa() {
     else
         log_error "❌ IPA export script not found"
         return 1
+    fi
+}
+
+# Function to fix Swift optimization warnings
+fix_swift_optimization() {
+    log_info "🔧 Fixing Swift optimization warnings..."
+    
+    if [ -f "${SCRIPT_DIR}/fix_swift_optimization.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/fix_swift_optimization.sh"
+        if "${SCRIPT_DIR}/fix_swift_optimization.sh"; then
+            log_success "✅ Swift optimization warnings fixed"
+            return 0
+        else
+            log_warn "⚠️ Swift optimization fix failed (continuing...)"
+            return 0
+        fi
+    else
+        log_warn "⚠️ Swift optimization fix script not found (continuing...)"
+        return 0
+    fi
+}
+
+# Function to handle errors and provide debugging
+handle_errors() {
+    log_info "🛡️ Running error handler..."
+    
+    if [ -f "${SCRIPT_DIR}/error_handler.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/error_handler.sh"
+        if "${SCRIPT_DIR}/error_handler.sh"; then
+            log_success "✅ Error handler completed successfully"
+            return 0
+        else
+            log_warn "⚠️ Error handler failed (continuing...)"
+            return 0
+        fi
+    else
+        log_warn "⚠️ Error handler script not found (continuing...)"
+        return 0
     fi
 }
 
@@ -310,6 +351,12 @@ main() {
         send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Flutter app build failed."
         return 1
     fi
+    
+    # Fix Swift optimization warnings
+    fix_swift_optimization
+    
+    # Handle errors and provide debugging
+    handle_errors
     
     # Export IPA
     if ! export_ipa; then

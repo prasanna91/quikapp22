@@ -165,7 +165,7 @@ if ./lib/scripts/ios/validate_info_plist.sh --validate-all .; then
   echo "✅ Info.plist validation passed"
 else
   echo "⚠️ Info.plist validation failed, attempting to fix..."
-  ./lib/scripts/ios/validate_info_plist.sh --fix ios/Runner/Info.plist "${APP_NAME:-Runner}" "${BUNDLE_ID:-com.example.app}" "${VERSION_NAME:-1.0.0}" "${VERSION_CODE:-1}"
+          ./lib/scripts/ios/validate_info_plist.sh --fix ios/Runner/Info.plist "${APP_NAME}" "${BUNDLE_ID}" "${VERSION_NAME}" "${VERSION_CODE}"
 fi
 
 # 🛡️ Target-Only Mode: Check and fix bundle executable configuration

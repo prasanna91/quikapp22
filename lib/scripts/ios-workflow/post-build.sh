@@ -84,11 +84,11 @@ else
       # Perform comprehensive App Store validation
       if [ -f "lib/scripts/ios/app_store_ready_check.sh" ]; then
         echo "🔍 Performing App Store ready check..."
-        if ./lib/scripts/ios/app_store_ready_check.sh --validate "$ipa_file" "${BUNDLE_ID:-com.example.app}" "${VERSION_NAME:-1.0.0}" "${VERSION_CODE:-1}"; then
+        if ./lib/scripts/ios/app_store_ready_check.sh --validate "$ipa_file" "${BUNDLE_ID}" "${VERSION_NAME}" "${VERSION_CODE}"; then
           echo "✅ App Store validation passed: $ipa_file"
         else
           echo "⚠️ App Store validation failed, attempting to fix..."
-          if ./lib/scripts/ios/app_store_ready_check.sh --fix "$ipa_file" "${BUNDLE_ID:-com.example.app}" "${VERSION_NAME:-1.0.0}" "${VERSION_CODE:-1}"; then
+          if ./lib/scripts/ios/app_store_ready_check.sh --fix "$ipa_file" "${BUNDLE_ID}" "${VERSION_NAME}" "${VERSION_CODE}"; then
             echo "✅ App Store issues fixed: $ipa_file"
           else
             echo "❌ Failed to fix App Store issues: $ipa_file"

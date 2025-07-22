@@ -49,7 +49,7 @@ while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
     # Check that only the main app bundle ID was updated
     if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
         MAIN_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
-        EXPECTED_BUNDLE_ID="${BUNDLE_ID:-com.example.app}"
+        EXPECTED_BUNDLE_ID="${BUNDLE_ID}"
         
         if [ "$MAIN_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
             echo "✅ Main app bundle ID correctly updated: $MAIN_BUNDLE_ID"

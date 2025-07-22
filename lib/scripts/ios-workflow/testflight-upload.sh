@@ -200,13 +200,13 @@ if [ "${IS_TESTFLIGHT:-false}" = "true" ]; then
   if [ -f "lib/scripts/ios/app_store_ready_check.sh" ]; then
     chmod +x "lib/scripts/ios/app_store_ready_check.sh"
     
-    if ./lib/scripts/ios/app_store_ready_check.sh --validate "$IPA_PATH" "${BUNDLE_ID:-com.example.app}" "${VERSION_NAME:-1.0.0}" "${VERSION_CODE:-1}"; then
+            if ./lib/scripts/ios/app_store_ready_check.sh --validate "$IPA_PATH" "${BUNDLE_ID}" "${VERSION_NAME}" "${VERSION_CODE}"; then
       echo "✅ IPA structure validation passed"
     else
       echo "❌ IPA structure validation failed"
       echo "🛡️ Attempting to fix IPA structure before upload..."
       
-      if ./lib/scripts/ios/app_store_ready_check.sh --fix "$IPA_PATH" "${BUNDLE_ID:-com.example.app}" "${VERSION_NAME:-1.0.0}" "${VERSION_CODE:-1}"; then
+              if ./lib/scripts/ios/app_store_ready_check.sh --fix "$IPA_PATH" "${BUNDLE_ID}" "${VERSION_NAME}" "${VERSION_CODE}"; then
         echo "✅ IPA structure fixed before upload"
       else
         echo "❌ Failed to fix IPA structure before upload"

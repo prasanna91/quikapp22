@@ -7,7 +7,16 @@ set -euo pipefail
 
 # Get script directory and source utilities
 SCRIPT_DIR="$(dirname "$0")"
-source "${SCRIPT_DIR}/utils.sh"
+UTILS_DIR="$(dirname "$SCRIPT_DIR")/utils"
+
+# Source utilities from centralized location
+if [ -f "${UTILS_DIR}/utils.sh" ]; then
+    source "${UTILS_DIR}/utils.sh"
+    log_info "✅ Utilities loaded from ${UTILS_DIR}/utils.sh"
+else
+    log_error "❌ Utilities file not found at ${UTILS_DIR}/utils.sh"
+    exit 1
+fi
 
 # Function to create export options without embedded framework signing
 create_framework_safe_export_options() {
@@ -127,6 +136,11 @@ create_modern_export_options() {
     local team_id="$2"
     
     log_info "📝 Creating modern App Store Connect API export options..."
+    log_info "📦 Bundle ID: $bundle_id"
+    log_info "👥 Team ID: $team_id"
+    
+    # Ensure ios directory exists
+    mkdir -p "ios"
     
     cat > "ios/ExportOptionsModern.plist" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -166,6 +180,15 @@ create_modern_export_options() {
 EOF
     
     log_success "✅ Modern App Store Connect API export options created"
+    
+    # Verify the file was created
+    if [ -f "ios/ExportOptionsModern.plist" ]; then
+        log_success "✅ ExportOptionsModern.plist created successfully"
+        log_info "📄 File size: $(wc -c < "ios/ExportOptionsModern.plist") bytes"
+    else
+        log_error "❌ Failed to create ExportOptionsModern.plist"
+        return 1
+    fi
 }
 
 # Function to export IPA with multiple fallback methods
@@ -451,9 +474,20 @@ export_ipa_modern() {
     local team_id="$4"
     
     log_info "🚀 Exporting IPA using modern App Store Connect API..."
+    log_info "📁 Archive: $archive_path"
+    log_info "📁 Export Path: $export_path"
+    log_info "📦 Bundle ID: $bundle_id"
+    log_info "👥 Team ID: $team_id"
+    
+    # Ensure export directory exists
+    mkdir -p "$export_path"
     
     # Create modern export options
-    create_modern_export_options "$bundle_id" "$team_id"
+    log_info "📝 Creating enhanced export options..."
+    if ! create_modern_export_options "$bundle_id" "$team_id"; then
+        log_error "❌ Failed to create export options"
+        return 1
+    fi
     
     # Export IPA using modern approach
     log_info "📦 Exporting IPA with modern App Store Connect API..."

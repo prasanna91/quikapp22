@@ -348,6 +348,18 @@ workflows:
             exit 1
           fi
           
+      - name: Fix Swift Optimization Warnings
+        script: |
+          echo "🔧 Fixing Swift optimization warnings..."
+          
+          # Fix Swift optimization warnings
+          if [ -f "lib/scripts/ios-workflow/fix_swift_optimization.sh" ]; then
+            chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
+            ./lib/scripts/ios-workflow/fix_swift_optimization.sh || echo "⚠️ Swift optimization fix failed (continuing...)"
+          else
+            echo "⚠️ Swift optimization fix script not found (continuing...)"
+          fi
+          
       - name: Post-Build IPA Validation (Target-Only Mode)
         script: |
           echo "🛡️ Post-Build IPA Validation (Target-Only Mode)..."
@@ -394,7 +406,7 @@ workflows:
           # Validate bundle ID consistency
           if [ "${VALIDATE_BUNDLE_ID:-true}" = "true" ]; then
             echo "🔍 Validating bundle ID consistency..."
-            EXPECTED_BUNDLE_ID="${BUNDLE_ID:-com.example.app}"
+            EXPECTED_BUNDLE_ID="${BUNDLE_ID}"
             
             # Check main app bundle ID
             if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
@@ -422,7 +434,7 @@ workflows:
           # Validate app metadata
           if [ "${VALIDATE_APP_NAME:-true}" = "true" ]; then
             echo "🔍 Validating app name..."
-            EXPECTED_APP_NAME="${APP_NAME:-Runner}"
+            EXPECTED_APP_NAME="${APP_NAME}"
             
             if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
               ACTUAL_APP_NAME=$(plutil -extract CFBundleDisplayName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || plutil -extract CFBundleName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
@@ -449,8 +461,8 @@ workflows:
           # Validate version information
           if [ "${VALIDATE_VERSION_INFO:-true}" = "true" ]; then
             echo "🔍 Validating version information..."
-            EXPECTED_VERSION_NAME="${VERSION_NAME:-1.0.0}"
-            EXPECTED_VERSION_CODE="${VERSION_CODE:-1}"
+            EXPECTED_VERSION_NAME="${VERSION_NAME}"
+            EXPECTED_VERSION_CODE="${VERSION_CODE}"
             
             if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
               ACTUAL_VERSION_NAME=$(plutil -extract CFBundleShortVersionString raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
@@ -963,7 +975,7 @@ workflows:
           echo "🔍 Validating build results..."
           if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
             MAIN_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
-            EXPECTED_BUNDLE_ID="${BUNDLE_ID:-com.example.app}"
+            EXPECTED_BUNDLE_ID="${BUNDLE_ID}"
             
             if [ "$MAIN_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
               echo "✅ Main app bundle ID correctly updated: $MAIN_BUNDLE_ID"
@@ -1025,7 +1037,7 @@ workflows:
               # Apply App Store Connect fixes
                         if [ -f "lib/scripts/ios-workflow/fix_app_store_connect_issues.sh" ]; then
             chmod +x lib/scripts/ios-workflow/fix_app_store_connect_issues.sh
-            ./lib/scripts/ios-workflow/fix_app_store_connect_issues.sh "${BUNDLE_ID:-com.example.app}" "Payload/Runner.app" || echo "⚠️ App Store Connect fixes failed (continuing...)"
+            ./lib/scripts/ios-workflow/fix_app_store_connect_issues.sh "${BUNDLE_ID}" "Payload/Runner.app" || echo "⚠️ App Store Connect fixes failed (continuing...)"
               fi
             done
           else
