@@ -235,9 +235,13 @@ main() {
         
         # Check if we're using modern code signing (App Store Connect API)
         if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
-            log_info "📱 Modern code signing detected - skipping traditional provisioning profile UUID extraction"
-            log_info "🔐 Automatic code signing will handle provisioning during build"
-            log_success "✅ Modern code signing configured - no manual provisioning profile required"
+            log_info "📱 Modern code signing detected - skipping traditional provisioning profile UUID requirement"
+            log_info "🔐 Automatic code signing will handle provisioning during IPA export"
+            log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
+            
+            # Set a dummy UUID for compatibility (won't be used with modern signing)
+            export MOBILEPROVISION_UUID="modern-signing-no-uuid-required"
+            log_info "📋 Using compatibility UUID for modern signing: $MOBILEPROVISION_UUID"
         else
             # Extract UUID from the log or try to get it from the script (only for traditional code signing)
             if [ -n "${PROFILE_URL:-}" ]; then
@@ -653,14 +657,30 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
         log_info "💎 Ruby available - installing xcodeproj gem..."
         
         # Install xcodeproj gem with timeout and error handling
-        if timeout 120 gem install xcodeproj --no-document 2>&1; then
-            log_success "✅ Stage 7.2 completed: xcodeproj gem installed successfully"
-            log_info "💎 Robust framework embedding fix method available"
-            export XCODEPROJ_GEM_AVAILABLE="true"
+        # Use gtimeout (GNU timeout) if available, otherwise use a simple fallback
+        if command -v gtimeout >/dev/null 2>&1; then
+            # Use gtimeout (GNU timeout) - available on macOS via Homebrew
+            if gtimeout 120 gem install xcodeproj --no-document 2>&1; then
+                log_success "✅ Stage 7.2 completed: xcodeproj gem installed successfully"
+                log_info "💎 Robust framework embedding fix method available"
+                export XCODEPROJ_GEM_AVAILABLE="true"
+            else
+                log_warn "⚠️ Stage 7.2 partial: xcodeproj gem installation failed"
+                log_warn "💎 Will fallback to sed method for framework embedding fix"
+                export XCODEPROJ_GEM_AVAILABLE="false"
+            fi
         else
-            log_warn "⚠️ Stage 7.2 partial: xcodeproj gem installation failed"
-            log_warn "💎 Will fallback to sed method for framework embedding fix"
-            export XCODEPROJ_GEM_AVAILABLE="false"
+            # Fallback: install without timeout (may hang but less likely)
+            log_info "💎 Installing xcodeproj gem without timeout (fallback method)..."
+            if gem install xcodeproj --no-document 2>&1; then
+                log_success "✅ Stage 7.2 completed: xcodeproj gem installed successfully"
+                log_info "💎 Robust framework embedding fix method available"
+                export XCODEPROJ_GEM_AVAILABLE="true"
+            else
+                log_warn "⚠️ Stage 7.2 partial: xcodeproj gem installation failed"
+                log_warn "💎 Will fallback to sed method for framework embedding fix"
+                export XCODEPROJ_GEM_AVAILABLE="false"
+            fi
         fi
     else
         log_warn "⚠️ Stage 7.2 skipped: Ruby/gem not available"
@@ -731,11 +751,22 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
     # Use certificates and keychain from comprehensive validation (Stage 3)
     log_info "🔐 Using certificates from comprehensive validation..."
     
-    # Check if comprehensive validation was completed successfully
-    if [ -z "${MOBILEPROVISION_UUID:-}" ]; then
-        log_error "❌ No provisioning profile UUID available"
-        log_error "🔧 Comprehensive certificate validation should have extracted UUID"
-        return 1
+    # Check if we're using modern code signing (App Store Connect API)
+    if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
+        log_info "📱 Modern code signing detected - skipping traditional provisioning profile UUID requirement"
+        log_info "🔐 Automatic code signing will handle provisioning during IPA export"
+        log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
+        
+        # Set a dummy UUID for compatibility (won't be used with modern signing)
+        export MOBILEPROVISION_UUID="modern-signing-no-uuid-required"
+        log_info "📋 Using compatibility UUID for modern signing: $MOBILEPROVISION_UUID"
+    else
+        # Traditional code signing - check for provisioning profile UUID
+        if [ -z "${MOBILEPROVISION_UUID:-}" ]; then
+            log_error "❌ No provisioning profile UUID available"
+            log_error "🔧 Comprehensive certificate validation should have extracted UUID"
+            return 1
+        fi
     fi
     
     # Verify keychain and certificates are still available
