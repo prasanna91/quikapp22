@@ -16,21 +16,50 @@ if [ -d "ios" ]; then
 fi
 
 # Check if Firebase dependencies are being used
-if grep -q "firebase" pubspec.yaml; then
-    log_info "Firebase dependencies detected"
-    
-    # Check for specific Firebase packages
-    if grep -q "firebase_core" pubspec.yaml; then
-        log_info "firebase_core detected"
+if [ -f "pubspec.yaml" ]; then
+    if grep -q "firebase" pubspec.yaml; then
+        log_info "Firebase dependencies detected"
+        
+        # Check for specific Firebase packages
+        if grep -q "firebase_core" pubspec.yaml; then
+            log_info "firebase_core detected"
+        fi
+        
+        if grep -q "firebase_messaging" pubspec.yaml; then
+            log_info "firebase_messaging detected"
+        fi
+        
+        if grep -q "firebase_analytics" pubspec.yaml; then
+            log_info "firebase_analytics detected"
+        fi
+    else
+        log_info "No Firebase dependencies detected in pubspec.yaml"
     fi
-    
-    if grep -q "firebase_messaging" pubspec.yaml; then
-        log_info "firebase_messaging detected"
+else
+    # Try to find pubspec.yaml in parent directory
+    if [ -f "../pubspec.yaml" ]; then
+        if grep -q "firebase" ../pubspec.yaml; then
+            log_info "Firebase dependencies detected in parent directory"
+            
+            # Check for specific Firebase packages
+            if grep -q "firebase_core" ../pubspec.yaml; then
+                log_info "firebase_core detected"
+            fi
+            
+            if grep -q "firebase_messaging" ../pubspec.yaml; then
+                log_info "firebase_messaging detected"
+            fi
+            
+            if grep -q "firebase_analytics" ../pubspec.yaml; then
+                log_info "firebase_analytics detected"
+            fi
+        else
+            log_info "No Firebase dependencies detected in parent pubspec.yaml"
+        fi
+    else
+        log_warning "pubspec.yaml not found in current or parent directory"
     fi
-    
-    if grep -q "firebase_analytics" pubspec.yaml; then
-        log_info "firebase_analytics detected"
-    fi
+fi
     
     # Update iOS deployment target in project.pbxproj if needed
     if [ -f "Runner.xcodeproj/project.pbxproj" ]; then

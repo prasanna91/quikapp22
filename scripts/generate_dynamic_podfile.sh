@@ -168,26 +168,8 @@ post_install do |installer|
   end
   
   # Fix any other missing headers by copying all .h files to their Public directories
-  installer.sandbox.pod_dir('GoogleUtilities').each do |pod_name|
-    pod_path = installer.sandbox.pod_dir(pod_name)
-    if Dir.exist?(pod_path)
-      Dir.glob(File.join(pod_path, '**', '*.h')).each do |header_file|
-        header_dir = File.dirname(header_file)
-        header_name = File.basename(header_file)
-        public_dir = File.join(header_dir, 'Public', File.basename(header_dir))
-        
-        unless Dir.exist?(public_dir)
-          FileUtils.mkdir_p(public_dir)
-        end
-        
-        public_header = File.join(public_dir, header_name)
-        unless File.exist?(public_header)
-          FileUtils.cp(header_file, public_header)
-          puts "  ✅ Fixed header: #{header_name}"
-        end
-      end
-    end
-  end
+  # Note: This section was removed due to Ruby compatibility issues
+  # The GoogleUtilities header fix above should handle most cases
   
   # Suppress master specs repo warning
   puts "✅ CocoaPods installation completed successfully with all fixes applied"
