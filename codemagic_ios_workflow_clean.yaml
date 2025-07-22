@@ -1,0 +1,250 @@
+# 🚀 iOS Workflow Configuration for Codemagic
+# Comprehensive iOS build and deployment workflow with modern App Store Connect API
+
+# Common variables block
+common_vars: &common_vars
+  GRADLE_OPTS: "-Xmx12G -XX:MaxMetaspaceSize=3G -XX:ReservedCodeCacheSize=1G -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+  XCODE_PARALLEL_JOBS: "8"
+  FLUTTER_PUB_CACHE: "true"
+  FLUTTER_VERBOSE: "false"
+  FLUTTER_ANALYZE: "true"
+  FLUTTER_TEST: "false"
+  FLUTTER_BUILD_NUMBER: "auto"
+
+# iOS-specific variables
+ios_vars: &ios_vars
+  WORKFLOW_ID: "ios-workflow"
+  APP_NAME: $APP_NAME
+  VERSION_NAME: $VERSION_NAME
+  VERSION_CODE: $VERSION_CODE
+  EMAIL_ID: $EMAIL_ID
+  BUNDLE_ID: $BUNDLE_ID
+  APPLE_TEAM_ID: $APPLE_TEAM_ID
+  PROFILE_TYPE: $PROFILE_TYPE
+  PROFILE_URL: $PROFILE_URL
+  IS_TESTFLIGHT: $IS_TESTFLIGHT
+  APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+  APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+  APP_STORE_CONNECT_API_KEY_URL: $APP_STORE_CONNECT_API_KEY_URL
+  LOGO_URL: $LOGO_URL
+  SPLASH_URL: $SPLASH_URL
+  SPLASH_BG_COLOR: $SPLASH_BG_COLOR
+  SPLASH_TAGLINE: $SPLASH_TAGLINE
+  SPLASH_TAGLINE_COLOR: $SPLASH_TAGLINE_COLOR
+  FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS
+  ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS
+  EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER
+  EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT
+  EMAIL_SMTP_USER: $EMAIL_SMTP_USER
+  EMAIL_SMTP_PASS: $EMAIL_SMTP_PASS
+  USER_NAME: $USER_NAME
+  APP_ID: $APP_ID
+  ORG_NAME: $ORG_NAME
+  WEB_URL: $WEB_URL
+  PKG_NAME: $PKG_NAME
+  PUSH_NOTIFY: $PUSH_NOTIFY
+  IS_CHATBOT: $IS_CHATBOT
+  IS_DOMAIN_URL: $IS_DOMAIN_URL
+  IS_SPLASH: $IS_SPLASH
+  IS_PULLDOWN: $IS_PULLDOWN
+  IS_BOTTOMMENU: $IS_BOTTOMMENU
+  IS_LOAD_IND: $IS_LOAD_IND
+  IS_CAMERA: $IS_CAMERA
+  IS_LOCATION: $IS_LOCATION
+  IS_MIC: $IS_MIC
+  IS_NOTIFICATION: $IS_NOTIFICATION
+  IS_CONTACT: $IS_CONTACT
+  IS_BIOMETRIC: $IS_BIOMETRIC
+  IS_CALENDAR: $IS_CALENDAR
+  IS_STORAGE: $IS_STORAGE
+
+# iOS Workflow
+ios_workflow:
+  name: iOS Workflow
+  max_build_duration: 120
+  environment:
+    vars:
+      <<: [*common_vars, *ios_vars]
+      CM_BUILD_ID: $CM_BUILD_ID
+      CM_BUILD_DIR: $CM_BUILD_DIR
+      XCODE_WORKSPACE: "ios/Runner.xcworkspace"
+      XCODE_SCHEME: "Runner"
+      BUNDLE_ID: $BUNDLE_ID
+      APPLE_TEAM_ID: $APPLE_TEAM_ID
+      PROFILE_TYPE: $PROFILE_TYPE
+      PUSH_NOTIFY: $PUSH_NOTIFY
+      IS_TESTFLIGHT: $IS_TESTFLIGHT
+    xcode: latest
+    cocoapods: default
+    flutter: stable
+    groups:
+      - app_store_credentials
+      - firebase_credentials
+      - email_credentials
+
+  scripts:
+    - name: Setup Environment
+      script: |
+        echo "🚀 Setting up iOS Workflow Environment"
+        echo "======================================"
+        
+        # Set script permissions
+        chmod +x scripts/ios-workflow/*.sh
+        chmod +x lib/scripts/utils/*.sh
+        
+        # Create output directories
+        mkdir -p output/ios
+        mkdir -p build/ios/logs
+        
+        # Validate essential variables
+        echo "🔍 Validating essential variables..."
+        ESSENTIAL_VARS=("BUNDLE_ID" "APPLE_TEAM_ID" "PROFILE_TYPE")
+        MISSING_VARS=()
+        
+        for var in "${ESSENTIAL_VARS[@]}"; do
+          if [ -z "${!var:-}" ]; then
+            MISSING_VARS+=("$var")
+          fi
+        done
+        
+        if [ ${#MISSING_VARS[@]} -gt 0 ]; then
+          echo "❌ Missing essential variables: ${MISSING_VARS[*]}"
+          echo "📋 Required variables:"
+          echo "   - BUNDLE_ID: Your app's bundle identifier"
+          echo "   - APPLE_TEAM_ID: Your Apple Developer Team ID"
+          echo "   - PROFILE_TYPE: Distribution type (app-store, ad-hoc, development)"
+          exit 1
+        fi
+        
+        echo "✅ Environment setup completed"
+
+    - name: Run Main Workflow
+      script: |
+        echo "🏗️ Running Main iOS Workflow"
+        echo "============================"
+        
+        # Execute main workflow script
+        if [ -f "scripts/ios-workflow/main_workflow.sh" ]; then
+          chmod +x scripts/ios-workflow/main_workflow.sh
+          ./scripts/ios-workflow/main_workflow.sh
+        else
+          echo "❌ Main workflow script not found"
+          exit 1
+        fi
+
+    - name: Validate Build Results
+      script: |
+        echo "🛡️ Validating Build Results"
+        echo "============================"
+        
+        # Check if IPA was created
+        if [ -f "output/ios/Runner.ipa" ]; then
+          IPA_SIZE=$(stat -f%z "output/ios/Runner.ipa" 2>/dev/null || stat -c%s "output/ios/Runner.ipa" 2>/dev/null || echo "0")
+          echo "✅ IPA file created successfully: output/ios/Runner.ipa ($IPA_SIZE bytes)"
+          
+          # Validate file size
+          if [ "$IPA_SIZE" -gt 1000000 ]; then
+            echo "✅ IPA file size is valid"
+          else
+            echo "❌ IPA file is too small ($IPA_SIZE bytes) - may be corrupted"
+            exit 1
+          fi
+        else
+          echo "❌ IPA file not found"
+          exit 1
+        fi
+        
+        # Check for build summaries
+        if [ -f "output/ios/WORKFLOW_SUMMARY.txt" ]; then
+          echo "✅ Workflow summary created"
+        fi
+        
+        if [ -f "output/ios/ASSET_SUMMARY.txt" ]; then
+          echo "✅ Asset summary created"
+        fi
+        
+        if [ "$PUSH_NOTIFY" = "true" ] && [ -f "output/ios/FIREBASE_SUMMARY.txt" ]; then
+          echo "✅ Firebase summary created"
+        fi
+        
+        if [ "$IS_TESTFLIGHT" = "true" ] && [ -f "output/ios/TESTFLIGHT_SUMMARY.txt" ]; then
+          echo "✅ TestFlight summary created"
+        fi
+        
+        echo "✅ Build validation completed successfully"
+
+  artifacts:
+    # 📱 IPA Files
+    - output/ios/*.ipa
+    - build/ios/ipa/*.ipa
+    - "*.ipa"
+    
+    # 📦 Archive Files (fallback)
+    - output/ios/*.xcarchive
+    - build/ios/archive/*.xcarchive
+    - "*.xcarchive"
+    
+    # 📋 Build Documentation
+    - output/ios/WORKFLOW_SUMMARY.txt
+    - output/ios/ASSET_SUMMARY.txt
+    - output/ios/FIREBASE_SUMMARY.txt
+    - output/ios/TESTFLIGHT_SUMMARY.txt
+    - output/ios/EMAIL_SUMMARY.txt
+    - output/ios/ARTIFACTS_SUMMARY.txt
+    - ios/ExportOptions.plist
+    
+    # 📊 Build Logs
+    - build/ios/logs/
+    - output/ios/logs/
+    
+    # 🔧 Additional Build Artifacts
+    - output/ios/
+    - build/ios/
+
+  publishing:
+    app_store_connect:
+      api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+      key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+      issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+      submit_to_testflight: $IS_TESTFLIGHT
+    email:
+      recipients:
+        - $EMAIL_ID
+      notify:
+        success: true
+        failure: true
+      subject: "iOS Build Status - $APP_NAME v$VERSION_NAME"
+      body: |
+        iOS build status for $APP_NAME v$VERSION_NAME ($VERSION_CODE).
+        
+        Build Details:
+        - Bundle ID: $BUNDLE_ID
+        - Profile Type: $PROFILE_TYPE
+        - Push Notifications: $PUSH_NOTIFY
+        - TestFlight Upload: $IS_TESTFLIGHT
+        - Code Signing: Modern App Store Connect API
+        
+        Build artifacts and detailed summaries available in the attached files.
+        
+        For detailed notifications, ensure ENABLE_EMAIL_NOTIFICATIONS=true is set.
+
+# Workflow Triggers
+triggering:
+  events:
+    - push
+    - pull_request
+    - tag
+  branch_patterns:
+    - pattern: main
+      include: true
+      source: true
+    - pattern: develop
+      include: true
+      source: true
+    - pattern: feature/*
+      include: true
+      source: true
+  tag_patterns:
+    - pattern: v*
+      include: true
+      source: true 
