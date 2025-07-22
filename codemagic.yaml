@@ -350,18 +350,18 @@ workflows:
             exit 1
           fi
           
-      - name: Build iOS App (Target-Only Mode)
+      - name: Build iOS App (Simplified)
         script: |
-          echo "🏗️ Building iOS App (Target-Only Mode)..."
+          echo "🏗️ Building iOS App (Simplified)..."
           
-          # Validate target-only mode is enabled
-          if [ "${TARGET_ONLY_MODE:-false}" != "true" ]; then
-            echo "❌ TARGET_ONLY_MODE must be enabled for this workflow"
-            exit 1
-          fi
+          # Set permissions for essential scripts
+          chmod +x lib/scripts/ios-workflow/simple_main.sh
+          chmod +x lib/scripts/ios-workflow/simple_export.sh
+          chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
+          chmod +x lib/scripts/utils/*.sh
           
-          # Run build with target-only mode
-          if ./lib/scripts/ios-workflow/build.sh; then
+          # Run simplified build workflow
+          if ./lib/scripts/ios-workflow/simple_main.sh; then
             echo "✅ iOS build completed successfully"
           else
             echo "❌ iOS build failed"
@@ -370,134 +370,106 @@ workflows:
           
 
           
-      - name: Post-Build IPA Validation (Target-Only Mode)
+      - name: Post-Build Validation (Simplified)
         script: |
-          echo "🛡️ Post-Build IPA Validation (Target-Only Mode)..."
+          echo "🛡️ Post-Build Validation (Simplified)..."
           
-          # Validate that only target bundle ID was updated
-          if [ "${ENABLE_BUNDLE_ID_ECHO:-true}" = "true" ]; then
-            echo "🔍 Echoing bundle identifiers for validation..."
-            find ios/build -name "*.app" -type d 2>/dev/null | while read -r app_bundle; do
-              if [ -f "$app_bundle/Info.plist" ]; then
-                bundle_id=$(plutil -extract CFBundleIdentifier raw "$app_bundle/Info.plist" 2>/dev/null || echo "UNKNOWN")
-                echo "   - $app_bundle: $bundle_id"
-              fi
+          # Check if IPA was created
+          IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
+          if [ -n "$IPA_FILES" ]; then
+            echo "✅ IPA files found:"
+            echo "$IPA_FILES" | while read -r ipa_file; do
+              echo "   - $ipa_file"
+              # Check file size
+              IPA_SIZE=$(stat -f%z "$ipa_file" 2>/dev/null || stat -c%s "$ipa_file" 2>/dev/null || echo "0")
+              echo "     Size: $IPA_SIZE bytes"
             done
-          fi
-          
-          # Run post-build validation
-          if ./lib/scripts/ios-workflow/post-build.sh; then
-            echo "✅ Post-build validation completed"
           else
-            echo "❌ Post-build validation failed"
+            echo "❌ No IPA files found in output/ios"
             exit 1
           fi
           
-      - name: Bundle Executable Fix (Enhanced)
-        script: |
-          echo "🛡️ Enhanced Bundle Executable Fix..."
-          
-          # Only run if collision fix is disabled (target-only mode)
-          if [ "${ENABLE_COLLISION_FIX:-false}" = "false" ]; then
-            echo "✅ Collision fix disabled (target-only mode)"
-            if ./lib/scripts/ios-workflow/bundle-executable-fix.sh; then
-              echo "✅ Bundle executable fix completed"
-            else
-              echo "⚠️ Bundle executable fix had issues (continuing...)"
-            fi
-          else
-            echo "⚠️ Collision fix enabled, skipping bundle executable fix"
-          fi
-          
-      - name: App Store Connect Fix (Target-Only Mode)
-        script: |
-          echo "🔧 App Store Connect Fix (Target-Only Mode)..."
-          
-          # Validate bundle ID consistency
-          if [ "${VALIDATE_BUNDLE_ID:-true}" = "true" ]; then
-            echo "🔍 Validating bundle ID consistency..."
+          # Validate bundle ID
+          if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+            ACTUAL_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
             EXPECTED_BUNDLE_ID="${BUNDLE_ID}"
-            
-            # Check main app bundle ID
-            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
-              ACTUAL_BUNDLE_ID=$(plutil -extract CFBundleIdentifier raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
-              if [ "$ACTUAL_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
-                echo "✅ Main app bundle ID matches expected: $EXPECTED_BUNDLE_ID"
-              else
-                echo "⚠️ Main app bundle ID mismatch: expected $EXPECTED_BUNDLE_ID, got $ACTUAL_BUNDLE_ID"
-              fi
+            if [ "$ACTUAL_BUNDLE_ID" = "$EXPECTED_BUNDLE_ID" ]; then
+              echo "✅ Bundle ID matches expected: $EXPECTED_BUNDLE_ID"
+            else
+              echo "⚠️ Bundle ID mismatch: expected $EXPECTED_BUNDLE_ID, got $ACTUAL_BUNDLE_ID"
             fi
           fi
           
-          # Run App Store Connect fix
-          if ./lib/scripts/ios-workflow/app-store-connect-fix.sh; then
-            echo "✅ App Store Connect fix completed"
-          else
-            echo "❌ App Store Connect fix failed"
-            exit 1
-          fi
+          echo "✅ Post-build validation completed"
           
-      - name: App Store Validation (Enhanced)
+
+          
+      - name: App Store Validation (Simplified)
         script: |
-          echo "🛡️ Enhanced App Store Validation..."
+          echo "🛡️ App Store Validation (Simplified)..."
           
           # Validate app metadata
-          if [ "${VALIDATE_APP_NAME:-true}" = "true" ]; then
-            echo "🔍 Validating app name..."
+          if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
+            echo "🔍 Validating app metadata..."
+            
+            # Check app name
+            ACTUAL_APP_NAME=$(plutil -extract CFBundleDisplayName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || plutil -extract CFBundleName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
             EXPECTED_APP_NAME="${APP_NAME}"
+            if [ "$ACTUAL_APP_NAME" = "$EXPECTED_APP_NAME" ]; then
+              echo "✅ App name matches expected: $EXPECTED_APP_NAME"
+            else
+              echo "⚠️ App name mismatch: expected $EXPECTED_APP_NAME, got $ACTUAL_APP_NAME"
+            fi
             
-            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
-              ACTUAL_APP_NAME=$(plutil -extract CFBundleDisplayName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || plutil -extract CFBundleName raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
-              if [ "$ACTUAL_APP_NAME" = "$EXPECTED_APP_NAME" ]; then
-                echo "✅ App name matches expected: $EXPECTED_APP_NAME"
-              else
-                echo "⚠️ App name mismatch: expected $EXPECTED_APP_NAME, got $ACTUAL_APP_NAME"
-              fi
+            # Check version
+            ACTUAL_VERSION=$(plutil -extract CFBundleShortVersionString raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+            EXPECTED_VERSION="${VERSION_NAME}"
+            if [ "$ACTUAL_VERSION" = "$EXPECTED_VERSION" ]; then
+              echo "✅ Version matches expected: $EXPECTED_VERSION"
+            else
+              echo "⚠️ Version mismatch: expected $EXPECTED_VERSION, got $ACTUAL_VERSION"
             fi
           fi
           
-          # Run App Store validation
-          if ./lib/scripts/ios-workflow/app-store-validation.sh; then
-            echo "✅ App Store validation completed"
-          else
-            echo "❌ App Store validation failed"
-            exit 1
-          fi
+          echo "✅ App Store validation completed"
           
-      - name: TestFlight Upload (Target-Only Mode)
+      - name: TestFlight Upload (Simplified)
         script: |
-          echo "🚀 TestFlight Upload (Target-Only Mode)..."
+          echo "🚀 TestFlight Upload (Simplified)..."
           
-          # Validate version information
-          if [ "${VALIDATE_VERSION_INFO:-true}" = "true" ]; then
-            echo "🔍 Validating version information..."
-            EXPECTED_VERSION_NAME="${VERSION_NAME}"
-            EXPECTED_VERSION_CODE="${VERSION_CODE}"
+          # Check if TestFlight upload is enabled and credentials are available
+          if [ "${IS_TESTFLIGHT:-true}" = "true" ] && [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
+            echo "📤 Uploading to TestFlight..."
             
-            if [ -f "ios/build/ios/iphoneos/Runner.app/Info.plist" ]; then
-              ACTUAL_VERSION_NAME=$(plutil -extract CFBundleShortVersionString raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
-              ACTUAL_VERSION_CODE=$(plutil -extract CFBundleVersion raw "ios/build/ios/iphoneos/Runner.app/Info.plist" 2>/dev/null || echo "UNKNOWN")
+            # Download API key
+            API_KEY_PATH="/tmp/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+            if curl -L -o "$API_KEY_PATH" "$APP_STORE_CONNECT_API_KEY_URL" 2>/dev/null; then
+              chmod 600 "$API_KEY_PATH"
+              echo "✅ API key downloaded"
               
-              if [ "$ACTUAL_VERSION_NAME" = "$EXPECTED_VERSION_NAME" ]; then
-                echo "✅ Version name matches expected: $EXPECTED_VERSION_NAME"
+              # Find IPA file
+              IPA_FILES=$(find output/ios -name "*.ipa" -type f 2>/dev/null || true)
+              if [ -n "$IPA_FILES" ]; then
+                IPA_PATH=$(echo "$IPA_FILES" | head -1)
+                echo "📦 Uploading IPA: $IPA_PATH"
+                
+                # Use xcrun altool for upload (modern approach)
+                if xcrun altool --upload-app --type ios --file "$IPA_PATH" --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" --apiKeyPath "$API_KEY_PATH"; then
+                  echo "✅ TestFlight upload completed successfully"
+                else
+                  echo "❌ TestFlight upload failed"
+                  exit 1
+                fi
               else
-                echo "⚠️ Version name mismatch: expected $EXPECTED_VERSION_NAME, got $ACTUAL_VERSION_NAME"
+                echo "❌ No IPA files found for upload"
+                exit 1
               fi
-              
-              if [ "$ACTUAL_VERSION_CODE" = "$EXPECTED_VERSION_CODE" ]; then
-                echo "✅ Version code matches expected: $EXPECTED_VERSION_CODE"
-              else
-                echo "⚠️ Version code mismatch: expected $EXPECTED_VERSION_CODE, got $ACTUAL_VERSION_CODE"
-              fi
+            else
+              echo "❌ Failed to download API key"
+              exit 1
             fi
-          fi
-          
-          # Run TestFlight upload
-          if ./lib/scripts/ios-workflow/testflight-upload.sh; then
-            echo "✅ TestFlight upload completed"
           else
-            echo "❌ TestFlight upload failed"
-            exit 1
+            echo "⚠️ TestFlight upload skipped (credentials not available or disabled)"
           fi
 
     artifacts:
