@@ -139,30 +139,26 @@ main() {
     validate_required_field "APNS_AUTH_KEY_URL" "${APNS_AUTH_KEY_URL:-}" "APNS_AUTH_KEY_URL" || validation_errors=$((validation_errors + 1))
     validate_required_field "APP_STORE_CONNECT_KEY_IDENTIFIER" "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" "APP_STORE_CONNECT_KEY_IDENTIFIER" || validation_errors=$((validation_errors + 1))
 
-    # Certificate validation (one of these combinations required)
-    # Check for modern App Store Connect API approach first
+    # Modern Code Signing Validation (App Store Connect API Only)
+    log_info "🔐 MODERN CODE SIGNING VALIDATION: App Store Connect API"
+    log_info "🎯 Target: Validate only modern code signing credentials"
+    log_info "💥 Strategy: Skip traditional certificate validation entirely"
+    
+    # Check for modern App Store Connect API approach
     if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ] && [ -n "${APP_STORE_CONNECT_API_KEY_URL:-}" ]; then
-        log_success "Modern App Store Connect API approach detected"
-        log_success "APP_STORE_CONNECT_KEY_IDENTIFIER provided"
-        log_success "APP_STORE_CONNECT_ISSUER_ID provided"
-        log_success "APP_STORE_CONNECT_API_KEY_URL provided"
-    # Check for traditional certificate URLs
-    elif [ -n "${CERT_P12_URL:-}" ] || [ -n "${CERT_CER_URL:-}" ]; then
-        if [ -n "${CERT_P12_URL:-}" ]; then
-            log_success "CERT_P12_URL provided"
-        else
-            log_success "CERT_CER_URL provided"
-            if [ -z "${CERT_KEY_URL:-}" ]; then
-                log_error "CERT_KEY_URL is required when CERT_P12_URL is not provided"
-                validation_errors=$((validation_errors + 1))
-            else
-                log_success "CERT_KEY_URL provided"
-            fi
-        fi
+        log_success "✅ Modern App Store Connect API approach detected"
+        log_success "✅ APP_STORE_CONNECT_KEY_IDENTIFIER provided: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+        log_success "✅ APP_STORE_CONNECT_ISSUER_ID provided: $APP_STORE_CONNECT_ISSUER_ID"
+        log_success "✅ APP_STORE_CONNECT_API_KEY_URL provided: $APP_STORE_CONNECT_API_KEY_URL"
+        log_info "🔐 All code signing will be handled automatically by App Store Connect API"
+        log_info "📱 No traditional certificates or provisioning profiles required"
     else
-        log_error "Either App Store Connect API credentials or certificate URLs are required"
-        log_error "Modern approach: Set APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_ISSUER_ID, and APP_STORE_CONNECT_API_KEY_URL"
-        log_error "Traditional approach: Set CERT_P12_URL or CERT_CER_URL+CERT_KEY_URL"
+        log_error "❌ Modern code signing requires all App Store Connect API credentials"
+        log_error "🔧 Required variables:"
+        log_error "   - APP_STORE_CONNECT_KEY_IDENTIFIER: ${APP_STORE_CONNECT_KEY_IDENTIFIER:-NOT_SET}"
+        log_error "   - APP_STORE_CONNECT_ISSUER_ID: ${APP_STORE_CONNECT_ISSUER_ID:-NOT_SET}"
+        log_error "   - APP_STORE_CONNECT_API_KEY_URL: ${APP_STORE_CONNECT_API_KEY_URL:-NOT_SET}"
+        log_error "💡 Please configure all App Store Connect API credentials for modern code signing"
         validation_errors=$((validation_errors + 1))
     fi
 

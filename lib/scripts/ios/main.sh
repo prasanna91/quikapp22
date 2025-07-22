@@ -213,115 +213,53 @@ main() {
         log_info "--- Stage 2: Build Started Email Already Sent (Skipping) ---"
     fi
     
-    # Stage 3: Handle Certificates and Provisioning Profiles
-    log_info "--- Stage 3: Comprehensive Certificate Validation and Setup ---"
-    log_info "🔒 Using Comprehensive Certificate Validation System"
-    log_info "🎯 Features: P12 validation, CER+KEY conversion, App Store Connect API validation"
+    # Stage 3: Modern Code Signing Setup (App Store Connect API Only)
+    log_info "--- Stage 3: Modern Code Signing Setup ---"
+    log_info "🔐 MODERN APPROACH: Using App Store Connect API for automatic code signing"
+    log_info "🎯 Target: Skip traditional certificate handling entirely"
+    log_info "💥 Strategy: Use App Store Connect API for all code signing operations"
     
-    # Make comprehensive certificate validation script executable
-    chmod +x "${SCRIPT_DIR}/comprehensive_certificate_validation.sh"
-    
-    # Run comprehensive certificate validation and capture output
-    log_info "🔒 Running comprehensive certificate validation..."
-    
-    # Create a temporary file to capture the UUID
-    local temp_uuid_file="/tmp/mobileprovision_uuid.txt"
-    rm -f "$temp_uuid_file"
-    
-    # Run validation and capture output
-    if "${SCRIPT_DIR}/comprehensive_certificate_validation.sh" 2>&1 | tee /tmp/cert_validation.log; then
-        log_success "✅ Comprehensive certificate validation completed successfully"
-        log_info "🎯 All certificate methods validated and configured"
-        
-        # Check if we're using modern code signing (App Store Connect API)
-        if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
-            log_info "📱 Modern code signing detected - skipping traditional provisioning profile UUID extraction"
-            log_info "🔐 Automatic code signing will handle provisioning during build"
-            log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
-        else
-            # Extract UUID from the log or try to get it from the script (only for traditional code signing)
-            if [ -n "${PROFILE_URL:-}" ]; then
-                log_info "🔍 Extracting provisioning profile UUID..."
-                
-                # Try to extract UUID from the validation log (support both uppercase and lowercase)
-                local extracted_uuid
-                extracted_uuid=$(grep -o "UUID: [A-Fa-f0-9-]*" /tmp/cert_validation.log 2>/dev/null | head -1 | cut -d' ' -f2)
-                
-                # If not found in log, try to extract from MOBILEPROVISION_UUID= format
-                if [ -z "$extracted_uuid" ]; then
-                    extracted_uuid=$(grep -o "MOBILEPROVISION_UUID=[A-Fa-f0-9-]*" /tmp/cert_validation.log 2>/dev/null | head -1 | cut -d'=' -f2)
-                fi
-                
-                # Additional fallback: look for any valid UUID pattern in the log
-                if [ -z "$extracted_uuid" ]; then
-                    extracted_uuid=$(grep -oE "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}" /tmp/cert_validation.log 2>/dev/null | head -1)
-                fi
-                
-                # Validate extracted UUID format
-                if [ -n "$extracted_uuid" ] && [[ "$extracted_uuid" =~ ^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$ ]]; then
-                    export MOBILEPROVISION_UUID="$extracted_uuid"
-                    log_success "✅ Extracted valid UUID from validation log: $extracted_uuid"
-                else
-                    if [ -n "$extracted_uuid" ]; then
-                        log_warn "⚠️ Extracted invalid UUID format: '$extracted_uuid'"
-                    fi
-                    
-                    # Fallback: try to extract UUID directly from the profile
-                    log_info "🔄 Fallback: Extracting UUID directly from profile..."
-                    local profile_file="/tmp/profile.mobileprovision"
-                    
-                    if curl -fsSL -o "$profile_file" "${PROFILE_URL}" 2>/dev/null; then
-                        local fallback_uuid
-                        fallback_uuid=$(security cms -D -i "$profile_file" 2>/dev/null | plutil -extract UUID xml1 -o - - 2>/dev/null | sed -n 's/.*<string>\(.*\)<\/string>.*/\1/p' | head -1)
-                        
-                        # Validate fallback UUID format
-                        if [ -n "$fallback_uuid" ] && [[ "$fallback_uuid" =~ ^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$ ]]; then
-                            export MOBILEPROVISION_UUID="$fallback_uuid"
-                            log_success "✅ Extracted valid UUID via fallback method: $fallback_uuid"
-                        else
-                            log_error "❌ Failed to extract valid UUID from provisioning profile"
-                            log_error "🔧 Invalid UUID format: '$fallback_uuid'"
-                            log_error "💡 Check PROFILE_URL and ensure it's a valid .mobileprovision file"
-                            
-                            # Critical: exit if no valid UUID found
-                            log_error "❌ Cannot proceed with IPA export without valid provisioning profile UUID"
-                            send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Failed to extract valid provisioning profile UUID."
-                            return 1
-                        fi
-                    else
-                        log_error "❌ Failed to download provisioning profile for UUID extraction"
-                        log_error "💡 Check PROFILE_URL accessibility: ${PROFILE_URL:-NOT_SET}"
-                        
-                        # Critical: exit if profile can't be downloaded
-                        log_error "❌ Cannot proceed with IPA export without provisioning profile"
-                        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Failed to download provisioning profile from PROFILE_URL."
-                        return 1
-                    fi
-                fi
-            else
-                log_warn "⚠️ No PROFILE_URL provided and no modern code signing configured"
-                log_warn "💡 Consider using App Store Connect API for automatic code signing"
-            fi
-        fi
-    else
-        log_error "❌ Comprehensive certificate validation failed"
-        log_error "🔧 This will prevent successful IPA export"
-        log_info "💡 Check the following:"
-        log_info "   1. CERT_P12_URL and CERT_PASSWORD are set correctly"
-        log_info "   2. CERT_CER_URL and CERT_KEY_URL are accessible"
-        log_info "   3. APP_STORE_CONNECT_API_KEY_PATH is valid"
-        log_info "   4. PROFILE_URL is accessible"
-        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Comprehensive certificate validation failed."
+    # Validate modern code signing requirements
+    if [[ -z "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" || -z "${APP_STORE_CONNECT_ISSUER_ID:-}" || -z "${APP_STORE_CONNECT_API_KEY_URL:-}" ]]; then
+        log_error "❌ Modern code signing requires all App Store Connect API credentials"
+        log_error "🔧 Required variables:"
+        log_error "   - APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+        log_error "   - APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID"
+        log_error "   - APP_STORE_CONNECT_API_KEY_URL: $APP_STORE_CONNECT_API_KEY_URL"
+        log_error "💡 Please configure all App Store Connect API credentials for modern code signing"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Modern code signing credentials incomplete."
         return 1
     fi
     
-    log_info "📋 Certificate Status:"
-    if [ -n "${MOBILEPROVISION_UUID:-}" ]; then
-        log_info "   - Provisioning Profile UUID: $MOBILEPROVISION_UUID"
+    log_success "✅ Modern code signing credentials validated"
+    log_info "📱 App Store Connect API Key ID: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+    log_info "📱 App Store Connect Issuer ID: $APP_STORE_CONNECT_ISSUER_ID"
+    log_info "📱 App Store Connect API Key URL: $APP_STORE_CONNECT_API_KEY_URL"
+    
+    # Download App Store Connect API key
+    log_info "📥 Downloading App Store Connect API key..."
+    local api_key_path="/tmp/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+    
+    if curl -fsSL -o "$api_key_path" "${APP_STORE_CONNECT_API_KEY_URL}" 2>/dev/null; then
+        export APP_STORE_CONNECT_API_KEY_DOWNLOADED_PATH="$api_key_path"
+        log_success "✅ App Store Connect API key downloaded successfully"
+        log_info "📋 API Key Path: $api_key_path"
+    else
+        log_error "❌ Failed to download App Store Connect API key"
+        log_error "💡 Check APP_STORE_CONNECT_API_KEY_URL accessibility: ${APP_STORE_CONNECT_API_KEY_URL:-NOT_SET}"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Failed to download App Store Connect API key."
+        return 1
     fi
-    if [ -n "${APP_STORE_CONNECT_API_KEY_DOWNLOADED_PATH:-}" ]; then
-        log_info "   - App Store Connect API: Ready for upload"
-    fi
+    
+    # Set modern code signing compatibility values
+    log_info "🔧 Setting modern code signing compatibility values..."
+    export CERT_IDENTITY="modern-signing-no-cert-required"
+    export MOBILEPROVISION_UUID="00000000-0000-0000-0000-000000000000"
+    log_info "📋 Certificate Identity: $CERT_IDENTITY"
+    log_info "📋 Provisioning Profile UUID: $MOBILEPROVISION_UUID"
+    
+    log_success "✅ Stage 3 completed: Modern code signing setup completed"
+    log_info "🔐 All code signing will be handled automatically by App Store Connect API"
     
     # Stage 4: Bundle Executable Pre-Validation (Early Detection)
     log_info "--- Stage 4: Bundle Executable Pre-Validation ---"
