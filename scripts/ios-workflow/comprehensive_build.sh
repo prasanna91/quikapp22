@@ -305,6 +305,9 @@ pod install --repo-update
 log_info "Step 6.1: Fixing CwlCatchException Swift compiler error"
 if [ -f "../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh" ]; then
     chmod +x ../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh
+    # Set build mode for the fix script
+    export FLUTTER_BUILD_MODE="release"
+    export BUILD_CONFIGURATION="Release"
     if ../lib/scripts/ios-workflow/fix_cwl_catch_exception.sh; then
         log_success "CwlCatchException fix completed"
     else
