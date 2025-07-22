@@ -142,7 +142,7 @@ export BOTTOMMENU_ICON_POSITION=${BOTTOMMENU_ICON_POSITION:-"above"}
 # Firebase & Apple Developer Configurations
 export firebase_config_android=${firebase_config_android:-"https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services (gc).json"}
 export firebase_config_ios=${firebase_config_ios:-"https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-gc.plist"}
-export APPLE_TEAM_ID=${APPLE_TEAM_ID:-"9H2AD7NQ49"}
+export APPLE_TEAM_ID=${APPLE_TEAM_ID:-""}
 export APNS_KEY_ID=${APNS_KEY_ID:-"V566SWNF69"}
 export APNS_AUTH_KEY_URL=${APNS_AUTH_KEY_URL:-"https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8"}
 export CERT_PASSWORD=${CERT_PASSWORD:-"User@54321"}

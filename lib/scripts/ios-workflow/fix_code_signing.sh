@@ -83,19 +83,38 @@ fix_code_signing_project() {
     # Update DEVELOPMENT_TEAM for Runner target
     # Find the Runner target configuration and update DEVELOPMENT_TEAM
     
-    # Update DEVELOPMENT_TEAM entries
+    # First, try to update existing DEVELOPMENT_TEAM entries
     local updated_count=0
     
-    # Update DEVELOPMENT_TEAM entries
     if sed -i '' "s/DEVELOPMENT_TEAM = .*;/DEVELOPMENT_TEAM = $team_id;/g" "$project_file"; then
         updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
-        log_success "✅ Updated DEVELOPMENT_TEAM entries"
-    else
-        log_error "❌ Failed to update DEVELOPMENT_TEAM"
-        return 1
+        log_success "✅ Updated existing DEVELOPMENT_TEAM entries"
     fi
     
-    log_info "📋 Updated $updated_count DEVELOPMENT_TEAM entries"
+    # If no entries were found, we need to add them to the Runner target
+    if [ "$updated_count" -eq 0 ]; then
+        log_info "📝 No existing DEVELOPMENT_TEAM entries found, adding new ones..."
+        
+        # Find the Runner target configuration and add DEVELOPMENT_TEAM
+        # Look for the Runner target build settings section
+        # First, try to find the Runner target and add DEVELOPMENT_TEAM to its build settings
+        if sed -i '' "/Runner.*buildSettings = {/,/};/ s/};/DEVELOPMENT_TEAM = $team_id;\n};/" "$project_file"; then
+            log_success "✅ Added DEVELOPMENT_TEAM to Runner target"
+            updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+        else
+            # If that didn't work, try a more generic approach
+            log_info "📝 Trying alternative approach to add DEVELOPMENT_TEAM..."
+            if sed -i '' "/buildSettings = {/,/};/ s/};/DEVELOPMENT_TEAM = $team_id;\n};/" "$project_file"; then
+                log_success "✅ Added DEVELOPMENT_TEAM using generic approach"
+                updated_count=$(grep -c "DEVELOPMENT_TEAM = $team_id;" "$project_file" || echo "0")
+            else
+                log_error "❌ Failed to add DEVELOPMENT_TEAM to any target"
+                return 1
+            fi
+        fi
+    fi
+    
+    log_info "📋 Total DEVELOPMENT_TEAM entries: $updated_count"
     
     # Verify the changes
     local verification_count
