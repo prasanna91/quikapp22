@@ -1,0 +1,23 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+rule: Use App Store Connect API for iOS workflow validation
+when:
+  - file: codemagic.yaml
+    contains: "app_store_connect"
+    message: |
+      Modern iOS workflows should use the App Store Connect API for validation and deployment.
+      Please ensure your workflow uses the `app_store_connect` block with `api_key` credentials as recommended by Apple.
+      Example:
+        publishing:
+          app_store_connect:
+            api_key:
+              key_id: $APP_STORE_CONNECT_KEY_ID
+              issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+              private_key: $APP_STORE_CONNECT_PRIVATE_KEY
+            submit_to_testflight: true
+            submit_to_app_store: false
+      See: https://docs.codemagic.io/publishing-yaml/distribution/#publishing-to-app-store-connect-using-api-key
+severity: error
