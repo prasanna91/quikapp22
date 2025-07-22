@@ -129,10 +129,17 @@ compare_values() {
     local actual_bundle_id
     
     if [ -f "lib/config/env_config.dart" ]; then
-        actual_app_name=$(grep "static const String appName = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/')
-        actual_version_name=$(grep "static const String versionName = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/')
-        actual_version_code=$(grep "static const int versionCode = " "lib/config/env_config.dart" | sed 's/.*= \([0-9]*\).*/\1/')
-        actual_bundle_id=$(grep "static const String bundleId = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/')
+        # Extract clean values without log messages
+        actual_app_name=$(grep "static const String appName = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/' | head -1)
+        actual_version_name=$(grep "static const String versionName = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/' | head -1)
+        actual_version_code=$(grep "static const int versionCode = " "lib/config/env_config.dart" | sed 's/.*= \([0-9]*\).*/\1/' | head -1)
+        actual_bundle_id=$(grep "static const String bundleId = " "lib/config/env_config.dart" | sed 's/.*= "\([^"]*\)".*/\1/' | head -1)
+        
+        # Clean up any remaining log messages
+        actual_app_name=$(echo "$actual_app_name" | sed 's/\[.*\] //g' | sed 's/✅ Found API variable APP_NAME: //g')
+        actual_version_name=$(echo "$actual_version_name" | sed 's/\[.*\] //g' | sed 's/✅ Found API variable VERSION_NAME: //g')
+        actual_version_code=$(echo "$actual_version_code" | sed 's/\[.*\] //g' | sed 's/✅ Found API variable VERSION_CODE: //g')
+        actual_bundle_id=$(echo "$actual_bundle_id" | sed 's/\[.*\] //g' | sed 's/✅ Found API variable BUNDLE_ID: //g')
         
         # Compare values
         log_info "📋 Value Comparison:"
