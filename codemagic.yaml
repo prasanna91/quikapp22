@@ -383,6 +383,10 @@ workflows:
 
       - name: 🏗️ Build and Archive iOS (.ipa)
         script: |
+          # Fix iOS build issues (CwlCatchException + provisioning profiles)
+          chmod +x scripts/fix_ios_build_issues.sh
+          ./scripts/fix_ios_build_issues.sh
+          
           flutter build ios --release --no-codesign
           xcodebuild \
             -workspace ios/Runner.xcworkspace \
@@ -391,7 +395,8 @@ workflows:
             -configuration Release archive \
             -archivePath build/Runner.xcarchive \
             DEVELOPMENT_TEAM=$APPLE_TEAM_ID \
-            PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID
+            PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID \
+            -allowProvisioningUpdates
 
       - name: 📦 Export IPA
         script: |
