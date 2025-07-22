@@ -146,6 +146,25 @@ fix_env_config() {
     fi
 }
 
+# Function to fix code signing configuration
+fix_code_signing() {
+    log_info "🔧 Fixing code signing configuration..."
+    
+    if [ -f "${SCRIPT_DIR}/fix_code_signing.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/fix_code_signing.sh"
+        if "${SCRIPT_DIR}/fix_code_signing.sh"; then
+            log_success "✅ Code signing configuration fixed"
+            return 0
+        else
+            log_error "❌ Code signing configuration fix failed"
+            return 1
+        fi
+    else
+        log_error "❌ Code signing configuration fix script not found"
+        return 1
+    fi
+}
+
 # Function to build and archive in one step
 build_and_archive() {
     log_info "🏗️ Building and archiving iOS app..."
@@ -422,6 +441,13 @@ main() {
     if ! fix_env_config; then
         log_error "❌ Environment configuration fix failed"
         send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Environment configuration fix failed."
+        return 1
+    fi
+    
+    # Fix code signing configuration
+    if ! fix_code_signing; then
+        log_error "❌ Code signing configuration fix failed"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Code signing configuration fix failed."
         return 1
     fi
     
