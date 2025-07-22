@@ -41,8 +41,10 @@ class EnvConfig {
   static const bool isStorage = true;
 
   // UI/Branding
-  static const String logoUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
-  static const String splashUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
+  static const String logoUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
+  static const String splashUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
   static const String splashBg = "";
   static const String splashBgColor = "#cbdbf5";
   static const String splashTagline = "TWINKLUB";
@@ -51,7 +53,8 @@ class EnvConfig {
   static const int splashDuration = 4;
 
   // Bottom Menu Configuration
-  static const String bottommenuItems = """[{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]""";
+  static const String bottommenuItems =
+      """[{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]""";
   static const String bottommenuBgColor = "#FFFFFF";
   static const String bottommenuIconColor = "#6d6e8c";
   static const String bottommenuTextColor = "#6d6e8c";
@@ -61,11 +64,11 @@ class EnvConfig {
   static const bool bottommenuFontItalic = false;
   static const String bottommenuActiveTabColor = "#a30237";
   static const String bottommenuIconPosition = "above";
-  static const String bottommenuVisibleOn = "";
 
   // Firebase Configuration
   static const String firebaseConfigAndroid = "";
-  static const String firebaseConfigIos = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist";
+  static const String firebaseConfigIos =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist";
 
   // Android Signing
   static const String keyStoreUrl = "";
@@ -76,12 +79,17 @@ class EnvConfig {
   // iOS Signing
   static const String appleTeamId = "9H2AD7NQ49";
   static const String apnsKeyId = "V566SWNF69";
-  static const String apnsAuthKeyUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8";
+  static const String apnsAuthKeyUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8";
   static const String certPassword = "qwerty123";
-  static const String profileUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision";
-  static const String certP12Url = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Certificates.p12";
-  static const String certCerUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/ios_distribution17-07.cer";
-  static const String certKeyUrl = "https://raw.githubusercontent.com/prasanna91/QuikApp/main/private.key";
+  static const String profileUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision";
+  static const String certP12Url =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Certificates.p12";
+  static const String certCerUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/ios_distribution17-07.cer";
+  static const String certKeyUrl =
+      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/private.key";
   static const String profileType = "app-store";
   static const String appStoreConnectKeyIdentifier = "S95LCWAH99";
 
@@ -95,7 +103,9 @@ class EnvConfig {
   static bool get isAndroidBuild => workflowId.startsWith('android');
   static bool get isIosBuild => workflowId.contains('ios');
   static bool get isCombinedBuild => workflowId == 'combined';
-  static bool get hasFirebase => firebaseConfigAndroid.isNotEmpty || firebaseConfigIos.isNotEmpty;
+  static bool get hasFirebase =>
+      firebaseConfigAndroid.isNotEmpty || firebaseConfigIos.isNotEmpty;
   static bool get hasKeystore => keyStoreUrl.isNotEmpty;
-  static bool get hasIosSigning => certPassword.isNotEmpty && profileUrl.isNotEmpty;
+  static bool get hasIosSigning =>
+      certPassword.isNotEmpty && profileUrl.isNotEmpty;
 }

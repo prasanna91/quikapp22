@@ -127,6 +127,25 @@ inject_bundle_id() {
     fi
 }
 
+# Function to fix environment configuration
+fix_env_config() {
+    log_info "🔧 Fixing environment configuration..."
+    
+    if [ -f "${SCRIPT_DIR}/fix_env_config.sh" ]; then
+        chmod +x "${SCRIPT_DIR}/fix_env_config.sh"
+        if "${SCRIPT_DIR}/fix_env_config.sh"; then
+            log_success "✅ Environment configuration fixed"
+            return 0
+        else
+            log_error "❌ Environment configuration fix failed"
+            return 1
+        fi
+    else
+        log_error "❌ Environment configuration fix script not found"
+        return 1
+    fi
+}
+
 # Function to build and archive in one step
 build_and_archive() {
     log_info "🏗️ Building and archiving iOS app..."
@@ -396,6 +415,13 @@ main() {
     if ! inject_bundle_id; then
         log_error "❌ Bundle ID injection failed"
         send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Bundle ID injection failed."
+        return 1
+    fi
+    
+    # Fix environment configuration (remove unused variables)
+    if ! fix_env_config; then
+        log_error "❌ Environment configuration fix failed"
+        send_email "build_failed" "iOS" "${CM_BUILD_ID:-unknown}" "Environment configuration fix failed."
         return 1
     fi
     

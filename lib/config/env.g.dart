@@ -44,14 +44,17 @@ class Env {
   static const String exportBOTTOMMENU_FONT_ITALIC = "false";
   static const String exportBOTTOMMENU_ACTIVE_TAB_COLOR = "#333333";
   static const String exportBOTTOMMENU_ICON_POSITION = "above";
-  static const String exportBOTTOMMENU_VISIBLE_ON = "home";
-  static const String exportfirebase_config_android = "https://example.com/google-services.json";
-  static const String exportfirebase_config_ios = "https://example.com/GoogleService-Info.plist";
+  static const String exportfirebase_config_android =
+      "https://example.com/google-services.json";
+  static const String exportfirebase_config_ios =
+      "https://example.com/GoogleService-Info.plist";
   static const String exportAPPLE_TEAM_ID = "TESTTEAMID";
   static const String exportAPNS_KEY_ID = "TESTAPNSKEYID";
-  static const String exportAPNS_AUTH_KEY_URL = "https://example.com/AuthKey.p8";
+  static const String exportAPNS_AUTH_KEY_URL =
+      "https://example.com/AuthKey.p8";
   static const String exportCERT_PASSWORD = "testpassword";
-  static const String exportPROFILE_URL = "https://example.com/profile.mobileprovision";
+  static const String exportPROFILE_URL =
+      "https://example.com/profile.mobileprovision";
   static const String exportCERT_CER_URL = "https://example.com/cert.cer";
   static const String exportCERT_KEY_URL = "https://example.com/key.key";
   static const String exportAPP_STORE_CONNECT_KEY_IDENTIFIER = "TESTKEYID";

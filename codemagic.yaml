@@ -99,7 +99,6 @@ ui_config: &ui_config
   BOTTOMMENU_FONT_ITALIC: $BOTTOMMENU_FONT_ITALIC
   BOTTOMMENU_ACTIVE_TAB_COLOR: $BOTTOMMENU_ACTIVE_TAB_COLOR
   BOTTOMMENU_ICON_POSITION: $BOTTOMMENU_ICON_POSITION
-  BOTTOMMENU_VISIBLE_ON: $BOTTOMMENU_VISIBLE_ON
 
 # 🍎 iOS Build Acceleration Block
 ios_build_acceleration: &ios_build_acceleration
@@ -359,6 +358,7 @@ workflows:
           chmod +x lib/scripts/ios-workflow/fix_swift_optimization.sh
           chmod +x lib/scripts/ios-workflow/simple_deployment_target_fix.sh
           chmod +x lib/scripts/ios-workflow/simple_bundle_id_inject.sh
+          chmod +x lib/scripts/ios-workflow/fix_env_config.sh
           chmod +x lib/scripts/utils/*.sh
           
           # Run comprehensive build workflow (build + archive + export + upload)

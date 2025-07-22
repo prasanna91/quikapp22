@@ -138,7 +138,6 @@ export BOTTOMMENU_FONT_BOLD=${BOTTOMMENU_FONT_BOLD:-"false"}
 export BOTTOMMENU_FONT_ITALIC=${BOTTOMMENU_FONT_ITALIC:-"false"}
 export BOTTOMMENU_ACTIVE_TAB_COLOR=${BOTTOMMENU_ACTIVE_TAB_COLOR:-"#a30237"}
 export BOTTOMMENU_ICON_POSITION=${BOTTOMMENU_ICON_POSITION:-"above"}
-export BOTTOMMENU_VISIBLE_ON=${BOTTOMMENU_VISIBLE_ON:-"home,settings,profile"}
 
 # Firebase & Apple Developer Configurations
 export firebase_config_android=${firebase_config_android:-"https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services (gc).json"}

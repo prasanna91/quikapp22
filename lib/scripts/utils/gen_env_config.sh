@@ -240,7 +240,6 @@ fi)
   static const bool bottommenuFontItalic = ${BOTTOMMENU_FONT_ITALIC:-false};
   static const String bottommenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-#0000FF}";
   static const String bottommenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-top}";
-  static const String bottommenuVisibleOn = "${BOTTOMMENU_VISIBLE_ON:-}";
 
   // Firebase Configuration
 $(if [ "$IS_ANDROID_WORKFLOW" = true ]; then
