@@ -13,10 +13,6 @@ log "🔧 Fixing iOS Build Issues"
 # Step 1: Fix CwlCatchException Swift compiler error
 log_info "Step 1: Fixing CwlCatchException Swift compiler error"
 
-# Always remove CwlCatchException pods as they cause Swift compiler errors
-# These are test-only dependencies that shouldn't be in any production build
-log_info "Removing CwlCatchException pods to prevent Swift compiler errors"
-
 # Remove CwlCatchException pods from Pods project
 if [ -d "ios/Pods/CwlCatchException" ]; then
     log_info "Removing CwlCatchException pod"
@@ -101,8 +97,63 @@ if [ -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
     log_success "Updated project.pbxproj"
 fi
 
-# Step 4: Clean and reinstall pods if needed
-log_info "Step 4: Cleaning and reinstalling pods"
+# Step 4: Handle speech_to_text dependency issue
+log_info "Step 4: Handling speech_to_text dependency issue"
+
+# Use the dedicated script to handle speech_to_text dependency
+if [ -f "scripts/fix_speech_to_text_dependency.sh" ]; then
+    chmod +x scripts/fix_speech_to_text_dependency.sh
+    ./scripts/fix_speech_to_text_dependency.sh
+else
+    log_warning "fix_speech_to_text_dependency.sh not found, using fallback approach"
+    
+    # Check if speech_to_text is being used
+    if grep -q "speech_to_text" pubspec.yaml; then
+        log_warning "speech_to_text plugin detected - this may cause CwlCatchException to be reinstalled"
+        log_info "Creating post-install hook to remove CwlCatchException after pod install"
+        
+        # Create a post-install script
+        cat > ios/remove_cwl_catch_exception.rb << 'EOF'
+post_install do |installer|
+  # Remove CwlCatchException pods after installation
+  installer.pods_project.targets.each do |target|
+    if target.name == 'CwlCatchException' || target.name == 'CwlCatchExceptionSupport'
+      puts "Removing #{target.name} from build"
+      target.build_configurations.each do |config|
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphoneos*]'] = 'arm64'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+      end
+    end
+  end
+  
+  # Also remove from Pods project file
+  pods_project_path = installer.pods_project.path
+  project_contents = File.read(pods_project_path)
+  project_contents.gsub!(/CwlCatchException[^}]*}/, '')
+  project_contents.gsub!(/CwlCatchExceptionSupport[^}]*}/, '')
+  File.write(pods_project_path, project_contents)
+end
+EOF
+        
+        # Update Podfile to include the post-install hook
+        if [ -f "ios/Podfile" ]; then
+            log_info "Updating Podfile with post-install hook"
+            
+            # Create backup
+            cp ios/Podfile ios/Podfile.bak
+            
+            # Add the post-install hook at the end
+            echo "" >> ios/Podfile
+            echo "# Post-install hook to remove CwlCatchException" >> ios/Podfile
+            echo "require_relative 'remove_cwl_catch_exception'" >> ios/Podfile
+            
+            log_success "Updated Podfile"
+        fi
+    fi
+fi
+
+# Step 5: Clean and reinstall pods with fix
+log_info "Step 5: Cleaning and reinstalling pods"
 
 cd ios
 if [ -d "Pods" ]; then
@@ -113,6 +164,33 @@ fi
 
 log_info "Installing pods"
 pod install --repo-update
+
+# Step 6: Remove CwlCatchException again after pod install
+log_info "Step 6: Removing CwlCatchException after pod install"
+
+if [ -d "Pods/CwlCatchException" ]; then
+    log_info "Removing CwlCatchException pod (post-install)"
+    rm -rf Pods/CwlCatchException
+fi
+
+if [ -d "Pods/CwlCatchExceptionSupport" ]; then
+    log_info "Removing CwlCatchExceptionSupport pod (post-install)"
+    rm -rf Pods/CwlCatchExceptionSupport
+fi
+
+# Update Pods project file again
+if [ -f "Pods/Pods.xcodeproj/project.pbxproj" ]; then
+    log_info "Updating Pods project file (post-install)"
+    
+    # Create backup
+    cp Pods/Pods.xcodeproj/project.pbxproj Pods/Pods.xcodeproj/project.pbxproj.bak2
+    
+    # Remove CwlCatchException targets from project file
+    sed -i '' '/CwlCatchException/d' Pods/Pods.xcodeproj/project.pbxproj
+    sed -i '' '/CwlCatchExceptionSupport/d' Pods/Pods.xcodeproj/project.pbxproj
+    
+    log_success "Updated Pods project file (post-install)"
+fi
 
 cd ..
 

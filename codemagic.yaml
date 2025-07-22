@@ -397,6 +397,13 @@ workflows:
             DEVELOPMENT_TEAM=$APPLE_TEAM_ID \
             PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID \
             -allowProvisioningUpdates
+          
+          # Restore speech_to_text if it was temporarily removed
+          if [ -f "pubspec.yaml.bak" ]; then
+            echo "Restoring speech_to_text plugin..."
+            cp pubspec.yaml.bak pubspec.yaml
+            flutter pub get
+          fi
 
       - name: 📦 Export IPA
         script: |
