@@ -57,8 +57,8 @@ export SPLASH_BG_COLOR=$(get_api_var "SPLASH_BG_COLOR" "#FFFFFF")
 export SPLASH_TAGLINE=$(get_api_var "SPLASH_TAGLINE" "")
 export SPLASH_TAGLINE_COLOR=$(get_api_var "SPLASH_TAGLINE_COLOR" "#000000")
 export FIREBASE_CONFIG_IOS=$(get_api_var "FIREBASE_CONFIG_IOS" "")
-export ENABLE_EMAIL_NOTIFICATIONS=$(get_api_var "ENABLE_EMAIL_NOTIFICATIONS" "true")
-export EMAIL_SMTP_SERVER=$(get_api_var "EMAIL_SMTP_SERVER" "smtp.gmail.com")
+export ENABLE_EMAIL_NOTIFICATIONS=$(get_api_var "ENABLE_EMAIL_NOTIFICATIONS" "false")
+export EMAIL_SMTP_SERVER=$(get_api_var "EMAIL_SMTP_SERVER" "")
 export EMAIL_SMTP_PORT=$(get_api_var "EMAIL_SMTP_PORT" "587")
 export EMAIL_SMTP_USER=$(get_api_var "EMAIL_SMTP_USER" "")
 export EMAIL_SMTP_PASS=$(get_api_var "EMAIL_SMTP_PASS" "")
@@ -83,13 +83,13 @@ export IS_BIOMETRIC=$(get_api_var "IS_BIOMETRIC" "false")
 export IS_CALENDAR=$(get_api_var "IS_CALENDAR" "false")
 export IS_STORAGE=$(get_api_var "IS_STORAGE" "false")
 export SPLASH_BG_URL=$(get_api_var "SPLASH_BG_URL" "")
-export SPLASH_ANIMATION=$(get_api_var "SPLASH_ANIMATION" "none")
-export SPLASH_DURATION=$(get_api_var "SPLASH_DURATION" "3")
+export SPLASH_ANIMATION=$(get_api_var "SPLASH_ANIMATION" "fade")
+export SPLASH_DURATION=$(get_api_var "SPLASH_DURATION" "4")
 export BOTTOMMENU_ITEMS=$(get_api_var "BOTTOMMENU_ITEMS" "[]")
 export BOTTOMMENU_BG_COLOR=$(get_api_var "BOTTOMMENU_BG_COLOR" "#FFFFFF")
 export BOTTOMMENU_ICON_COLOR=$(get_api_var "BOTTOMMENU_ICON_COLOR" "#000000")
 export BOTTOMMENU_TEXT_COLOR=$(get_api_var "BOTTOMMENU_TEXT_COLOR" "#000000")
-export BOTTOMMENU_FONT=$(get_api_var "BOTTOMMENU_FONT" "DM Sans")
+export BOTTOMMENU_FONT=$(get_api_var "BOTTOMMENU_FONT" "Roboto")
 export BOTTOMMENU_FONT_SIZE=$(get_api_var "BOTTOMMENU_FONT_SIZE" "12")
 export BOTTOMMENU_FONT_BOLD=$(get_api_var "BOTTOMMENU_FONT_BOLD" "false")
 export BOTTOMMENU_FONT_ITALIC=$(get_api_var "BOTTOMMENU_FONT_ITALIC" "false")
@@ -328,38 +328,38 @@ generate_env_config() {
 
 class EnvConfig {
   // App Metadata
-  static const String appId = "$APP_ID";
-  static const String versionName = "$VERSION_NAME";
-  static const int versionCode = $VERSION_CODE;
-  static const String appName = "$APP_NAME";
-  static const String orgName = "$ORG_NAME";
-  static const String webUrl = "$WEB_URL";
-  static const String userName = "$USER_NAME";
-  static const String emailId = "$EMAIL_ID";
+  static const String appId = "${APP_ID:-}";
+  static const String versionName = "${VERSION_NAME:-1.0.0}";
+  static const int versionCode = ${VERSION_CODE:-1};
+  static const String appName = "${APP_NAME:-QuikApp}";
+  static const String orgName = "${ORG_NAME:-}";
+  static const String webUrl = "${WEB_URL:-}";
+  static const String userName = "${USER_NAME:-}";
+  static const String emailId = "${EMAIL_ID:-}";
   static const String branch = "main";
-  static const String workflowId = "$WORKFLOW_ID";
+  static const String workflowId = "${WORKFLOW_ID:-}";
 
   // Package Identifiers
 $(if [ "$IS_IOS_WORKFLOW" = true ]; then
 cat <<IOS_PKG
-  static const String bundleId = "$BUNDLE_ID";
+  static const String bundleId = "${BUNDLE_ID:-}";
 IOS_PKG
 else
 cat <<ANDROID_PKG
-  static const String packageName = "$PKG_NAME";
+  static const String packageName = "${PKG_NAME:-}";
 ANDROID_PKG
 fi)
 
   // Build Configuration
-  static const String outputDir = "$OUTPUT_DIR";
+  static const String outputDir = "${OUTPUT_DIR:-output/ios}";
   static const String projectRoot = "${PROJECT_ROOT:-.}";
   static const String buildDir = "${CM_BUILD_DIR:-.}";
 
   // iOS-specific Configuration
 $(if [ "$IS_IOS_WORKFLOW" = true ]; then
 cat <<IOS_CONFIG
-  static const String appleTeamId = "$APPLE_TEAM_ID";
-  static const String apnsKeyId = "$APNS_KEY_ID";
+  static const String appleTeamId = "${APPLE_TEAM_ID:-}";
+  static const String apnsKeyId = "${APNS_KEY_ID:-}";
   static const bool isIosWorkflow = true;
 IOS_CONFIG
 else
@@ -386,37 +386,37 @@ fi)
   static const bool isStorage = ${IS_STORAGE:-false};
 
   // Asset URLs
-  static const String logoUrl = "$LOGO_URL";
-  static const String splashUrl = "$SPLASH_URL";
-  static const String splashBgUrl = "$SPLASH_BG_URL";
+  static const String logoUrl = "${LOGO_URL:-}";
+  static const String splashUrl = "${SPLASH_URL:-}";
+  static const String splashBgUrl = "${SPLASH_BG_URL:-}";
 
   // Splash Screen Configuration
-  static const String splashBgColor = "$SPLASH_BG_COLOR";
-  static const String splashTagline = "$SPLASH_TAGLINE";
-  static const String splashTaglineColor = "$SPLASH_TAGLINE_COLOR";
-  static const String splashAnimation = "$SPLASH_ANIMATION";
+  static const String splashBgColor = "${SPLASH_BG_COLOR:-#FFFFFF}";
+  static const String splashTagline = "${SPLASH_TAGLINE:-}";
+  static const String splashTaglineColor = "${SPLASH_TAGLINE_COLOR:-#000000}";
+  static const String splashAnimation = "${SPLASH_ANIMATION:-fade}";
   static const int splashDuration = ${SPLASH_DURATION:-4};
 
   // Bottom Menu Configuration
-  static const String bottomMenuItems = r'$BOTTOMMENU_ITEMS';
-  static const String bottomMenuBgColor = "$BOTTOMMENU_BG_COLOR";
-  static const String bottomMenuIconColor = "$BOTTOMMENU_ICON_COLOR";
-  static const String bottomMenuTextColor = "$BOTTOMMENU_TEXT_COLOR";
-  static const String bottomMenuFont = "$BOTTOMMENU_FONT";
+  static const String bottomMenuItems = r'${BOTTOMMENU_ITEMS:-[]}';
+  static const String bottomMenuBgColor = "${BOTTOMMENU_BG_COLOR:-#FFFFFF}";
+  static const String bottomMenuIconColor = "${BOTTOMMENU_ICON_COLOR:-#000000}";
+  static const String bottomMenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-#000000}";
+  static const String bottomMenuFont = "${BOTTOMMENU_FONT:-Roboto}";
   static const int bottomMenuFontSize = ${BOTTOMMENU_FONT_SIZE:-12};
   static const bool bottomMenuFontBold = ${BOTTOMMENU_FONT_BOLD:-false};
   static const bool bottomMenuFontItalic = ${BOTTOMMENU_FONT_ITALIC:-false};
-  static const String bottomMenuActiveTabColor = "$BOTTOMMENU_ACTIVE_TAB_COLOR";
-  static const String bottomMenuIconPosition = "$BOTTOMMENU_ICON_POSITION";
+  static const String bottomMenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-#0000FF}";
+  static const String bottomMenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-above}";
 
   // Firebase Configuration
-  static const String firebaseConfigAndroid = "$FIREBASE_CONFIG_ANDROID";
-  static const String firebaseConfigIos = "$FIREBASE_CONFIG_IOS";
+  static const String firebaseConfigAndroid = "${FIREBASE_CONFIG_ANDROID:-}";
+  static const String firebaseConfigIos = "${FIREBASE_CONFIG_IOS:-}";
 
   // Email Configuration
-  static const String emailSmtpServer = "$EMAIL_SMTP_SERVER";
+  static const String emailSmtpServer = "${EMAIL_SMTP_SERVER:-}";
   static const int emailSmtpPort = ${EMAIL_SMTP_PORT:-587};
-  static const String emailSmtpUser = "$EMAIL_SMTP_USER";
+  static const String emailSmtpUser = "${EMAIL_SMTP_USER:-}";
   static const bool enableEmailNotifications = ${ENABLE_EMAIL_NOTIFICATIONS:-false};
 
   // Build Information
@@ -442,7 +442,7 @@ EOF
         # Verify workflow-specific fields
         log "🔍 Verifying workflow-specific fields..."
         if [ "$IS_ANDROID_WORKFLOW" = true ]; then
-            if grep -q "static const String pkgName = \"${PKG_NAME:-}\"" lib/config/env_config.dart; then
+            if grep -q "static const String pkgName = \"${PKG_NAME:-}\"" lib/config/env_config.dart 2>/dev/null; then
                 log "✅ Android package name correctly set to: ${PKG_NAME:-}"
             else
                 log "⚠️ Android package name not found or incorrect"
@@ -450,14 +450,14 @@ EOF
         fi
         
         if [ "$IS_IOS_WORKFLOW" = true ]; then
-            if grep -q "static const String bundleId = \"${BUNDLE_ID:-}\"" lib/config/env_config.dart; then
+            if grep -q "static const String bundleId = \"${BUNDLE_ID:-}\"" lib/config/env_config.dart 2>/dev/null; then
                 log "✅ iOS bundle ID correctly set to: ${BUNDLE_ID:-}"
             else
                 log "⚠️ iOS bundle ID not found or incorrect"
             fi
             
             # Check if APPLE_TEAM_ID was properly substituted
-            if grep -q "static const String appleTeamId = \"${APPLE_TEAM_ID:-}\"" lib/config/env_config.dart; then
+            if grep -q "static const String appleTeamId = \"${APPLE_TEAM_ID:-}\"" lib/config/env_config.dart 2>/dev/null; then
                 log "✅ iOS team ID correctly set to: ${APPLE_TEAM_ID:-}"
             else
                 log "⚠️ iOS team ID not found or incorrect"

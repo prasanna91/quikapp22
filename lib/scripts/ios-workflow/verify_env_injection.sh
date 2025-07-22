@@ -143,19 +143,19 @@ test_env_config_generation() {
             log_success "✅ env_config.dart generated successfully"
             
             # Check specific values
-            if grep -q "static const String appName = \"${APP_NAME:-}\"" "lib/config/env_config.dart"; then
+            if grep -q "static const String appName = \"${APP_NAME:-}\"" "lib/config/env_config.dart" 2>/dev/null; then
                 log_success "✅ APP_NAME correctly injected: ${APP_NAME:-}"
             else
                 log_warning "⚠️ APP_NAME not correctly injected"
             fi
             
-            if grep -q "static const String versionName = \"${VERSION_NAME:-}\"" "lib/config/env_config.dart"; then
+            if grep -q "static const String versionName = \"${VERSION_NAME:-}\"" "lib/config/env_config.dart" 2>/dev/null; then
                 log_success "✅ VERSION_NAME correctly injected: ${VERSION_NAME:-}"
             else
                 log_warning "⚠️ VERSION_NAME not correctly injected"
             fi
             
-            if grep -q "static const String bundleId = \"${BUNDLE_ID:-}\"" "lib/config/env_config.dart"; then
+            if grep -q "static const String bundleId = \"${BUNDLE_ID:-}\"" "lib/config/env_config.dart" 2>/dev/null; then
                 log_success "✅ BUNDLE_ID correctly injected: ${BUNDLE_ID:-}"
             else
                 log_warning "⚠️ BUNDLE_ID not correctly injected"

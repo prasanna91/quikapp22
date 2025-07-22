@@ -1,190 +1,150 @@
-Preparing build machine
-40s
-
-
-
-== User-defined environment variables ==
-APNS_AUTH_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
-APNS_KEY_ID=V566SWNF69
-APP_ID=1003
-APP_NAME=Twinklub App
-APP_STORE_CONNECT_API_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
-APP_STORE_CONNECT_ISSUER_ID=a99a2ebd-ed3e-4117-9f97-f195823774a7
-APP_STORE_CONNECT_KEY_IDENTIFIER=S95LCWAH99
-APP_STORE_CONNECT_PRIVATE_KEY=${APP_STORE_CONNECT_PRIVATE_KEY:-}
-APPLE_TEAM_ID=9H2AD7NQ49
-ASSET_OPTIMIZATION=true
-BOTTOMMENU_ACTIVE_TAB_COLOR=#a30237
-BOTTOMMENU_BG_COLOR=#FFFFFF
-BOTTOMMENU_FONT=DM Sans
-BOTTOMMENU_FONT_BOLD=false
-BOTTOMMENU_FONT_ITALIC=false
-BOTTOMMENU_FONT_SIZE=12
-BOTTOMMENU_ICON_COLOR=#6d6e8c
-BOTTOMMENU_ICON_POSITION=above
-BOTTOMMENU_ITEMS=[{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]
-BOTTOMMENU_TEXT_COLOR=#6d6e8c
-BRANCH=$BRANCH
-BUNDLE_ID=com.twinklub.twinklub
-CACHE_ON_SUCCESS=true
-CLEAN_ON_FAILURE=true
-CM_BUILD_DIR=$CM_BUILD_DIR
-CM_BUILD_ID=$CM_BUILD_ID
-CM_KEY_ALIAS=my_key_alias
-CM_KEY_PASSWORD=opeN@1234
-CM_KEYSTORE_PASSWORD=opeN@1234
-COCOAPODS_FAST_INSTALL=true
-CONTINUE_ON_ERROR=true
-DOWNLOAD_RETRIES=3
-DOWNLOAD_TIMEOUT=300
-EMAIL_ID=prasannasrinivasan32@gmail.com
-EMAIL_SMTP_PASS=lrnu krfm aarp urux
-EMAIL_SMTP_PORT=587
-EMAIL_SMTP_SERVER=smtp.gmail.com
-EMAIL_SMTP_USER=prasannasrie@gmail.com
-ENABLE_BUILD_RECOVERY=true
-ENABLE_BUNDLE_ID_ECHO=true
-ENABLE_COLLISION_FIX=false
-ENABLE_DEVICE_SPECIFIC_BUILDS=${ENABLE_DEVICE_SPECIFIC_BUILDS:-false}
-ENABLE_EMAIL_NOTIFICATIONS=true
-ENABLE_FRAMEWORK_BUNDLE_UPDATE=false
-FAIL_ON_WARNINGS=false
-FIREBASE_CONFIG_ANDROID=https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
-FIREBASE_CONFIG_IOS=https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
-FLUTTER_ANALYZE=true
-FLUTTER_BUILD_NUMBER=auto
-FLUTTER_PUB_CACHE=true
-FLUTTER_TEST=false
-FLUTTER_VERBOSE=false
-GRADLE_BUILD_CACHE=true
-GRADLE_CACHING=true
-GRADLE_CONFIGURE_ON_DEMAND=true
-GRADLE_DAEMON=true
-GRADLE_OFFLINE=false
-GRADLE_OPTS=-Xmx12G -XX:MaxMetaspaceSize=3G -XX:ReservedCodeCacheSize=1G -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-GRADLE_PARALLEL=true
-GRADLE_WORKER_MAX_HEAP_SIZE=2G
-IMAGE_COMPRESSION=true
-IS_BIOMETRIC=false
-IS_BOTTOMMENU=false
-IS_CALENDAR=false
-IS_CAMERA=false
-IS_CHATBOT=true
-IS_CONTACT=false
-IS_DOMAIN_URL=true
-IS_LOAD_IND=true
-IS_LOCATION=false
-IS_MIC=true
-IS_NOTIFICATION=true
-IS_PULLDOWN=true
-IS_SPLASH=true
-IS_STORAGE=true
-IS_TESTFLIGHT=true
-KEY_STORE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
-LOGO_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
-MAX_RETRIES=2
-ORG_NAME=JPR Garments
-OUTPUT_DIR=output/ios
-PARALLEL_DOWNLOADS=true
-PKG_NAME=com.twinklub.twinklub
-PROFILE_TYPE=app-store
-PROFILE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
-PUSH_NOTIFY=true
-RETRY_ON_FAILURE=false
-SPLASH_ANIMATION=zoom
-SPLASH_BG_COLOR=#cbdbf5
-SPLASH_BG_URL=
-SPLASH_DURATION=4
-SPLASH_TAGLINE=TWINKLUB
-SPLASH_TAGLINE_COLOR=#a30237
-SPLASH_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
-TARGET_ONLY_MODE=true
-USER_NAME=prasannasrie
-VALIDATE_APP_NAME=true
-VALIDATE_BUNDLE_ID=true
-VALIDATE_VERSION_INFO=true
-VERSION_CODE=1
-VERSION_NAME=1.0.1
-WEB_URL=https://twinklub.com/
-WORKFLOW_ID=ios-workflow
-XCODE_CLEAN_BUILD=true
-XCODE_FAST_BUILD=true
-XCODE_OPTIMIZATION=true
-XCODE_PARALLEL_BUILD=true
-XCODE_PARALLEL_JOBS=8
-XCODE_SKIP_SIGNING=false
-
-== Use Xcode 16.0 ==
-> sudo xcode-select --switch /Applications/Xcode-16.0.app/Contents/Developer
-Xcode 16.0
-Build version 16A242d
-
-== Use CocoaPods version 1.16.2 ==
-> gem uninstall cocoapods --executables --all
-Removing pod
-Removing sandbox-pod
-Successfully uninstalled cocoapods-1.16.1
-
-> gem install cocoapods --version 1.16.2
-Successfully installed cocoapods-core-1.16.2
-Successfully installed cocoapods-1.16.2
-Parsing documentation for cocoapods-core-1.16.2
-Installing ri documentation for cocoapods-core-1.16.2
-Parsing documentation for cocoapods-1.16.2
-Installing ri documentation for cocoapods-1.16.2
-Done installing documentation for cocoapods-core, cocoapods after 1 seconds
-2 gems installed
-
-> gem list '^cocoapods$' --no-verbose
-cocoapods (1.16.2)
-
-== Use Java version 17 ==
-> java -version
-openjdk version "17.0.11" 2024-04-16 LTS
-OpenJDK Runtime Environment Zulu17.50+19-CA (build 17.0.11+9-LTS)
-OpenJDK 64-Bit Server VM Zulu17.50+19-CA (build 17.0.11+9-LTS, mixed mode, sharing)
-
-== Codemagic CLI tools ==
-> codemagic-cli-tools version
-codemagic-cli-tools 0.60.0
-Fetching app sources
-3s
-Installing SDKs
-57s
 Comprehensive iOS Workflow Validation
-5s
-Pre-build Setup (Target-Only Mode)
-22s
-Build iOS App (Comprehensive)
-6s
+4s
 
 
 
 Show command
-🏗️ Building iOS App (Comprehensive)...
-✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:11] INFO: ✅ Environment configuration loaded from lib/config/env.sh
-[2025-07-22 11:24:11] INFO: 🚀 Starting Comprehensive iOS Build Workflow...
-[2025-07-22 11:24:11] INFO: 🚀 Comprehensive iOS Build Workflow Starting...
-[2025-07-22 11:24:11] INFO: 🔍 Validating environment variables...
-[2025-07-22 11:24:11] SUCCESS: ✅ All required environment variables are set
-[2025-07-22 11:24:11] INFO: 🔧 Fixing Swift optimization warnings...
-[2025-07-22 11:24:11] INFO: ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:11] INFO: 🔧 Fixing Swift optimization warnings...
-[2025-07-22 11:24:11] INFO: 🚀 Enhanced Swift Optimization Fix Starting...
-[2025-07-22 11:24:11] WARN: ⚠️ Pods project not found
-[2025-07-22 11:24:11] INFO: 🔧 Fixing Swift optimization in main project...
-[2025-07-22 11:24:11] INFO: 🔧 Fixing Swift optimization in: ios/Runner.xcodeproj/project.pbxproj
+🔍 Running comprehensive iOS workflow validation...
+🔍 iOS Workflow Validation Script
+==================================
+🚀 Starting iOS Workflow Validation...
+
+
+🔍 Environment Variables Validation:
+-----------------------------------
+✅ BUNDLE_ID: com.twinklub.twinklub
+✅ APP_NAME: Twinklub App
+✅ VERSION_NAME: 1.0.2
+✅ VERSION_CODE: 2
+✅ PROFILE_TYPE: app-store
+
+✅ All required environment variables are set
+
+🛡️ Target-Only Mode Validation:
+-------------------------------
+  - TARGET_ONLY_MODE: true
+  - ENABLE_COLLISION_FIX: false
+  - ENABLE_FRAMEWORK_BUNDLE_UPDATE: false
+  - ENABLE_BUNDLE_ID_ECHO: true
+✅ Target-Only Mode is enabled
+✅ Collision fix is disabled (correct for target-only mode)
+✅ Framework bundle update is disabled (correct for target-only mode)
+✅ Bundle ID echo is enabled (correct for target-only mode)
+
+🔧 Script Validation:
+-------------------
+✅ Pre-build script: lib/scripts/ios-workflow/pre-build.sh (executable)
+✅ Build script: lib/scripts/ios-workflow/build.sh (executable)
+✅ Post-build script: lib/scripts/ios-workflow/post-build.sh (executable)
+✅ Bundle executable fix script: lib/scripts/ios-workflow/bundle-executable-fix.sh (executable)
+✅ App Store Connect fix script: lib/scripts/ios-workflow/app-store-connect-fix.sh (executable)
+✅ App Store validation script: lib/scripts/ios-workflow/app-store-validation.sh (executable)
+✅ TestFlight upload script: lib/scripts/ios-workflow/testflight-upload.sh (executable)
+⚠️ Main iOS script: lib/scripts/ios/main.sh (not executable)
+   ✅ Made executable
+⚠️ Target-only bundle ID update script: lib/scripts/ios/update_bundle_id_target_only.sh (not executable)
+   ✅ Made executable
+⚠️ iOS utilities script: lib/scripts/ios/utils.sh (not executable)
+   ✅ Made executable
+✅ Environment config generator: lib/scripts/utils/gen_env_config.sh (executable)
+
+✅ All required scripts are present and executable
+
+🏗️ Build Environment Validation:
+-------------------------------
+✅ Flutter is available
+
+Unhandled exception:
+FileSystemException: writeFrom failed, path = '' (OS Error: Broken pipe, errno = 32)
+#0      _RandomAccessFile.writeFromSync (dart:io/file_impl.dart:1026:7)
+#1      _StdConsumer.addStream.<anonymous closure> (dart:io/stdio.dart:328:17)
+#2      _rootRunUnary (dart:async/zone.dart:1546:13)
+#3      _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#4      _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#5      _BufferingStreamSubscription._sendData (dart:async/stream_impl.dart:381:11)
+#6      _BufferingStreamSubscription._add (dart:async/stream_impl.dart:312:7)
+#7      _SyncStreamControllerDispatch._sendData (dart:async/stream_controller.dart:798:19)
+#8      _StreamController._add (dart:async/stream_controller.dart:663:7)
+#9      _StreamController.add (dart:async/stream_controller.dart:618:5)
+#10     _StreamSinkImpl.add (dart:io/io_sink.dart:155:17)
+#11     _IOSinkImpl.write (dart:io/io_sink.dart:296:5)
+#12     _StdSink._write (dart:io/stdio.dart:429:13)
+#13     _StdSink.write (dart:io/stdio.dart:438:33)
+#14     Stdio._stdioWrite.<anonymous closure> (package:flutter_tools/src/base/io.dart:378:14)
+#15     asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:109:34)
+#16     _rootRun (dart:async/zone.dart:1525:13)
+#17     _CustomZone.run (dart:async/zone.dart:1422:19)
+#18     _runZoned (dart:async/zone.dart:2033:6)
+#19     runZonedGuarded (dart:async/zone.dart:2019:12)
+#20     runZoned (dart:async/zone.dart:1952:12)
+#21     asyncGuard (package:flutter_tools/src/base/async_guard.dart:106:3)
+#22     Stdio._stdioWrite (package:flutter_tools/src/base/io.dart:376:5)
+#23     Stdio.stdoutWrite (package:flutter_tools/src/base/io.dart:362:7)
+#24     StdoutLogger.writeToStdOut (package:flutter_tools/src/base/logger.dart:555:48)
+#25     _generateBox (package:flutter_tools/src/base/logger.dart:676:8)
+#26     StdoutLogger.printBox (package:flutter_tools/src/base/logger.dart:544:5)
+#27     VersionFreshnessValidator.run (package:flutter_tools/src/version.dart:1241:12)
+<asynchronous suspension>
+#28     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:450:11)
+<asynchronous suspension>
+#29     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#30     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
+<asynchronous suspension>
+#31     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:98:11)
+<asynchronous suspension>
+#32     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#33     main (package:flutter_tools/executable.dart:102:3)
+<asynchronous suspension>
+✅ Xcode is available
+Xcode 16.0
+✅ CocoaPods is available
+1.16.2
+✅ Java is available
+openjdk version "17.0.11" 2024-04-16 LTS
+
+📁 Project Structure Validation:
+-------------------------------
+✅ iOS directory exists
+✅ lib directory exists
+✅ assets directory exists
+✅ pubspec.yaml exists
+✅ iOS Info.plist exists
+
+✅ Project structure is valid
+
+==================================
+🔍 Validation Summary:
+==================================
+✅ All validations passed!
+🚀 iOS workflow is ready to run
+✅ iOS workflow validation passed
+
+Pre-build Setup (Target-Only Mode)
+19s
+
+
+
+Show command
+🚀 Starting iOS Workflow Pre-Build Setup (Target-Only Mode)...
+🔧 Fixing Swift optimization warnings (Pre-Build)...
+[2025-07-22 12:56:06] INFO: ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:06] INFO: 🔧 Fixing Swift optimization warnings...
+[2025-07-22 12:56:06] INFO: 🚀 Enhanced Swift Optimization Fix Starting...
+[2025-07-22 12:56:06] WARN: ⚠️ Pods project not found
+[2025-07-22 12:56:06] INFO: 🔧 Fixing Swift optimization in main project...
+[2025-07-22 12:56:06] INFO: 🔧 Fixing Swift optimization in: ios/Runner.xcodeproj/project.pbxproj
 ios/Runner.xcodeproj/project.pbxproj: <unknown error>
 ios/Runner.xcodeproj/project.pbxproj: <unknown error>
 ios/Runner.xcodeproj/project.pbxproj: Could not modify plist, error: Value -Onone not valid for key path buildSettings.SWIFT_OPTIMIZATION_LEVEL
-[2025-07-22 11:24:11] SUCCESS: ✅ Swift optimization settings updated for: ios/Runner.xcodeproj/project.pbxproj
-[2025-07-22 11:24:11] INFO: 🔧 Fixing run script phases in: ios/Runner.xcodeproj/project.pbxproj
-[2025-07-22 11:24:11] INFO: ℹ️ Run script phases should be configured to run 'Based on dependency analysis'
-[2025-07-22 11:24:11] INFO: ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'
-[2025-07-22 11:24:11] INFO: ℹ️ Affected phases: 'Thin Binary', 'Run Script'
-[2025-07-22 11:24:11] SUCCESS: ✅ Main project optimization completed
-[2025-07-22 11:24:11] INFO: 📋 Swift Optimization Fix Summary:
+[2025-07-22 12:56:06] SUCCESS: ✅ Swift optimization settings updated for: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:06] INFO: 🔧 Fixing run script phases in: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:06] INFO: ℹ️ Run script phases should be configured to run 'Based on dependency analysis'
+[2025-07-22 12:56:06] INFO: ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'
+[2025-07-22 12:56:06] INFO: ℹ️ Affected phases: 'Thin Binary', 'Run Script'
+[2025-07-22 12:56:06] SUCCESS: ✅ Main project optimization completed
+[2025-07-22 12:56:06] INFO: 📋 Swift Optimization Fix Summary:
 ========================================
 ✅ Fixed SWIFT_OPTIMIZATION_LEVEL: -O → -Onone
 ✅ Fixed SWIFT_VERSION: Set to 5.0
@@ -194,11 +154,641 @@ ios/Runner.xcodeproj/project.pbxproj: Could not modify plist, error: Value -Onon
    - Check 'Based on dependency analysis'
    - Affected phases: 'Thin Binary', 'Run Script'
 ========================================
-[2025-07-22 11:24:11] SUCCESS: ✅ Enhanced Swift optimization warnings fixed
-[2025-07-22 11:24:11] INFO: 📋 Note: Some warnings may still appear but should not affect the build
-[2025-07-22 11:24:11] INFO: 📋 Manual Xcode configuration may be needed for run script phases
-[2025-07-22 11:24:11] SUCCESS: ✅ Swift optimization warnings fixed
-[2025-07-22 11:24:11] INFO: 📦 Running flutter pub get to generate required files...
+[2025-07-22 12:56:06] SUCCESS: ✅ Enhanced Swift optimization warnings fixed
+[2025-07-22 12:56:06] INFO: 📋 Note: Some warnings may still appear but should not affect the build
+[2025-07-22 12:56:06] INFO: 📋 Manual Xcode configuration may be needed for run script phases
+✅ Swift optimization warnings fixed successfully
+🔧 Attempting to fix run script phases...
+ℹ️ Run script phases should be configured to run 'Based on dependency analysis'
+ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'
+🚀 Starting iOS Workflow Pre-Build Setup...
+📊 Build Environment:
+  - Flutter: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
+  - Java: openjdk version "17.0.11" 2024-04-16 LTS
+  - Xcode: Xcode 16.0
+  - CocoaPods: 1.16.2
+  - Memory: 12 GB
+  - Profile Type: app-store
+🛡️ Target-Only Mode Configuration:
+  - TARGET_ONLY_MODE: true
+  - ENABLE_COLLISION_FIX: false
+  - ENABLE_FRAMEWORK_BUNDLE_UPDATE: false
+  - ENABLE_BUNDLE_ID_ECHO: true
+✅ Target-Only Mode is enabled
+✅ Collision fix is disabled (correct for target-only mode)
+✅ Framework bundle update is disabled (correct for target-only mode)
+🔍 Verifying Xcode and iOS SDK compatibility...
+[2025-07-22 12:56:06] Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:06] 🔍 Starting Xcode and iOS SDK verification...
+[2025-07-22 12:56:06] 📱 Detected Codemagic environment
+[2025-07-22 12:56:06]    Xcode Version: 16.0
+✅ Xcode version is compatible (16.0 or later)
+[2025-07-22 12:56:07]    iOS SDK Version: 18.0
+✅ iOS SDK version is compatible (18.0 or later)
+[2025-07-22 12:56:07] 📱 Checking iOS deployment target...
+⚠️ Podfile not found, skipping deployment target check
+[2025-07-22 12:56:07] 📱 Checking Flutter iOS configuration...
+[2025-07-22 12:56:07]    Flutter Minimum iOS Version: 12.0
+⚠️ Flutter minimum iOS version (12.0) may be too low
+[2025-07-22 12:56:07] 📊 Verification Summary:
+✅ Xcode Version: 16.0 (✓ Compatible)
+✅ iOS SDK Version: 18.0 (✓ Compatible)
+⚠️ Deployment Target: Not determined (⚠️ Skipped)
+[2025-07-22 12:56:07] 🎉 Compatibility checks completed!
+[2025-07-22 12:56:07] 📱 Ready for iOS 18 SDK and Xcode 16+ requirements.
+✅ Xcode and iOS SDK verification passed
+📦 Installing Flutter dependencies...
+Resolving dependencies...
+Downloading packages...
++ _flutterfire_internals 1.3.59
++ archive 4.0.7
++ args 2.7.0
+  characters 1.4.0 (1.4.1 available)
++ checked_yaml 2.0.4
++ cli_util 0.4.2
++ connectivity_plus 6.1.4
++ connectivity_plus_platform_interface 2.0.1
++ crypto 3.0.6
++ csslib 1.0.2
++ dbus 0.7.11
++ ffi 2.1.4
++ file 7.0.1
++ firebase_core 3.15.2
++ firebase_core_platform_interface 6.0.0
++ firebase_core_web 2.24.1
++ firebase_messaging 15.2.10
++ firebase_messaging_platform_interface 4.6.10
++ firebase_messaging_web 3.10.10
++ flutter_inappwebview 6.1.5
++ flutter_inappwebview_android 1.1.3
++ flutter_inappwebview_internal_annotations 1.2.0
++ flutter_inappwebview_ios 1.1.2
++ flutter_inappwebview_macos 1.1.2
++ flutter_inappwebview_platform_interface 1.3.0+1
++ flutter_inappwebview_web 1.1.2
++ flutter_inappwebview_windows 0.6.0
++ flutter_launcher_icons 0.13.1 (0.14.4 available)
+< flutter_lints 4.0.0 (was 5.0.0) (6.0.0 available)
++ flutter_local_notifications 17.2.4 (19.3.1 available)
++ flutter_local_notifications_linux 4.0.1 (6.0.0 available)
++ flutter_local_notifications_platform_interface 7.2.0 (9.1.0 available)
++ flutter_svg 2.2.0
++ flutter_web_plugins 0.0.0 from sdk flutter
++ fluttertoast 8.2.12
++ google_fonts 6.2.1
++ html 0.15.6
++ http 1.4.0
++ http_parser 4.1.2
++ image 4.5.4
++ json_annotation 4.9.0
+  leak_tracker 10.0.9 (11.0.1 available)
+  leak_tracker_flutter_testing 3.0.9 (3.0.10 available)
+  leak_tracker_testing 3.0.1 (3.0.2 available)
+< lints 4.0.0 (was 5.1.1) (6.0.0 available)
++ logger 2.6.1
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.16.0 (1.17.0 available)
++ nm 0.5.0
++ package_info_plus 8.3.0
++ package_info_plus_platform_interface 3.2.0
++ path_parsing 1.1.0
++ path_provider 2.1.5
++ path_provider_android 2.2.17
++ path_provider_foundation 2.4.1
++ path_provider_linux 2.2.1
++ path_provider_platform_interface 2.1.2
++ path_provider_windows 2.3.0
++ pedantic 1.11.1
++ permission_handler 11.4.0 (12.0.1 available)
++ permission_handler_android 12.1.0 (13.0.1 available)
++ permission_handler_apple 9.4.7
++ permission_handler_html 0.1.3+5
++ permission_handler_platform_interface 4.3.0
++ permission_handler_windows 0.2.1
++ petitparser 6.1.0 (7.0.0 available)
++ platform 3.1.6
++ plugin_platform_interface 2.1.8
++ posix 6.0.3
++ rename 3.1.0
++ shared_preferences 2.5.3
++ shared_preferences_android 2.4.10
++ shared_preferences_foundation 2.5.4
++ shared_preferences_linux 2.4.1
++ shared_preferences_platform_interface 2.4.1
++ shared_preferences_web 2.4.3
++ shared_preferences_windows 2.4.1
++ speech_to_text 7.2.0
++ speech_to_text_platform_interface 2.3.0
+  test_api 0.7.4 (0.7.7 available)
++ timezone 0.9.4 (0.10.1 available)
++ typed_data 1.4.0
++ url_launcher 6.3.2
++ url_launcher_android 6.3.16
++ url_launcher_ios 6.3.3
++ url_launcher_linux 3.2.1
++ url_launcher_macos 3.2.2
++ url_launcher_platform_interface 2.3.2
++ url_launcher_web 2.4.1
++ url_launcher_windows 3.1.4
++ vector_graphics 1.1.19
++ vector_graphics_codec 1.1.13
++ vector_graphics_compiler 1.1.17
+  vector_math 2.1.4 (2.2.0 available)
+  vm_service 15.0.0 (15.0.2 available)
++ web 1.1.1
++ win32 5.14.0
++ xdg_directories 1.1.0
++ xml 6.5.0 (6.6.0 available)
++ yaml 3.1.3
+Changed 91 dependencies!
+20 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+🔍 Verifying rename package installation...
+✅ Rename package found in pubspec.yaml
+✅ Rename package verified via command availability
+🧹 Pre-build cleanup...
+Cleaning Xcode workspace...                                      1,086ms
+Cleaning Xcode workspace...                                      1,704ms
+Deleting .dart_tool...                                               0ms
+Deleting ephemeral...                                                0ms
+Deleting Generated.xcconfig...                                       0ms
+Deleting flutter_export_environment.sh...                            0ms
+Deleting ephemeral...                                                0ms
+Deleting ephemeral...                                                0ms
+Deleting ephemeral...                                                0ms
+Deleting .flutter-plugins-dependencies...                            0ms
+⚡ Optimizing Xcode configuration...
+📝 Generating environment configuration for Dart...
+[2025-07-22 12:56:22] [ENV_GEN] Environment configuration file not found, using system environment variables
+[2025-07-22 12:56:22] [ENV_GEN] 🔍 Checking for specific Codemagic API variables...
+[2025-07-22 12:56:22] [ENV_GEN] 📋 Final API variable values (prioritized over defaults):
+[2025-07-22 12:56:22] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:22] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_NAME: Twinklub App
+Twinklub App
+[2025-07-22 12:56:22] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.2
+1.0.2
+[2025-07-22 12:56:22] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable VERSION_CODE: 2
+2
+[2025-07-22 12:56:22] [ENV_GEN]    EMAIL_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable EMAIL_ID: prasannasrinivasan32@gmail.com
+prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:22] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:22] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:22] [ENV_GEN]    PROFILE_TYPE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PROFILE_TYPE: app-store
+app-store
+[2025-07-22 12:56:22] [ENV_GEN]    PROFILE_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PROFILE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:22] [ENV_GEN]    IS_TESTFLIGHT: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_TESTFLIGHT: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    APP_STORE_CONNECT_KEY_IDENTIFIER: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_KEY_IDENTIFIER: S95LCWAH99
+S95LCWAH99
+[2025-07-22 12:56:22] [ENV_GEN]    APP_STORE_CONNECT_ISSUER_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_ISSUER_ID: a99a2ebd-ed3e-4117-9f97-f195823774a7
+a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:22] [ENV_GEN]    APP_STORE_CONNECT_API_KEY_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_API_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:22] [ENV_GEN]    LOGO_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable LOGO_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_BG_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_BG_COLOR: #cbdbf5
+#cbdbf5
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_TAGLINE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE: TWINKLUB
+TWINKLUB
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_TAGLINE_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE_COLOR: #a30237
+#a30237
+[2025-07-22 12:56:22] [ENV_GEN]    FIREBASE_CONFIG_IOS: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_IOS: https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+[2025-07-22 12:56:22] [ENV_GEN]    ENABLE_EMAIL_NOTIFICATIONS: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable ENABLE_EMAIL_NOTIFICATIONS: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    EMAIL_SMTP_SERVER: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_SERVER: smtp.gmail.com
+smtp.gmail.com
+[2025-07-22 12:56:22] [ENV_GEN]    EMAIL_SMTP_PORT: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_PORT: 587
+587
+[2025-07-22 12:56:22] [ENV_GEN]    EMAIL_SMTP_USER: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_USER: prasannasrie@gmail.com
+prasannasrie@gmail.com
+[2025-07-22 12:56:22] [ENV_GEN]    EMAIL_SMTP_PASS: [HIDDEN]
+[2025-07-22 12:56:22] [ENV_GEN]    USER_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable USER_NAME: prasannasrie
+prasannasrie
+[2025-07-22 12:56:22] [ENV_GEN]    APP_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:22] [ENV_GEN]    ORG_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable ORG_NAME: JPR Garments
+JPR Garments
+[2025-07-22 12:56:22] [ENV_GEN]    WEB_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WEB_URL: https://twinklub.com/
+https://twinklub.com/
+[2025-07-22 12:56:22] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PKG_NAME: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:22] [ENV_GEN]    PUSH_NOTIFY: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_CHATBOT: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_CHATBOT: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_DOMAIN_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_DOMAIN_URL: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_SPLASH: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_SPLASH: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_PULLDOWN: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_PULLDOWN: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_BOTTOMMENU: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_BOTTOMMENU: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_LOAD_IND: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_LOAD_IND: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_CAMERA: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_CAMERA: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_LOCATION: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_LOCATION: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_MIC: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_MIC: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_NOTIFICATION: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_NOTIFICATION: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    IS_CONTACT: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_CONTACT: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_BIOMETRIC: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_BIOMETRIC: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_CALENDAR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_CALENDAR: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    IS_STORAGE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable IS_STORAGE: true
+true
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_BG_URL: [2025-07-22 12:56:22] [ENV_GEN] ⚠️ API variable SPLASH_BG_URL not set, using fallback: 
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_ANIMATION: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_ANIMATION: zoom
+zoom
+[2025-07-22 12:56:22] [ENV_GEN]    SPLASH_DURATION: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable SPLASH_DURATION: 4
+4
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_ITEMS: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ITEMS: [{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]
+[{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_BG_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_BG_COLOR: #FFFFFF
+#FFFFFF
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_ICON_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_COLOR: #6d6e8c
+#6d6e8c
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_TEXT_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_TEXT_COLOR: #6d6e8c
+#6d6e8c
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_FONT: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT: DM Sans
+DM Sans
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_FONT_SIZE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_SIZE: 12
+12
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_FONT_BOLD: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_BOLD: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_FONT_ITALIC: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_ITALIC: false
+false
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_ACTIVE_TAB_COLOR: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ACTIVE_TAB_COLOR: #a30237
+#a30237
+[2025-07-22 12:56:22] [ENV_GEN]    BOTTOMMENU_ICON_POSITION: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_POSITION: above
+above
+[2025-07-22 12:56:22] [ENV_GEN]    FIREBASE_CONFIG_ANDROID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_ANDROID: https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+[2025-07-22 12:56:22] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:22] [ENV_GEN]    APNS_AUTH_KEY_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APNS_AUTH_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:22] [ENV_GEN]    KEY_STORE_URL: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable KEY_STORE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+[2025-07-22 12:56:22] [ENV_GEN]    CM_KEYSTORE_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:22] [ENV_GEN]    CM_KEY_ALIAS: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable CM_KEY_ALIAS: my_key_alias
+my_key_alias
+[2025-07-22 12:56:22] [ENV_GEN]    CM_KEY_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:22] [ENV_GEN] 🚀 Starting enhanced environment configuration generation...
+[2025-07-22 12:56:22] [ENV_GEN] 🔍 Detected workflow: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:22] [ENV_GEN] ⚠️ Unknown workflow: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow, enabling all platforms
+[2025-07-22 12:56:22] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:22] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:22] [ENV_GEN] ✅ Basic internet connectivity confirmed
+[2025-07-22 12:56:22] [ENV_GEN] ✅ DNS resolution working
+[2025-07-22 12:56:22] [ENV_GEN] ✅ HTTPS connectivity confirmed
+[2025-07-22 12:56:22] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:22] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:22] [ENV_GEN] ✅ flutter is available
+[2025-07-22 12:56:22] [ENV_GEN] ✅ java is available
+[2025-07-22 12:56:22] [ENV_GEN] ✅ gradle is available
+[2025-07-22 12:56:22] [ENV_GEN] ✅ curl is available
+[2025-07-22 12:56:23] [ENV_GEN] 📱 Flutter version: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
+[2025-07-22 12:56:23] [ENV_GEN] ☕ Java version: openjdk version "17.0.11" 2024-04-16 LTS
+[2025-07-22 12:56:23] [ENV_GEN] 💾 Available disk space: 127Gi
+[2025-07-22 12:56:23] [ENV_GEN] ⚠️  Could not check memory (continuing anyway)
+[2025-07-22 12:56:23] [ENV_GEN] 📝 Generating Dart environment configuration (lib/config/env_config.dart)...
+[2025-07-22 12:56:23] [ENV_GEN] 🔍 Current environment variables:
+[2025-07-22 12:56:23] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:23] [ENV_GEN]    BRANCH: $BRANCH (using static 'main' instead)
+[2025-07-22 12:56:23] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_NAME: Twinklub App
+Twinklub App
+[2025-07-22 12:56:23] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PKG_NAME: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:23] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:23] [ENV_GEN]    OUTPUT_DIR: output/ios
+[2025-07-22 12:56:23] [ENV_GEN]    PROJECT_ROOT: not_set
+[2025-07-22 12:56:23] [ENV_GEN]    CM_BUILD_DIR: /Users/builder/clone
+[2025-07-22 12:56:23] [ENV_GEN]    APP_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:23] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.2
+1.0.2
+[2025-07-22 12:56:23] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable VERSION_CODE: 2
+2
+[2025-07-22 12:56:23] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:23] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:23] [ENV_GEN]    IS_IOS_WORKFLOW: true
+[2025-07-22 12:56:23] [ENV_GEN] 📝 Writing environment configuration file...
+./lib/scripts/utils/gen_env_config.sh: line 322: : No such file or directory
+[2025-07-22 12:56:23] [ENV_GEN] ✅ Dart environment configuration generated successfully.
+[2025-07-22 12:56:23] [ENV_GEN] 🔍 Generated file preview:
+[2025-07-22 12:56:23] [ENV_GEN]    // 🔥 GENERATED FILE: DO NOT EDIT 🔥
+[2025-07-22 12:56:23] [ENV_GEN]    //
+[2025-07-22 12:56:23] [ENV_GEN]    // This file is generated by lib/scripts/utils/gen_env_config.sh
+[2025-07-22 12:56:23] [ENV_GEN]    // It contains all environment-specific variables for the app.
+[2025-07-22 12:56:23] [ENV_GEN]    // Generated for workflow: ios-workflow
+[2025-07-22 12:56:23] [ENV_GEN]    
+[2025-07-22 12:56:23] [ENV_GEN]    class EnvConfig {
+[2025-07-22 12:56:23] [ENV_GEN]      // App Metadata
+[2025-07-22 12:56:23] [ENV_GEN]      static const String appId = "1003";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String versionName = "1.0.1";
+[2025-07-22 12:56:23] [ENV_GEN]      static const int versionCode = 1;
+[2025-07-22 12:56:23] [ENV_GEN]      static const String appName = "Twinklub App";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String orgName = "JPR Garments";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String webUrl = "https://twinklub.com/";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String userName = "prasannasrie";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String emailId = "prasannasrinivasan32@gmail.com";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String branch = "main";
+[2025-07-22 12:56:23] [ENV_GEN]      static const String workflowId = "ios-workflow";
+[2025-07-22 12:56:23] [ENV_GEN]    
+[2025-07-22 12:56:23] [ENV_GEN]      // Package Identifiers
+[2025-07-22 12:56:23] [ENV_GEN] ✅ Environment configuration generated successfully
+[2025-07-22 12:56:23] [ENV_GEN] 🔍 Verifying workflow-specific fields...
+grep: invalid character range
+[2025-07-22 12:56:23] [ENV_GEN] ⚠️ Android package name not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:23] [ENV_GEN] ⚠️ iOS bundle ID not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:23] [ENV_GEN] ⚠️ iOS team ID not found or incorrect
+[2025-07-22 12:56:23] [ENV_GEN] 🔍 Verifying outputDir value in generated file...
+[2025-07-22 12:56:23] [ENV_GEN] ✅ outputDir value correctly set to: output/ios
+[2025-07-22 12:56:23] [ENV_GEN] ⚠️  Generated config has Dart analysis issues (continuing anyway)
+[2025-07-22 12:56:23] [ENV_GEN] 📋 Configuration Summary:
+[2025-07-22 12:56:23] [ENV_GEN]    App: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable APP_NAME: Twinklub App
+Twinklub App v[2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.2
+1.0.2
+[2025-07-22 12:56:23] [ENV_GEN]    Workflow: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:23] [ENV_GEN]    Platform: Android iOS
+[2025-07-22 12:56:23] [ENV_GEN]    Firebase: [2025-07-22 12:56:22] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:23] [ENV_GEN]    Keystore: true
+[2025-07-22 12:56:23] [ENV_GEN]    iOS Signing: 
+[2025-07-22 12:56:23] [ENV_GEN] 🎉 Enhanced environment configuration generation completed
+✅ Environment configuration generated successfully
+🎨 Downloading branding assets...
+[2025-07-22 12:56:23] Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:23] Starting branding process for Garbcode App (iOS)
+[2025-07-22 12:56:23] Downloading logo from https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+[2025-07-22 12:56:23] ✅ logo downloaded successfully
+[2025-07-22 12:56:23] ✅ Logo copied to iOS AppIcon
+[2025-07-22 12:56:23] SPLASH_URL is empty, using logo as splash image
+[2025-07-22 12:56:23] ✅ Splash image copied to iOS Splash.imageset
+[2025-07-22 12:56:23] SPLASH_BG_URL is empty, skipping splash background
+[2025-07-22 12:56:23] Verifying required assets...
+[2025-07-22 12:56:23] ✅ assets/images/logo.png exists and has content
+[2025-07-22 12:56:23] ✅ assets/images/splash.png exists and has content
+[2025-07-22 12:56:23] Branding process completed successfully (iOS)
+✅ Branding assets download completed
+🎨 Downloading custom icons for bottom menu...
+ℹ️ Bottom menu disabled (IS_BOTTOMMENU=false), skipping custom icons download
+🔍 Running comprehensive pre-build validation...
+[2025-07-22 12:56:23] INFO: Environment configuration loaded from lib/config/env.sh
+🚀 Starting iOS Pre-Build Validation...
+📊 Build Environment:
+  - Flutter: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
+  - Java: openjdk version "17.0.11" 2024-04-16 LTS
+  - Xcode: Xcode 16.0
+  - CocoaPods: 1.16.2
+  - Memory: 12 GB
+  - Profile Type: app-store
+
+🔍 Validating QuikApp Rules Compliance...
+📋 Validating required fields...
+[2025-07-22 12:56:24] SUCCESS: VERSION_NAME: 1.0.0
+[2025-07-22 12:56:24] SUCCESS: VERSION_CODE: 1
+[2025-07-22 12:56:24] SUCCESS: APP_NAME: Garbcode App
+[2025-07-22 12:56:24] SUCCESS: WEB_URL: https://garbcode.com
+[2025-07-22 12:56:24] SUCCESS: EMAIL_ID: prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:24] SUCCESS: BUNDLE_ID: com.twinklub.twinklub
+[2025-07-22 12:56:24] SUCCESS: PROFILE_TYPE: app-store
+[2025-07-22 12:56:24] SUCCESS: PROFILE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:24] SUCCESS: APPLE_TEAM_ID: 9H2AD7NQ49
+[2025-07-22 12:56:24] SUCCESS: APNS_KEY_ID: V566SWNF69
+[2025-07-22 12:56:24] SUCCESS: APNS_AUTH_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:24] SUCCESS: APP_STORE_CONNECT_KEY_IDENTIFIER: S95LCWAH99
+[2025-07-22 12:56:24] INFO: 🔐 MODERN CODE SIGNING VALIDATION: App Store Connect API
+[2025-07-22 12:56:24] INFO: 🎯 Target: Validate only modern code signing credentials
+[2025-07-22 12:56:24] INFO: 💥 Strategy: Skip traditional certificate validation entirely
+[2025-07-22 12:56:24] SUCCESS: ✅ Modern App Store Connect API approach detected
+[2025-07-22 12:56:24] SUCCESS: ✅ APP_STORE_CONNECT_KEY_IDENTIFIER provided: S95LCWAH99
+[2025-07-22 12:56:24] SUCCESS: ✅ APP_STORE_CONNECT_ISSUER_ID provided: a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:24] SUCCESS: ✅ APP_STORE_CONNECT_API_KEY_URL provided: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:24] INFO: 🔐 All code signing will be handled automatically by App Store Connect API
+[2025-07-22 12:56:24] INFO: 📱 No traditional certificates or provisioning profiles required
+
+🔍 Validating Firebase configuration...
+[2025-07-22 12:56:24] INFO: Push notifications ENABLED - Firebase required
+[2025-07-22 12:56:24] SUCCESS: Firebase configuration provided for push notifications
+
+🔍 Validating profile type: app-store
+[2025-07-22 12:56:24] SUCCESS: Valid profile type: app-store
+
+📧 Validating email notification configuration...
+[2025-07-22 12:56:24] SUCCESS: EMAIL_SMTP_SERVER: smtp.gmail.com
+[2025-07-22 12:56:24] SUCCESS: EMAIL_SMTP_PORT: 587
+[2025-07-22 12:56:24] SUCCESS: EMAIL_SMTP_USER: prasannasrie@gmail.com
+[2025-07-22 12:56:24] SUCCESS: EMAIL_SMTP_PASS: lrnu krfm aarp urux
+[2025-07-22 12:56:24] SUCCESS: Email notification configuration validated
+
+🔍 Validating build process components...
+[2025-07-22 12:56:24] INFO: Project root: /Users/builder/clone
+[2025-07-22 12:56:24] SUCCESS: Main iOS script found: /Users/builder/clone/lib/scripts/ios/main.sh
+[2025-07-22 12:56:24] SUCCESS: Utils script found: /Users/builder/clone/lib/scripts/utils/utils.sh
+[2025-07-22 12:56:24] SUCCESS: Profile validation script found: /Users/builder/clone/lib/scripts/ios/validate_profile_type.sh
+[2025-07-22 12:56:24] SUCCESS: Certificate validation script found: /Users/builder/clone/lib/scripts/ios/comprehensive_certificate_validation.sh
+[2025-07-22 12:56:24] SUCCESS: Environment setup script found: /Users/builder/clone/lib/scripts/ios/setup_environment.sh
+[2025-07-22 12:56:24] SUCCESS: Email notifications script found: /Users/builder/clone/lib/scripts/ios/email_notifications.sh
+[2025-07-22 12:56:24] SUCCESS: Rename-based bundle ID update script found: /Users/builder/clone/lib/scripts/ios/update_bundle_id_rename.sh
+[2025-07-22 12:56:24] SUCCESS: Ultimate bundle executable fix script found: /Users/builder/clone/lib/scripts/ios/ultimate_bundle_executable_fix.sh
+[2025-07-22 12:56:24] SUCCESS: Build process components validated
+
+🔍 Pre-build bundle executable validation...
+[2025-07-22 12:56:24] INFO: Checking Xcode project configuration...
+[2025-07-22 12:56:24] SUCCESS: PRODUCT_NAME found: $(TARGET_NAME)
+[2025-07-22 12:56:24] INFO: PRODUCT_NAME uses Xcode variable (normal): $(TARGET_NAME)
+[2025-07-22 12:56:24] WARNING: EXECUTABLE_NAME not found in project file (continuing...)
+[2025-07-22 12:56:24] INFO: Checking Info.plist configuration...
+[2025-07-22 12:56:24] SUCCESS: CFBundleExecutable found: $(EXECUTABLE_NAME)
+[2025-07-22 12:56:24] WARNING: CFBundleExecutable mismatch: expected Runner, found $(EXECUTABLE_NAME)
+[2025-07-22 12:56:24] INFO: This might cause bundle executable issues (continuing...)
+
+[2025-07-22 12:56:24] SUCCESS: Pre-build validation completed successfully
+✅ Environment verification completed
+📱 Injecting Info.plist values from environment variables...
+📱 iOS Info.plist Dynamic Injection
+==========================================
+
+✅ Info.plist found: ios/Runner/Info.plist
+
+📋 Created backup: ios/Runner/Info.plist.backup.20250722_125624
+
+📋 Getting environment variables
+----------------------------------------
+✅ Environment variables loaded:
+  - App Name: Twinklub App
+  - Bundle ID: com.twinklub.twinklub
+  - Version Name: 1.0.2
+  - Version Code: 2
+  - Organization: JPR Garments
+
+📋 Injecting basic app information
+----------------------------------------
+🔧 Key CFBundleDisplayName already exists, updating...
+🔧 Updating CFBundleDisplayName to: Twinklub App
+✅ Successfully updated CFBundleDisplayName
+🔧 Key CFBundleName already exists, updating...
+🔧 Updating CFBundleName to: Twinklub App
+✅ Successfully updated CFBundleName
+🔧 Key CFBundleIdentifier already exists, updating...
+🔧 Updating CFBundleIdentifier to: com.twinklub.twinklub
+✅ Successfully updated CFBundleIdentifier
+🔧 Key CFBundleShortVersionString already exists, updating...
+🔧 Updating CFBundleShortVersionString to: 1.0.2
+✅ Successfully updated CFBundleShortVersionString
+🔧 Key CFBundleVersion already exists, updating...
+🔧 Updating CFBundleVersion to: 2
+✅ Successfully updated CFBundleVersion
+🔧 Key CFBundleExecutable already exists, updating...
+🔧 Updating CFBundleExecutable to: Runner
+✅ Successfully updated CFBundleExecutable
+🔧 Key UILaunchStoryboardName already exists, updating...
+🔧 Updating UILaunchStoryboardName to: LaunchScreen
+✅ Successfully updated UILaunchStoryboardName
+
+📋 Injecting orientation support
+----------------------------------------
+✅ Orientation support configured
+
+📋 Injecting network security configuration
+----------------------------------------
+'Insert' and 'Replace' require a key path, a type, and a value2.
+⚠️ Failed to insert NSAppTransportSecurity via plutil, trying direct injection
+✅ Network security configured via direct injection
+
+🔐 Injecting permissions based on feature flags
+🔧 Adding new key NSMicrophoneUsageDescription with value: This app needs access to microphone to record audio.
+✅ Successfully added NSMicrophoneUsageDescription
+🔧 Adding new key NSPhotoLibraryUsageDescription with value: This app needs access to photo library to save and retrieve images.
+✅ Successfully added NSPhotoLibraryUsageDescription
+🔧 Adding new key NSPhotoLibraryAddUsageDescription with value: This app needs access to save photos to your photo library.
+✅ Successfully added NSPhotoLibraryAddUsageDescription
+🔧 Adding new key NSUserNotificationUsageDescription with value: This app needs to send notifications to keep you updated.
+✅ Successfully added NSUserNotificationUsageDescription
+✅ Permissions injection completed
+
+📋 Injecting App Store required keys
+----------------------------------------
+🔧 Adding new key UIRequiresFullScreen with value: false
+✅ Successfully added UIRequiresFullScreen
+🔧 Adding new key UIStatusBarHidden with value: false
+✅ Successfully added UIStatusBarHidden
+✅ App Store required keys configured
+
+📋 Validating updated Info.plist
+----------------------------------------
+✅ Info.plist validation passed
+
+🎉 iOS Info.plist Dynamic Injection Complete!
+💡 All values have been injected from environment variables.
+💡 Backup created at: ios/Runner/Info.plist.backup.20250722_125624
+
+📋 Final Info.plist Summary:
+----------------------------------------
+CFBundleDisplayName: Twinklub App
+CFBundleIdentifier: com.twinklub.twinklub
+CFBundleShortVersionString: 1.0.2
+CFBundleVersion: 2
+UILaunchStoryboardName: LaunchScreen
+✅ Info.plist injection completed
+🔍 Validating and fixing Info.plist for App Store submission...
+[2025-07-22 12:56:24] INFO: 🛡️ Info.plist Validation Script Starting...
+[2025-07-22 12:56:24] INFO: 🔍 Validating all Info.plist files in project...
+[2025-07-22 12:56:24] INFO: 🔍 Validating: ./macos/Runner/Info.plist
+[2025-07-22 12:56:24] INFO: 🔍 Validating Info.plist: ./macos/Runner/Info.plist
+[2025-07-22 12:56:24] WARNING: ⚠️ Missing keys in Info.plist: CFBundleDisplayName UISupportedInterfaceOrientations UISupportedInterfaceOrientations~ipad
+[2025-07-22 12:56:24] WARNING: ⚠️ Invalid: ./macos/Runner/Info.plist
+[2025-07-22 12:56:24] INFO: 🔍 Validating: ./ios/Runner/Info.plist
+[2025-07-22 12:56:24] INFO: 🔍 Validating Info.plist: ./ios/Runner/Info.plist
+[2025-07-22 12:56:24] SUCCESS: ✅ All required keys present in Info.plist
+[2025-07-22 12:56:24] SUCCESS: ✅ Valid: ./ios/Runner/Info.plist
+[2025-07-22 12:56:24] SUCCESS: ✅ All Info.plist files are valid
+✅ Info.plist validation passed
+🔍 Checking and fixing bundle executable configuration...
+🛡️ Target-Only Mode: Using enhanced bundle executable fix...
+[2025-07-22 12:56:24] INFO: 🛡️ Enhanced Bundle Executable Fix Script Starting...
+[2025-07-22 12:56:24] INFO: 🔍 Checking build configuration...
+[2025-07-22 12:56:24] INFO: 🔍 Checking Xcode project configuration...
+[2025-07-22 12:56:24] INFO: 📋 PRODUCT_NAME found: $(TARGET_NAME)
+[2025-07-22 12:56:24] INFO: ℹ️ PRODUCT_NAME uses Xcode variable (normal): $(TARGET_NAME)
+[2025-07-22 12:56:24] WARNING: ⚠️ EXECUTABLE_NAME not found in project file
+[2025-07-22 12:56:24] SUCCESS: ✅ Xcode project configuration checked
+[2025-07-22 12:56:24] INFO: 🔍 Checking Info.plist configuration...
+[2025-07-22 12:56:24] INFO: 📋 CFBundleExecutable found: Runner
+[2025-07-22 12:56:24] SUCCESS: ✅ Info.plist configuration checked and fixed
+[2025-07-22 12:56:24] INFO: 🔍 Checking build output...
+[2025-07-22 12:56:24] WARNING: ⚠️ No .app bundles found in current directory
+[2025-07-22 12:56:24] SUCCESS: ✅ Build configuration check completed
+✅ Pre-build setup completed successfully
+✅ Pre-build setup completed successfully
+
+Build iOS App (Comprehensive)
+6s
+
+
+
+Show command
+🏗️ Building iOS App (Comprehensive)...
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:25] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:25] INFO: 🚀 Starting Comprehensive iOS Build Workflow...
+[2025-07-22 12:56:25] INFO: 🚀 Comprehensive iOS Build Workflow Starting...
+[2025-07-22 12:56:25] INFO: 🔍 Validating environment variables...
+[2025-07-22 12:56:25] SUCCESS: ✅ All required environment variables are set
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization warnings...
+[2025-07-22 12:56:25] INFO: ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization warnings...
+[2025-07-22 12:56:25] INFO: 🚀 Enhanced Swift Optimization Fix Starting...
+[2025-07-22 12:56:25] WARN: ⚠️ Pods project not found
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization in main project...
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization in: ios/Runner.xcodeproj/project.pbxproj
+ios/Runner.xcodeproj/project.pbxproj: <unknown error>
+ios/Runner.xcodeproj/project.pbxproj: <unknown error>
+ios/Runner.xcodeproj/project.pbxproj: Could not modify plist, error: Value -Onone not valid for key path buildSettings.SWIFT_OPTIMIZATION_LEVEL
+[2025-07-22 12:56:25] SUCCESS: ✅ Swift optimization settings updated for: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:25] INFO: 🔧 Fixing run script phases in: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:25] INFO: ℹ️ Run script phases should be configured to run 'Based on dependency analysis'
+[2025-07-22 12:56:25] INFO: ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'
+[2025-07-22 12:56:25] INFO: ℹ️ Affected phases: 'Thin Binary', 'Run Script'
+[2025-07-22 12:56:25] SUCCESS: ✅ Main project optimization completed
+[2025-07-22 12:56:25] INFO: 📋 Swift Optimization Fix Summary:
+========================================
+✅ Fixed SWIFT_OPTIMIZATION_LEVEL: -O → -Onone
+✅ Fixed SWIFT_VERSION: Set to 5.0
+✅ Fixed targets: All Pod targets and main project
+⚠️ Manual fix needed: Run script phases in Xcode
+   - Go to Build Phases → Run Script → Edit
+   - Check 'Based on dependency analysis'
+   - Affected phases: 'Thin Binary', 'Run Script'
+========================================
+[2025-07-22 12:56:25] SUCCESS: ✅ Enhanced Swift optimization warnings fixed
+[2025-07-22 12:56:25] INFO: 📋 Note: Some warnings may still appear but should not affect the build
+[2025-07-22 12:56:25] INFO: 📋 Manual Xcode configuration may be needed for run script phases
+[2025-07-22 12:56:25] SUCCESS: ✅ Swift optimization warnings fixed
+[2025-07-22 12:56:25] INFO: 📦 Running flutter pub get to generate required files...
 Resolving dependencies...
 Downloading packages...
   characters 1.4.0 (1.4.1 available)
@@ -224,200 +814,888 @@ Downloading packages...
 Got dependencies!
 20 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-[2025-07-22 11:24:13] SUCCESS: ✅ Flutter pub get completed successfully
-[2025-07-22 11:24:13] INFO: 🔧 Fixing iOS deployment target...
+[2025-07-22 12:56:26] SUCCESS: ✅ Flutter pub get completed successfully
+[2025-07-22 12:56:26] INFO: 🔧 Fixing iOS deployment target...
 ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:13] INFO: ✅ Environment configuration loaded from lib/config/env.sh
-[2025-07-22 11:24:13] INFO: 🔧 Simple iOS Deployment Target Fix...
-[2025-07-22 11:24:13] INFO: 🚀 Simple iOS Deployment Target Fix...
-[2025-07-22 11:24:13] INFO: 📱 Updating iOS deployment target in project.pbxproj...
-[2025-07-22 11:24:13] SUCCESS: ✅ Updated IPHONEOS_DEPLOYMENT_TARGET to 13.0 in project.pbxproj
-[2025-07-22 11:24:13] SUCCESS: ✅ Updated additional IPHONEOS_DEPLOYMENT_TARGET references
-[2025-07-22 11:24:13] INFO: 📝 Creating Podfile with iOS 13.0 deployment target...
-[2025-07-22 11:24:13] SUCCESS: ✅ Podfile created with iOS 13.0 deployment target
-[2025-07-22 11:24:13] INFO: 📱 Updating Info.plist deployment target...
-[2025-07-22 11:24:13] SUCCESS: ✅ Updated MinimumOSVersion to 13.0 in Info.plist
-[2025-07-22 11:24:13] INFO: 🔍 Verifying deployment target changes...
-[2025-07-22 11:24:13] INFO: 📋 Deployment target verification summary:
-[2025-07-22 11:24:13] SUCCESS: ✅ iOS 13.0 deployment target found in project.pbxproj: 3 entries
-[2025-07-22 11:24:13] SUCCESS: ✅ MinimumOSVersion matches in Info.plist: 13.0
-[2025-07-22 11:24:13] SUCCESS: 🎉 iOS deployment target fixed to 13.0
-[2025-07-22 11:24:13] INFO: 📋 Summary:
-[2025-07-22 11:24:13] INFO:    ✅ Updated project.pbxproj deployment target
-[2025-07-22 11:24:13] INFO:    ✅ Created Podfile with iOS 13.0
-[2025-07-22 11:24:13] INFO:    ✅ Updated Info.plist MinimumOSVersion
-[2025-07-22 11:24:13] INFO:    ✅ Verified deployment target changes
-[2025-07-22 11:24:13] INFO:    📝 Note: Pod install will be handled by main build process
-[2025-07-22 11:24:13] SUCCESS: ✅ iOS deployment target fixed to 13.0
-[2025-07-22 11:24:13] INFO: 🔧 Injecting bundle ID for Runner target...
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🔧 Simple iOS Deployment Target Fix...
+[2025-07-22 12:56:26] INFO: 🚀 Simple iOS Deployment Target Fix...
+[2025-07-22 12:56:26] INFO: 📱 Updating iOS deployment target in project.pbxproj...
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated IPHONEOS_DEPLOYMENT_TARGET to 13.0 in project.pbxproj
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated additional IPHONEOS_DEPLOYMENT_TARGET references
+[2025-07-22 12:56:26] INFO: 📝 Creating Podfile with iOS 13.0 deployment target...
+[2025-07-22 12:56:26] SUCCESS: ✅ Podfile created with iOS 13.0 deployment target
+[2025-07-22 12:56:26] INFO: 📱 Updating Info.plist deployment target...
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated MinimumOSVersion to 13.0 in Info.plist
+[2025-07-22 12:56:26] INFO: 🔍 Verifying deployment target changes...
+[2025-07-22 12:56:26] INFO: 📋 Deployment target verification summary:
+[2025-07-22 12:56:26] SUCCESS: ✅ iOS 13.0 deployment target found in project.pbxproj: 3 entries
+[2025-07-22 12:56:26] SUCCESS: ✅ MinimumOSVersion matches in Info.plist: 13.0
+[2025-07-22 12:56:26] SUCCESS: 🎉 iOS deployment target fixed to 13.0
+[2025-07-22 12:56:26] INFO: 📋 Summary:
+[2025-07-22 12:56:26] INFO:    ✅ Updated project.pbxproj deployment target
+[2025-07-22 12:56:26] INFO:    ✅ Created Podfile with iOS 13.0
+[2025-07-22 12:56:26] INFO:    ✅ Updated Info.plist MinimumOSVersion
+[2025-07-22 12:56:26] INFO:    ✅ Verified deployment target changes
+[2025-07-22 12:56:26] INFO:    📝 Note: Pod install will be handled by main build process
+[2025-07-22 12:56:26] SUCCESS: ✅ iOS deployment target fixed to 13.0
+[2025-07-22 12:56:26] INFO: 🔧 Injecting bundle ID for Runner target...
 ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:13] INFO: ✅ Environment configuration loaded from lib/config/env.sh
-[2025-07-22 11:24:13] INFO: 🔧 Simple Bundle ID Injection for Runner Target...
-[2025-07-22 11:24:13] INFO: 🚀 Simple Bundle ID Injection for Runner Target...
-[2025-07-22 11:24:13] INFO: 📦 Target Bundle ID: com.twinklub.twinklub
-[2025-07-22 11:24:13] INFO: 📱 Injecting bundle ID using simple approach...
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
-[2025-07-22 11:24:13] INFO: 📦 Bundle ID to inject: com.twinklub.twinklub
-[2025-07-22 11:24:13] INFO: ✅ Created backup: ios/Runner.xcodeproj/project.pbxproj.backup
-[2025-07-22 11:24:13] SUCCESS: ✅ Updated PRODUCT_BUNDLE_IDENTIFIER entries
-[2025-07-22 11:24:13] INFO: 📋 Updated 6 PRODUCT_BUNDLE_IDENTIFIER entries
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID successfully injected: 6 entries found
-[2025-07-22 11:24:13] INFO: 📱 Updating Info.plist bundle identifier...
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
-[2025-07-22 11:24:13] SUCCESS: ✅ Updated CFBundleIdentifier in Info.plist
-[2025-07-22 11:24:13] INFO: 🔍 Verifying bundle ID injection...
-[2025-07-22 11:24:13] INFO: 📋 Bundle ID verification summary:
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID found in project.pbxproj: 6 entries
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID matches in Info.plist
-[2025-07-22 11:24:13] SUCCESS: 🎉 Bundle ID successfully injected for Runner target
-[2025-07-22 11:24:13] INFO: 📋 Summary:
-[2025-07-22 11:24:13] INFO:    ✅ Updated project.pbxproj for Runner target only
-[2025-07-22 11:24:13] INFO:    ✅ Updated Info.plist CFBundleIdentifier
-[2025-07-22 11:24:13] INFO:    ✅ Verified bundle ID injection
-[2025-07-22 11:24:13] INFO:    📦 Bundle ID: com.twinklub.twinklub
-[2025-07-22 11:24:13] SUCCESS: ✅ Bundle ID injected for Runner target
-[2025-07-22 11:24:13] INFO: 🔧 Fixing environment configuration...
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🔧 Simple Bundle ID Injection for Runner Target...
+[2025-07-22 12:56:26] INFO: 🚀 Simple Bundle ID Injection for Runner Target...
+[2025-07-22 12:56:26] INFO: 📦 Target Bundle ID: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📱 Injecting bundle ID using simple approach...
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📦 Bundle ID to inject: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: ✅ Created backup: ios/Runner.xcodeproj/project.pbxproj.backup
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated PRODUCT_BUNDLE_IDENTIFIER entries
+[2025-07-22 12:56:26] INFO: 📋 Updated 6 PRODUCT_BUNDLE_IDENTIFIER entries
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID successfully injected: 6 entries found
+[2025-07-22 12:56:26] INFO: 📱 Updating Info.plist bundle identifier...
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated CFBundleIdentifier in Info.plist
+[2025-07-22 12:56:26] INFO: 🔍 Verifying bundle ID injection...
+[2025-07-22 12:56:26] INFO: 📋 Bundle ID verification summary:
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID found in project.pbxproj: 6 entries
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID matches in Info.plist
+[2025-07-22 12:56:26] SUCCESS: 🎉 Bundle ID successfully injected for Runner target
+[2025-07-22 12:56:26] INFO: 📋 Summary:
+[2025-07-22 12:56:26] INFO:    ✅ Updated project.pbxproj for Runner target only
+[2025-07-22 12:56:26] INFO:    ✅ Updated Info.plist CFBundleIdentifier
+[2025-07-22 12:56:26] INFO:    ✅ Verified bundle ID injection
+[2025-07-22 12:56:26] INFO:    📦 Bundle ID: com.twinklub.twinklub
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID injected for Runner target
+[2025-07-22 12:56:26] INFO: 🔧 Fixing environment configuration...
 ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:13] INFO: 🔧 Fixing Environment Configuration...
-[2025-07-22 11:24:13] INFO: ✅ Environment configuration loaded from lib/config/env.sh
-[2025-07-22 11:24:13] INFO: 🚀 Fixing Environment Configuration...
-[2025-07-22 11:24:13] INFO: 🔍 Verifying environment variables...
-[2025-07-22 11:24:13] SUCCESS: ✅ APPLE_TEAM_ID is set: 9H2AD7NQ49
-[2025-07-22 11:24:13] SUCCESS: ✅ BUNDLE_ID is set: com.twinklub.twinklub
-[2025-07-22 11:24:13] INFO: 📝 Regenerating env_config.dart...
-[2025-07-22 11:24:13] [ENV_GEN] Environment configuration file not found, using system environment variables
-[2025-07-22 11:24:13] [ENV_GEN] 🚀 Starting enhanced environment configuration generation...
-[2025-07-22 11:24:13] [ENV_GEN] 🔍 Detected workflow: ios-workflow
-[2025-07-22 11:24:13] [ENV_GEN] 🍎 iOS-only workflow detected
-[2025-07-22 11:24:13] [ENV_GEN] 🌐 Testing network connectivity...
-[2025-07-22 11:24:13] [ENV_GEN] 🌐 Testing network connectivity...
-[2025-07-22 11:24:13] [ENV_GEN] ✅ Basic internet connectivity confirmed
-[2025-07-22 11:24:13] [ENV_GEN] ✅ DNS resolution working
-[2025-07-22 11:24:13] [ENV_GEN] ✅ HTTPS connectivity confirmed
-[2025-07-22 11:24:13] [ENV_GEN] 🔍 Validating build environment...
-[2025-07-22 11:24:13] [ENV_GEN] 🔍 Validating build environment...
-[2025-07-22 11:24:13] [ENV_GEN] ✅ flutter is available
-[2025-07-22 11:24:13] [ENV_GEN] ✅ java is available
-[2025-07-22 11:24:13] [ENV_GEN] ✅ gradle is available
-[2025-07-22 11:24:13] [ENV_GEN] ✅ curl is available
-[2025-07-22 11:24:14] [ENV_GEN] 📱 Flutter version: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
-[2025-07-22 11:24:14] [ENV_GEN] ☕ Java version: openjdk version "17.0.11" 2024-04-16 LTS
-[2025-07-22 11:24:14] [ENV_GEN] 💾 Available disk space: 127Gi
-[2025-07-22 11:24:14] [ENV_GEN] ⚠️  Could not check memory (continuing anyway)
-[2025-07-22 11:24:14] [ENV_GEN] 📝 Generating Dart environment configuration (lib/config/env_config.dart)...
-[2025-07-22 11:24:14] [ENV_GEN] 🔍 Current environment variables:
-[2025-07-22 11:24:14] [ENV_GEN]    WORKFLOW_ID: ios-workflow
-[2025-07-22 11:24:14] [ENV_GEN]    BRANCH: $BRANCH (using static 'main' instead)
-[2025-07-22 11:24:14] [ENV_GEN]    APP_NAME: Garbcode App
-[2025-07-22 11:24:14] [ENV_GEN]    PKG_NAME: com.quikapp.app
-[2025-07-22 11:24:14] [ENV_GEN]    BUNDLE_ID: com.twinklub.twinklub
-[2025-07-22 11:24:14] [ENV_GEN]    OUTPUT_DIR: output/ios
-[2025-07-22 11:24:14] [ENV_GEN]    PROJECT_ROOT: not_set
-[2025-07-22 11:24:14] [ENV_GEN]    CM_BUILD_DIR: /Users/builder/clone
-[2025-07-22 11:24:14] [ENV_GEN]    APP_ID: 1003
-[2025-07-22 11:24:14] [ENV_GEN]    VERSION_NAME: 1.0.0
-[2025-07-22 11:24:14] [ENV_GEN]    VERSION_CODE: 1
-[2025-07-22 11:24:14] [ENV_GEN]    APPLE_TEAM_ID: 9H2AD7NQ49
-[2025-07-22 11:24:14] [ENV_GEN]    APNS_KEY_ID: V566SWNF69
-[2025-07-22 11:24:14] [ENV_GEN]    IS_IOS_WORKFLOW: true
-[2025-07-22 11:24:14] [ENV_GEN] 📋 Backed up existing env_config.dart
-[2025-07-22 11:24:14] [ENV_GEN] 📝 Writing environment configuration file...
-[2025-07-22 11:24:14] [ENV_GEN] ✅ Dart environment configuration generated successfully.
-[2025-07-22 11:24:14] [ENV_GEN] 🔍 Generated file preview:
-[2025-07-22 11:24:14] [ENV_GEN]    // 🔥 GENERATED FILE: DO NOT EDIT 🔥
-[2025-07-22 11:24:14] [ENV_GEN]    //
-[2025-07-22 11:24:14] [ENV_GEN]    // This file is generated by lib/scripts/utils/gen_env_config.sh
-[2025-07-22 11:24:14] [ENV_GEN]    // It contains all environment-specific variables for the app.
-[2025-07-22 11:24:14] [ENV_GEN]    // Generated for workflow: ios-workflow
-[2025-07-22 11:24:14] [ENV_GEN]    
-[2025-07-22 11:24:14] [ENV_GEN]    class EnvConfig {
-[2025-07-22 11:24:14] [ENV_GEN]      // App Metadata
-[2025-07-22 11:24:14] [ENV_GEN]      static const String appId = "1003";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String versionName = "1.0.0";
-[2025-07-22 11:24:14] [ENV_GEN]      static const int versionCode = 1;
-[2025-07-22 11:24:14] [ENV_GEN]      static const String appName = "Garbcode App";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String orgName = "Garbcode";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String webUrl = "https://garbcode.com";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String userName = "Prasanna";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String emailId = "prasannasrinivasan32@gmail.com";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String branch = "main";
-[2025-07-22 11:24:14] [ENV_GEN]      static const String workflowId = "ios-workflow";
-[2025-07-22 11:24:14] [ENV_GEN]    
-[2025-07-22 11:24:14] [ENV_GEN]      // Package Identifiers
-[2025-07-22 11:24:14] [ENV_GEN] ✅ Environment configuration generated successfully
-[2025-07-22 11:24:14] [ENV_GEN] 🔍 Verifying workflow-specific fields...
-[2025-07-22 11:24:14] [ENV_GEN] ✅ iOS bundle ID correctly set to: com.twinklub.twinklub
-[2025-07-22 11:24:14] [ENV_GEN] ✅ iOS team ID correctly set to: 9H2AD7NQ49
-[2025-07-22 11:24:14] [ENV_GEN] 🔍 Verifying outputDir value in generated file...
-[2025-07-22 11:24:14] [ENV_GEN] ✅ outputDir value correctly set to: output/ios
-[2025-07-22 11:24:14] [ENV_GEN] ✅ Generated config passes Dart analysis
-[2025-07-22 11:24:14] [ENV_GEN] 📋 Configuration Summary:
-[2025-07-22 11:24:14] [ENV_GEN]    App: Garbcode App v1.0.0
-[2025-07-22 11:24:14] [ENV_GEN]    Workflow: ios-workflow
-[2025-07-22 11:24:14] [ENV_GEN]    Platform: iOS
-[2025-07-22 11:24:14] [ENV_GEN]    Firebase: true
-[2025-07-22 11:24:14] [ENV_GEN]    Keystore: true
-[2025-07-22 11:24:14] [ENV_GEN]    iOS Signing: true
-[2025-07-22 11:24:14] [ENV_GEN] 🎉 Enhanced environment configuration generation completed
-[2025-07-22 11:24:14] SUCCESS: ✅ env_config.dart regenerated successfully
-[2025-07-22 11:24:14] INFO: 📝 Regenerating env.g.dart...
-[2025-07-22 11:24:14] WARN: ⚠️ gen_env_g.sh not found, skipping env.g.dart regeneration
-[2025-07-22 11:24:14] INFO: 🔍 Verifying BOTTOMMENU_VISIBLE_ON removal...
-[2025-07-22 11:24:14] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env_config.dart
-[2025-07-22 11:24:14] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env.g.dart
-[2025-07-22 11:24:14] SUCCESS: 🎉 Environment configuration fixed successfully
-[2025-07-22 11:24:14] INFO: 📋 Summary:
-[2025-07-22 11:24:14] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env_config.dart
-[2025-07-22 11:24:14] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env.g.dart
-[2025-07-22 11:24:14] INFO:    ✅ Regenerated configuration files
-[2025-07-22 11:24:14] INFO:    ✅ Verified fix applied correctly
-[2025-07-22 11:24:14] SUCCESS: ✅ Environment configuration fixed
-[2025-07-22 11:24:14] INFO: 🔧 Fixing code signing configuration...
+[2025-07-22 12:56:26] INFO: 🔧 Fixing Environment Configuration...
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🚀 Fixing Environment Configuration...
+[2025-07-22 12:56:26] INFO: 🔍 Verifying environment variables...
+[2025-07-22 12:56:26] SUCCESS: ✅ APPLE_TEAM_ID is set: 9H2AD7NQ49
+[2025-07-22 12:56:26] SUCCESS: ✅ BUNDLE_ID is set: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📝 Regenerating env_config.dart...
+[2025-07-22 12:56:26] [ENV_GEN] Environment configuration file not found, using system environment variables
+[2025-07-22 12:56:26] [ENV_GEN] 🔍 Checking for specific Codemagic API variables...
+[2025-07-22 12:56:27] [ENV_GEN] 📋 Final API variable values (prioritized over defaults):
+[2025-07-22 12:56:27] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_CODE: 1
+1
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_ID: prasannasrinivasan32@gmail.com
+prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:27] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:27] [ENV_GEN]    PROFILE_TYPE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PROFILE_TYPE: app-store
+app-store
+[2025-07-22 12:56:27] [ENV_GEN]    PROFILE_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PROFILE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:27] [ENV_GEN]    IS_TESTFLIGHT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_TESTFLIGHT: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_KEY_IDENTIFIER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_KEY_IDENTIFIER: S95LCWAH99
+S95LCWAH99
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_ISSUER_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_ISSUER_ID: a99a2ebd-ed3e-4117-9f97-f195823774a7
+a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_API_KEY_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_API_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:27] [ENV_GEN]    LOGO_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable LOGO_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_URL: [2025-07-22 12:56:26] [ENV_GEN] ⚠️ API variable SPLASH_URL not set, using fallback: 
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_BG_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_BG_COLOR: #FFFFFF
+#FFFFFF
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_TAGLINE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE: Welcome to Garbcode
+Welcome to Garbcode
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_TAGLINE_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    FIREBASE_CONFIG_IOS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_IOS: https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+[2025-07-22 12:56:27] [ENV_GEN]    ENABLE_EMAIL_NOTIFICATIONS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable ENABLE_EMAIL_NOTIFICATIONS: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_SERVER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_SERVER: smtp.gmail.com
+smtp.gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_PORT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_PORT: 587
+587
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_USER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_USER: prasannasrie@gmail.com
+prasannasrie@gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_PASS: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN]    USER_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable USER_NAME: Prasanna
+Prasanna
+[2025-07-22 12:56:27] [ENV_GEN]    APP_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:27] [ENV_GEN]    ORG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable ORG_NAME: Garbcode
+Garbcode
+[2025-07-22 12:56:27] [ENV_GEN]    WEB_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WEB_URL: https://garbcode.com
+https://garbcode.com
+[2025-07-22 12:56:27] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PKG_NAME: com.quikapp.app
+com.quikapp.app
+[2025-07-22 12:56:27] [ENV_GEN]    PUSH_NOTIFY: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CHATBOT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CHATBOT: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_DOMAIN_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_DOMAIN_URL: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_SPLASH: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_SPLASH: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_PULLDOWN: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_PULLDOWN: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_BOTTOMMENU: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_BOTTOMMENU: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_LOAD_IND: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_LOAD_IND: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CAMERA: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CAMERA: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_LOCATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_LOCATION: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_MIC: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_MIC: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_NOTIFICATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_NOTIFICATION: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CONTACT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CONTACT: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_BIOMETRIC: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_BIOMETRIC: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CALENDAR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CALENDAR: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_STORAGE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_STORAGE: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_BG_URL: [2025-07-22 12:56:26] [ENV_GEN] ⚠️ API variable SPLASH_BG_URL not set, using fallback: 
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_ANIMATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_ANIMATION: fade
+fade
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_DURATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_DURATION: 3
+3
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ITEMS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ITEMS: []
+[]
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_BG_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_BG_COLOR: #FFFFFF
+#FFFFFF
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ICON_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_TEXT_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_TEXT_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT: Roboto
+Roboto
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_SIZE: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_SIZE: 12
+12
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_BOLD: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_BOLD: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_ITALIC: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_ITALIC: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ACTIVE_TAB_COLOR: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ACTIVE_TAB_COLOR: #0000FF
+#0000FF
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ICON_POSITION: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_POSITION: above
+above
+[2025-07-22 12:56:27] [ENV_GEN]    FIREBASE_CONFIG_ANDROID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_ANDROID: https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_AUTH_KEY_URL: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_AUTH_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:27] [ENV_GEN]    KEY_STORE_URL: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable KEY_STORE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEYSTORE_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEY_ALIAS: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable CM_KEY_ALIAS: my_key_alias
+my_key_alias
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEY_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN] 🚀 Starting enhanced environment configuration generation...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Detected workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ Unknown workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow, enabling all platforms
+[2025-07-22 12:56:27] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:27] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Basic internet connectivity confirmed
+[2025-07-22 12:56:27] [ENV_GEN] ✅ DNS resolution working
+[2025-07-22 12:56:27] [ENV_GEN] ✅ HTTPS connectivity confirmed
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ flutter is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ java is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ gradle is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ curl is available
+[2025-07-22 12:56:27] [ENV_GEN] 📱 Flutter version: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
+[2025-07-22 12:56:27] [ENV_GEN] ☕ Java version: openjdk version "17.0.11" 2024-04-16 LTS
+[2025-07-22 12:56:27] [ENV_GEN] 💾 Available disk space: 127Gi
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️  Could not check memory (continuing anyway)
+[2025-07-22 12:56:27] [ENV_GEN] 📝 Generating Dart environment configuration (lib/config/env_config.dart)...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Current environment variables:
+[2025-07-22 12:56:27] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    BRANCH: $BRANCH (using static 'main' instead)
+[2025-07-22 12:56:27] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App
+[2025-07-22 12:56:27] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PKG_NAME: com.quikapp.app
+com.quikapp.app
+[2025-07-22 12:56:27] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:27] [ENV_GEN]    OUTPUT_DIR: output/ios
+[2025-07-22 12:56:27] [ENV_GEN]    PROJECT_ROOT: not_set
+[2025-07-22 12:56:27] [ENV_GEN]    CM_BUILD_DIR: /Users/builder/clone
+[2025-07-22 12:56:27] [ENV_GEN]    APP_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_CODE: 1
+1
+[2025-07-22 12:56:27] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:27] [ENV_GEN]    IS_IOS_WORKFLOW: true
+[2025-07-22 12:56:27] [ENV_GEN] 📝 Writing environment configuration file...
+./lib/scripts/utils/gen_env_config.sh: line 322: : No such file or directory
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Dart environment configuration generated successfully.
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Generated file preview:
+[2025-07-22 12:56:27] [ENV_GEN]    // 🔥 GENERATED FILE: DO NOT EDIT 🔥
+[2025-07-22 12:56:27] [ENV_GEN]    //
+[2025-07-22 12:56:27] [ENV_GEN]    // This file is generated by lib/scripts/utils/gen_env_config.sh
+[2025-07-22 12:56:27] [ENV_GEN]    // It contains all environment-specific variables for the app.
+[2025-07-22 12:56:27] [ENV_GEN]    // Generated for workflow: ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    
+[2025-07-22 12:56:27] [ENV_GEN]    class EnvConfig {
+[2025-07-22 12:56:27] [ENV_GEN]      // App Metadata
+[2025-07-22 12:56:27] [ENV_GEN]      static const String appId = "1003";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String versionName = "1.0.1";
+[2025-07-22 12:56:27] [ENV_GEN]      static const int versionCode = 1;
+[2025-07-22 12:56:27] [ENV_GEN]      static const String appName = "Twinklub App";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String orgName = "JPR Garments";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String webUrl = "https://twinklub.com/";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String userName = "prasannasrie";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String emailId = "prasannasrinivasan32@gmail.com";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String branch = "main";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String workflowId = "ios-workflow";
+[2025-07-22 12:56:27] [ENV_GEN]    
+[2025-07-22 12:56:27] [ENV_GEN]      // Package Identifiers
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Environment configuration generated successfully
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Verifying workflow-specific fields...
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ Android package name not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ iOS bundle ID not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ iOS team ID not found or incorrect
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Verifying outputDir value in generated file...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ outputDir value correctly set to: output/ios
+[2025-07-22 12:56:28] [ENV_GEN] ⚠️  Generated config has Dart analysis issues (continuing anyway)
+[2025-07-22 12:56:28] [ENV_GEN] 📋 Configuration Summary:
+[2025-07-22 12:56:28] [ENV_GEN]    App: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App v[2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:28] [ENV_GEN]    Workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:28] [ENV_GEN]    Platform: Android iOS
+[2025-07-22 12:56:28] [ENV_GEN]    Firebase: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:28] [ENV_GEN]    Keystore: true
+[2025-07-22 12:56:28] [ENV_GEN]    iOS Signing: true
+[2025-07-22 12:56:28] [ENV_GEN] 🎉 Enhanced environment configuration generation completed
+[2025-07-22 12:56:28] SUCCESS: ✅ env_config.dart regenerated successfully
+[2025-07-22 12:56:28] INFO: 📝 Regenerating env.g.dart...
+[2025-07-22 12:56:28] WARN: ⚠️ gen_env_g.sh not found, skipping env.g.dart regeneration
+[2025-07-22 12:56:28] INFO: 🔍 Verifying BOTTOMMENU_VISIBLE_ON removal...
+[2025-07-22 12:56:28] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env_config.dart
+[2025-07-22 12:56:28] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env.g.dart
+[2025-07-22 12:56:28] SUCCESS: 🎉 Environment configuration fixed successfully
+[2025-07-22 12:56:28] INFO: 📋 Summary:
+[2025-07-22 12:56:28] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env_config.dart
+[2025-07-22 12:56:28] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env.g.dart
+[2025-07-22 12:56:28] INFO:    ✅ Regenerated configuration files
+[2025-07-22 12:56:28] INFO:    ✅ Verified fix applied correctly
+[2025-07-22 12:56:28] SUCCESS: ✅ Environment configuration fixed
 ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
-[2025-07-22 11:24:14] INFO: ✅ Environment configuration loaded from lib/config/env.sh
-[2025-07-22 11:24:14] INFO: 🔧 Fixing iOS Code Signing Configuration...
-[2025-07-22 11:24:14] INFO: 🚀 Fixing iOS Code Signing Configuration...
-[2025-07-22 11:24:14] INFO: 👥 Development Team ID: 9H2AD7NQ49
-[2025-07-22 11:24:14] INFO: 📱 Fixing code signing in project.pbxproj...
-[2025-07-22 11:24:14] SUCCESS: ✅ Development team ID format is valid: 9H2AD7NQ49
-[2025-07-22 11:24:14] INFO: 👥 Development team ID: 9H2AD7NQ49
-[2025-07-22 11:24:14] INFO: ✅ Created backup: ios/Runner.xcodeproj/project.pbxproj.backup
-[2025-07-22 11:24:14] SUCCESS: ✅ Updated existing DEVELOPMENT_TEAM entries
-./lib/scripts/ios-workflow/fix_code_signing.sh: line 95: [: 0
-0: integer expression expected
-[2025-07-22 11:24:14] INFO: 📋 Total DEVELOPMENT_TEAM entries: 0
-[2025-07-22 11:24:14] ERROR: ❌ Code signing configuration failed: no entries found
-[2025-07-22 11:24:14] ERROR: ❌ Failed to fix code signing in project.pbxproj
-[2025-07-22 11:24:14] ERROR: ❌ Code signing configuration fix failed
-[2025-07-22 11:24:14] ERROR: ❌ Code signing configuration fix failed
-2025-07-22 11:24:14,978 - INFO - === QuikApp Email System Debug Info ===
-2025-07-22 11:24:14,978 - INFO - Python version: 3.8.13 (default, Aug 12 2022, 16:48:03) 
+[2025-07-22 12:56:28] INFO: 🔍 Starting Environment Variable Injection Verification...
+[2025-07-22 12:56:28] INFO: 🚀 Starting Environment Variable Injection Verification...
+[2025-07-22 12:56:28] INFO: 🔍 Checking environment variables...
+[2025-07-22 12:56:28] WARN: ⚠️ Missing environment variables: SPLASH_URL SPLASH_BG_URL
+[2025-07-22 12:56:28] INFO: 📋 Environment variables found:
+[2025-07-22 12:56:28] INFO:    WORKFLOW_ID=ios-workflow
+[2025-07-22 12:56:28] INFO:    APP_NAME=Garbcode App
+[2025-07-22 12:56:28] INFO:    VERSION_NAME=1.0.0
+[2025-07-22 12:56:28] INFO:    VERSION_CODE=1
+[2025-07-22 12:56:28] INFO:    EMAIL_ID=prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:28] INFO:    BUNDLE_ID=com.twinklub.twinklub
+[2025-07-22 12:56:28] INFO:    APPLE_TEAM_ID=9H2AD7NQ49
+[2025-07-22 12:56:28] INFO:    PROFILE_TYPE=app-store
+[2025-07-22 12:56:28] INFO:    PROFILE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:28] INFO:    IS_TESTFLIGHT=true
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_KEY_IDENTIFIER=S95LCWAH99
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_ISSUER_ID=a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_API_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:28] INFO:    LOGO_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+[2025-07-22 12:56:28] INFO:    SPLASH_BG_COLOR=#FFFFFF
+[2025-07-22 12:56:28] INFO:    SPLASH_TAGLINE=Welcome to Garbcode
+[2025-07-22 12:56:28] INFO:    SPLASH_TAGLINE_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    FIREBASE_CONFIG_IOS=https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+[2025-07-22 12:56:28] INFO:    ENABLE_EMAIL_NOTIFICATIONS=true
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_SERVER=smtp.gmail.com
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_PORT=587
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_USER=prasannasrie@gmail.com
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_PASS=lrnu krfm aarp urux
+[2025-07-22 12:56:28] INFO:    USER_NAME=Prasanna
+[2025-07-22 12:56:28] INFO:    APP_ID=1003
+[2025-07-22 12:56:28] INFO:    ORG_NAME=Garbcode
+[2025-07-22 12:56:28] INFO:    WEB_URL=https://garbcode.com
+[2025-07-22 12:56:28] INFO:    PKG_NAME=com.quikapp.app
+[2025-07-22 12:56:28] INFO:    PUSH_NOTIFY=true
+[2025-07-22 12:56:28] INFO:    IS_CHATBOT=false
+[2025-07-22 12:56:28] INFO:    IS_DOMAIN_URL=false
+[2025-07-22 12:56:28] INFO:    IS_SPLASH=true
+[2025-07-22 12:56:28] INFO:    IS_PULLDOWN=true
+[2025-07-22 12:56:28] INFO:    IS_BOTTOMMENU=true
+[2025-07-22 12:56:28] INFO:    IS_LOAD_IND=true
+[2025-07-22 12:56:28] INFO:    IS_CAMERA=false
+[2025-07-22 12:56:28] INFO:    IS_LOCATION=false
+[2025-07-22 12:56:28] INFO:    IS_MIC=true
+[2025-07-22 12:56:28] INFO:    IS_NOTIFICATION=true
+[2025-07-22 12:56:28] INFO:    IS_CONTACT=false
+[2025-07-22 12:56:28] INFO:    IS_BIOMETRIC=false
+[2025-07-22 12:56:28] INFO:    IS_CALENDAR=false
+[2025-07-22 12:56:28] INFO:    IS_STORAGE=true
+[2025-07-22 12:56:28] INFO:    SPLASH_ANIMATION=fade
+[2025-07-22 12:56:28] INFO:    SPLASH_DURATION=3
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ITEMS=[]
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_BG_COLOR=#FFFFFF
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ICON_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_TEXT_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT=Roboto
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_SIZE=12
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_BOLD=false
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_ITALIC=false
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ACTIVE_TAB_COLOR=#0000FF
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ICON_POSITION=above
+[2025-07-22 12:56:28] INFO:    FIREBASE_CONFIG_ANDROID=https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+[2025-07-22 12:56:28] INFO:    APNS_KEY_ID=V566SWNF69
+[2025-07-22 12:56:28] INFO:    APNS_AUTH_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:28] INFO:    KEY_STORE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+[2025-07-22 12:56:28] INFO:    CM_KEYSTORE_PASSWORD=opeN@1234
+[2025-07-22 12:56:28] INFO:    CM_KEY_ALIAS=my_key_alias
+[2025-07-22 12:56:28] INFO:    CM_KEY_PASSWORD=opeN@1234
+[2025-07-22 12:56:28] INFO: 🔧 Testing environment configuration generation...
+[2025-07-22 12:56:29] SUCCESS: ✅ env_config.dart generated successfully
+🏗️ Building iOS App (Comprehensive)...
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:25] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:25] INFO: 🚀 Starting Comprehensive iOS Build Workflow...
+[2025-07-22 12:56:25] INFO: 🚀 Comprehensive iOS Build Workflow Starting...
+[2025-07-22 12:56:25] INFO: 🔍 Validating environment variables...
+[2025-07-22 12:56:25] SUCCESS: ✅ All required environment variables are set
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization warnings...
+[2025-07-22 12:56:25] INFO: ✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization warnings...
+[2025-07-22 12:56:25] INFO: 🚀 Enhanced Swift Optimization Fix Starting...
+[2025-07-22 12:56:25] WARN: ⚠️ Pods project not found
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization in main project...
+[2025-07-22 12:56:25] INFO: 🔧 Fixing Swift optimization in: ios/Runner.xcodeproj/project.pbxproj
+ios/Runner.xcodeproj/project.pbxproj: <unknown error>
+ios/Runner.xcodeproj/project.pbxproj: <unknown error>
+ios/Runner.xcodeproj/project.pbxproj: Could not modify plist, error: Value -Onone not valid for key path buildSettings.SWIFT_OPTIMIZATION_LEVEL
+[2025-07-22 12:56:25] SUCCESS: ✅ Swift optimization settings updated for: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:25] INFO: 🔧 Fixing run script phases in: ios/Runner.xcodeproj/project.pbxproj
+[2025-07-22 12:56:25] INFO: ℹ️ Run script phases should be configured to run 'Based on dependency analysis'
+[2025-07-22 12:56:25] INFO: ℹ️ This can be done in Xcode: Build Phases → Run Script → Edit → Check 'Based on dependency analysis'
+[2025-07-22 12:56:25] INFO: ℹ️ Affected phases: 'Thin Binary', 'Run Script'
+[2025-07-22 12:56:25] SUCCESS: ✅ Main project optimization completed
+[2025-07-22 12:56:25] INFO: 📋 Swift Optimization Fix Summary:
+========================================
+✅ Fixed SWIFT_OPTIMIZATION_LEVEL: -O → -Onone
+✅ Fixed SWIFT_VERSION: Set to 5.0
+✅ Fixed targets: All Pod targets and main project
+⚠️ Manual fix needed: Run script phases in Xcode
+   - Go to Build Phases → Run Script → Edit
+   - Check 'Based on dependency analysis'
+   - Affected phases: 'Thin Binary', 'Run Script'
+========================================
+[2025-07-22 12:56:25] SUCCESS: ✅ Enhanced Swift optimization warnings fixed
+[2025-07-22 12:56:25] INFO: 📋 Note: Some warnings may still appear but should not affect the build
+[2025-07-22 12:56:25] INFO: 📋 Manual Xcode configuration may be needed for run script phases
+[2025-07-22 12:56:25] SUCCESS: ✅ Swift optimization warnings fixed
+[2025-07-22 12:56:25] INFO: 📦 Running flutter pub get to generate required files...
+Resolving dependencies...
+Downloading packages...
+  characters 1.4.0 (1.4.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 17.2.4 (19.3.1 available)
+  flutter_local_notifications_linux 4.0.1 (6.0.0 available)
+  flutter_local_notifications_platform_interface 7.2.0 (9.1.0 available)
+  leak_tracker 10.0.9 (11.0.1 available)
+  leak_tracker_flutter_testing 3.0.9 (3.0.10 available)
+  leak_tracker_testing 3.0.1 (3.0.2 available)
+  lints 4.0.0 (6.0.0 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.16.0 (1.17.0 available)
+  permission_handler 11.4.0 (12.0.1 available)
+  permission_handler_android 12.1.0 (13.0.1 available)
+  petitparser 6.1.0 (7.0.0 available)
+  test_api 0.7.4 (0.7.7 available)
+  timezone 0.9.4 (0.10.1 available)
+  vector_math 2.1.4 (2.2.0 available)
+  vm_service 15.0.0 (15.0.2 available)
+  xml 6.5.0 (6.6.0 available)
+Got dependencies!
+20 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+[2025-07-22 12:56:26] SUCCESS: ✅ Flutter pub get completed successfully
+[2025-07-22 12:56:26] INFO: 🔧 Fixing iOS deployment target...
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🔧 Simple iOS Deployment Target Fix...
+[2025-07-22 12:56:26] INFO: 🚀 Simple iOS Deployment Target Fix...
+[2025-07-22 12:56:26] INFO: 📱 Updating iOS deployment target in project.pbxproj...
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated IPHONEOS_DEPLOYMENT_TARGET to 13.0 in project.pbxproj
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated additional IPHONEOS_DEPLOYMENT_TARGET references
+[2025-07-22 12:56:26] INFO: 📝 Creating Podfile with iOS 13.0 deployment target...
+[2025-07-22 12:56:26] SUCCESS: ✅ Podfile created with iOS 13.0 deployment target
+[2025-07-22 12:56:26] INFO: 📱 Updating Info.plist deployment target...
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated MinimumOSVersion to 13.0 in Info.plist
+[2025-07-22 12:56:26] INFO: 🔍 Verifying deployment target changes...
+[2025-07-22 12:56:26] INFO: 📋 Deployment target verification summary:
+[2025-07-22 12:56:26] SUCCESS: ✅ iOS 13.0 deployment target found in project.pbxproj: 3 entries
+[2025-07-22 12:56:26] SUCCESS: ✅ MinimumOSVersion matches in Info.plist: 13.0
+[2025-07-22 12:56:26] SUCCESS: 🎉 iOS deployment target fixed to 13.0
+[2025-07-22 12:56:26] INFO: 📋 Summary:
+[2025-07-22 12:56:26] INFO:    ✅ Updated project.pbxproj deployment target
+[2025-07-22 12:56:26] INFO:    ✅ Created Podfile with iOS 13.0
+[2025-07-22 12:56:26] INFO:    ✅ Updated Info.plist MinimumOSVersion
+[2025-07-22 12:56:26] INFO:    ✅ Verified deployment target changes
+[2025-07-22 12:56:26] INFO:    📝 Note: Pod install will be handled by main build process
+[2025-07-22 12:56:26] SUCCESS: ✅ iOS deployment target fixed to 13.0
+[2025-07-22 12:56:26] INFO: 🔧 Injecting bundle ID for Runner target...
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🔧 Simple Bundle ID Injection for Runner Target...
+[2025-07-22 12:56:26] INFO: 🚀 Simple Bundle ID Injection for Runner Target...
+[2025-07-22 12:56:26] INFO: 📦 Target Bundle ID: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📱 Injecting bundle ID using simple approach...
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📦 Bundle ID to inject: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: ✅ Created backup: ios/Runner.xcodeproj/project.pbxproj.backup
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated PRODUCT_BUNDLE_IDENTIFIER entries
+[2025-07-22 12:56:26] INFO: 📋 Updated 6 PRODUCT_BUNDLE_IDENTIFIER entries
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID successfully injected: 6 entries found
+[2025-07-22 12:56:26] INFO: 📱 Updating Info.plist bundle identifier...
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID format is valid: com.twinklub.twinklub
+[2025-07-22 12:56:26] SUCCESS: ✅ Updated CFBundleIdentifier in Info.plist
+[2025-07-22 12:56:26] INFO: 🔍 Verifying bundle ID injection...
+[2025-07-22 12:56:26] INFO: 📋 Bundle ID verification summary:
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID found in project.pbxproj: 6 entries
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID matches in Info.plist
+[2025-07-22 12:56:26] SUCCESS: 🎉 Bundle ID successfully injected for Runner target
+[2025-07-22 12:56:26] INFO: 📋 Summary:
+[2025-07-22 12:56:26] INFO:    ✅ Updated project.pbxproj for Runner target only
+[2025-07-22 12:56:26] INFO:    ✅ Updated Info.plist CFBundleIdentifier
+[2025-07-22 12:56:26] INFO:    ✅ Verified bundle ID injection
+[2025-07-22 12:56:26] INFO:    📦 Bundle ID: com.twinklub.twinklub
+[2025-07-22 12:56:26] SUCCESS: ✅ Bundle ID injected for Runner target
+[2025-07-22 12:56:26] INFO: 🔧 Fixing environment configuration...
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:26] INFO: 🔧 Fixing Environment Configuration...
+[2025-07-22 12:56:26] INFO: ✅ Environment configuration loaded from lib/config/env.sh
+[2025-07-22 12:56:26] INFO: 🚀 Fixing Environment Configuration...
+[2025-07-22 12:56:26] INFO: 🔍 Verifying environment variables...
+[2025-07-22 12:56:26] SUCCESS: ✅ APPLE_TEAM_ID is set: 9H2AD7NQ49
+[2025-07-22 12:56:26] SUCCESS: ✅ BUNDLE_ID is set: com.twinklub.twinklub
+[2025-07-22 12:56:26] INFO: 📝 Regenerating env_config.dart...
+[2025-07-22 12:56:26] [ENV_GEN] Environment configuration file not found, using system environment variables
+[2025-07-22 12:56:26] [ENV_GEN] 🔍 Checking for specific Codemagic API variables...
+[2025-07-22 12:56:27] [ENV_GEN] 📋 Final API variable values (prioritized over defaults):
+[2025-07-22 12:56:27] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_CODE: 1
+1
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_ID: prasannasrinivasan32@gmail.com
+prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:27] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:27] [ENV_GEN]    PROFILE_TYPE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PROFILE_TYPE: app-store
+app-store
+[2025-07-22 12:56:27] [ENV_GEN]    PROFILE_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PROFILE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:27] [ENV_GEN]    IS_TESTFLIGHT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_TESTFLIGHT: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_KEY_IDENTIFIER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_KEY_IDENTIFIER: S95LCWAH99
+S95LCWAH99
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_ISSUER_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_ISSUER_ID: a99a2ebd-ed3e-4117-9f97-f195823774a7
+a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:27] [ENV_GEN]    APP_STORE_CONNECT_API_KEY_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_STORE_CONNECT_API_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:27] [ENV_GEN]    LOGO_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable LOGO_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_URL: [2025-07-22 12:56:26] [ENV_GEN] ⚠️ API variable SPLASH_URL not set, using fallback: 
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_BG_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_BG_COLOR: #FFFFFF
+#FFFFFF
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_TAGLINE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE: Welcome to Garbcode
+Welcome to Garbcode
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_TAGLINE_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_TAGLINE_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    FIREBASE_CONFIG_IOS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_IOS: https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+[2025-07-22 12:56:27] [ENV_GEN]    ENABLE_EMAIL_NOTIFICATIONS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable ENABLE_EMAIL_NOTIFICATIONS: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_SERVER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_SERVER: smtp.gmail.com
+smtp.gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_PORT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_PORT: 587
+587
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_USER: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable EMAIL_SMTP_USER: prasannasrie@gmail.com
+prasannasrie@gmail.com
+[2025-07-22 12:56:27] [ENV_GEN]    EMAIL_SMTP_PASS: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN]    USER_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable USER_NAME: Prasanna
+Prasanna
+[2025-07-22 12:56:27] [ENV_GEN]    APP_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:27] [ENV_GEN]    ORG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable ORG_NAME: Garbcode
+Garbcode
+[2025-07-22 12:56:27] [ENV_GEN]    WEB_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WEB_URL: https://garbcode.com
+https://garbcode.com
+[2025-07-22 12:56:27] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PKG_NAME: com.quikapp.app
+com.quikapp.app
+[2025-07-22 12:56:27] [ENV_GEN]    PUSH_NOTIFY: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CHATBOT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CHATBOT: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_DOMAIN_URL: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_DOMAIN_URL: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_SPLASH: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_SPLASH: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_PULLDOWN: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_PULLDOWN: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_BOTTOMMENU: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_BOTTOMMENU: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_LOAD_IND: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_LOAD_IND: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CAMERA: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CAMERA: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_LOCATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_LOCATION: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_MIC: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_MIC: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_NOTIFICATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_NOTIFICATION: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CONTACT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CONTACT: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_BIOMETRIC: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_BIOMETRIC: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_CALENDAR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_CALENDAR: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    IS_STORAGE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable IS_STORAGE: true
+true
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_BG_URL: [2025-07-22 12:56:26] [ENV_GEN] ⚠️ API variable SPLASH_BG_URL not set, using fallback: 
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_ANIMATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_ANIMATION: fade
+fade
+[2025-07-22 12:56:27] [ENV_GEN]    SPLASH_DURATION: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable SPLASH_DURATION: 3
+3
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ITEMS: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ITEMS: []
+[]
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_BG_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_BG_COLOR: #FFFFFF
+#FFFFFF
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ICON_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_TEXT_COLOR: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_TEXT_COLOR: #000000
+#000000
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT: Roboto
+Roboto
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_SIZE: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_SIZE: 12
+12
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_BOLD: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_BOLD: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_FONT_ITALIC: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_FONT_ITALIC: false
+false
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ACTIVE_TAB_COLOR: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ACTIVE_TAB_COLOR: #0000FF
+#0000FF
+[2025-07-22 12:56:27] [ENV_GEN]    BOTTOMMENU_ICON_POSITION: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable BOTTOMMENU_ICON_POSITION: above
+above
+[2025-07-22 12:56:27] [ENV_GEN]    FIREBASE_CONFIG_ANDROID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable FIREBASE_CONFIG_ANDROID: https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_AUTH_KEY_URL: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_AUTH_KEY_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:27] [ENV_GEN]    KEY_STORE_URL: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable KEY_STORE_URL: https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEYSTORE_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEY_ALIAS: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable CM_KEY_ALIAS: my_key_alias
+my_key_alias
+[2025-07-22 12:56:27] [ENV_GEN]    CM_KEY_PASSWORD: [HIDDEN]
+[2025-07-22 12:56:27] [ENV_GEN] 🚀 Starting enhanced environment configuration generation...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Detected workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ Unknown workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow, enabling all platforms
+[2025-07-22 12:56:27] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:27] [ENV_GEN] 🌐 Testing network connectivity...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Basic internet connectivity confirmed
+[2025-07-22 12:56:27] [ENV_GEN] ✅ DNS resolution working
+[2025-07-22 12:56:27] [ENV_GEN] ✅ HTTPS connectivity confirmed
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Validating build environment...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ flutter is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ java is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ gradle is available
+[2025-07-22 12:56:27] [ENV_GEN] ✅ curl is available
+[2025-07-22 12:56:27] [ENV_GEN] 📱 Flutter version: Flutter 3.32.2 • channel stable • https://github.com/flutter/flutter.git
+[2025-07-22 12:56:27] [ENV_GEN] ☕ Java version: openjdk version "17.0.11" 2024-04-16 LTS
+[2025-07-22 12:56:27] [ENV_GEN] 💾 Available disk space: 127Gi
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️  Could not check memory (continuing anyway)
+[2025-07-22 12:56:27] [ENV_GEN] 📝 Generating Dart environment configuration (lib/config/env_config.dart)...
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Current environment variables:
+[2025-07-22 12:56:27] [ENV_GEN]    WORKFLOW_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    BRANCH: $BRANCH (using static 'main' instead)
+[2025-07-22 12:56:27] [ENV_GEN]    APP_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App
+[2025-07-22 12:56:27] [ENV_GEN]    PKG_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PKG_NAME: com.quikapp.app
+com.quikapp.app
+[2025-07-22 12:56:27] [ENV_GEN]    BUNDLE_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable BUNDLE_ID: com.twinklub.twinklub
+com.twinklub.twinklub
+[2025-07-22 12:56:27] [ENV_GEN]    OUTPUT_DIR: output/ios
+[2025-07-22 12:56:27] [ENV_GEN]    PROJECT_ROOT: not_set
+[2025-07-22 12:56:27] [ENV_GEN]    CM_BUILD_DIR: /Users/builder/clone
+[2025-07-22 12:56:27] [ENV_GEN]    APP_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_ID: 1003
+1003
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_NAME: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:27] [ENV_GEN]    VERSION_CODE: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_CODE: 1
+1
+[2025-07-22 12:56:27] [ENV_GEN]    APPLE_TEAM_ID: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APPLE_TEAM_ID: 9H2AD7NQ49
+9H2AD7NQ49
+[2025-07-22 12:56:27] [ENV_GEN]    APNS_KEY_ID: [2025-07-22 12:56:27] [ENV_GEN] ✅ Found API variable APNS_KEY_ID: V566SWNF69
+V566SWNF69
+[2025-07-22 12:56:27] [ENV_GEN]    IS_IOS_WORKFLOW: true
+[2025-07-22 12:56:27] [ENV_GEN] 📝 Writing environment configuration file...
+./lib/scripts/utils/gen_env_config.sh: line 322: : No such file or directory
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Dart environment configuration generated successfully.
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Generated file preview:
+[2025-07-22 12:56:27] [ENV_GEN]    // 🔥 GENERATED FILE: DO NOT EDIT 🔥
+[2025-07-22 12:56:27] [ENV_GEN]    //
+[2025-07-22 12:56:27] [ENV_GEN]    // This file is generated by lib/scripts/utils/gen_env_config.sh
+[2025-07-22 12:56:27] [ENV_GEN]    // It contains all environment-specific variables for the app.
+[2025-07-22 12:56:27] [ENV_GEN]    // Generated for workflow: ios-workflow
+[2025-07-22 12:56:27] [ENV_GEN]    
+[2025-07-22 12:56:27] [ENV_GEN]    class EnvConfig {
+[2025-07-22 12:56:27] [ENV_GEN]      // App Metadata
+[2025-07-22 12:56:27] [ENV_GEN]      static const String appId = "1003";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String versionName = "1.0.1";
+[2025-07-22 12:56:27] [ENV_GEN]      static const int versionCode = 1;
+[2025-07-22 12:56:27] [ENV_GEN]      static const String appName = "Twinklub App";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String orgName = "JPR Garments";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String webUrl = "https://twinklub.com/";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String userName = "prasannasrie";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String emailId = "prasannasrinivasan32@gmail.com";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String branch = "main";
+[2025-07-22 12:56:27] [ENV_GEN]      static const String workflowId = "ios-workflow";
+[2025-07-22 12:56:27] [ENV_GEN]    
+[2025-07-22 12:56:27] [ENV_GEN]      // Package Identifiers
+[2025-07-22 12:56:27] [ENV_GEN] ✅ Environment configuration generated successfully
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Verifying workflow-specific fields...
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ Android package name not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ iOS bundle ID not found or incorrect
+grep: invalid character range
+[2025-07-22 12:56:27] [ENV_GEN] ⚠️ iOS team ID not found or incorrect
+[2025-07-22 12:56:27] [ENV_GEN] 🔍 Verifying outputDir value in generated file...
+[2025-07-22 12:56:27] [ENV_GEN] ✅ outputDir value correctly set to: output/ios
+[2025-07-22 12:56:28] [ENV_GEN] ⚠️  Generated config has Dart analysis issues (continuing anyway)
+[2025-07-22 12:56:28] [ENV_GEN] 📋 Configuration Summary:
+[2025-07-22 12:56:28] [ENV_GEN]    App: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable APP_NAME: Garbcode App
+Garbcode App v[2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable VERSION_NAME: 1.0.0
+1.0.0
+[2025-07-22 12:56:28] [ENV_GEN]    Workflow: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable WORKFLOW_ID: ios-workflow
+ios-workflow
+[2025-07-22 12:56:28] [ENV_GEN]    Platform: Android iOS
+[2025-07-22 12:56:28] [ENV_GEN]    Firebase: [2025-07-22 12:56:26] [ENV_GEN] ✅ Found API variable PUSH_NOTIFY: true
+true
+[2025-07-22 12:56:28] [ENV_GEN]    Keystore: true
+[2025-07-22 12:56:28] [ENV_GEN]    iOS Signing: true
+[2025-07-22 12:56:28] [ENV_GEN] 🎉 Enhanced environment configuration generation completed
+[2025-07-22 12:56:28] SUCCESS: ✅ env_config.dart regenerated successfully
+[2025-07-22 12:56:28] INFO: 📝 Regenerating env.g.dart...
+[2025-07-22 12:56:28] WARN: ⚠️ gen_env_g.sh not found, skipping env.g.dart regeneration
+[2025-07-22 12:56:28] INFO: 🔍 Verifying BOTTOMMENU_VISIBLE_ON removal...
+[2025-07-22 12:56:28] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env_config.dart
+[2025-07-22 12:56:28] SUCCESS: ✅ BOTTOMMENU_VISIBLE_ON removed from lib/config/env.g.dart
+[2025-07-22 12:56:28] SUCCESS: 🎉 Environment configuration fixed successfully
+[2025-07-22 12:56:28] INFO: 📋 Summary:
+[2025-07-22 12:56:28] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env_config.dart
+[2025-07-22 12:56:28] INFO:    ✅ Removed BOTTOMMENU_VISIBLE_ON from env.g.dart
+[2025-07-22 12:56:28] INFO:    ✅ Regenerated configuration files
+[2025-07-22 12:56:28] INFO:    ✅ Verified fix applied correctly
+[2025-07-22 12:56:28] SUCCESS: ✅ Environment configuration fixed
+✅ Utilities loaded from ./lib/scripts/utils/utils.sh
+[2025-07-22 12:56:28] INFO: 🔍 Starting Environment Variable Injection Verification...
+[2025-07-22 12:56:28] INFO: 🚀 Starting Environment Variable Injection Verification...
+[2025-07-22 12:56:28] INFO: 🔍 Checking environment variables...
+[2025-07-22 12:56:28] WARN: ⚠️ Missing environment variables: SPLASH_URL SPLASH_BG_URL
+[2025-07-22 12:56:28] INFO: 📋 Environment variables found:
+[2025-07-22 12:56:28] INFO:    WORKFLOW_ID=ios-workflow
+[2025-07-22 12:56:28] INFO:    APP_NAME=Garbcode App
+[2025-07-22 12:56:28] INFO:    VERSION_NAME=1.0.0
+[2025-07-22 12:56:28] INFO:    VERSION_CODE=1
+[2025-07-22 12:56:28] INFO:    EMAIL_ID=prasannasrinivasan32@gmail.com
+[2025-07-22 12:56:28] INFO:    BUNDLE_ID=com.twinklub.twinklub
+[2025-07-22 12:56:28] INFO:    APPLE_TEAM_ID=9H2AD7NQ49
+[2025-07-22 12:56:28] INFO:    PROFILE_TYPE=app-store
+[2025-07-22 12:56:28] INFO:    PROFILE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision
+[2025-07-22 12:56:28] INFO:    IS_TESTFLIGHT=true
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_KEY_IDENTIFIER=S95LCWAH99
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_ISSUER_ID=a99a2ebd-ed3e-4117-9f97-f195823774a7
+[2025-07-22 12:56:28] INFO:    APP_STORE_CONNECT_API_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_S95LCWAH99.p8
+[2025-07-22 12:56:28] INFO:    LOGO_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/logo-gc.png
+[2025-07-22 12:56:28] INFO:    SPLASH_BG_COLOR=#FFFFFF
+[2025-07-22 12:56:28] INFO:    SPLASH_TAGLINE=Welcome to Garbcode
+[2025-07-22 12:56:28] INFO:    SPLASH_TAGLINE_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    FIREBASE_CONFIG_IOS=https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist
+[2025-07-22 12:56:28] INFO:    ENABLE_EMAIL_NOTIFICATIONS=true
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_SERVER=smtp.gmail.com
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_PORT=587
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_USER=prasannasrie@gmail.com
+[2025-07-22 12:56:28] INFO:    EMAIL_SMTP_PASS=lrnu krfm aarp urux
+[2025-07-22 12:56:28] INFO:    USER_NAME=Prasanna
+[2025-07-22 12:56:28] INFO:    APP_ID=1003
+[2025-07-22 12:56:28] INFO:    ORG_NAME=Garbcode
+[2025-07-22 12:56:28] INFO:    WEB_URL=https://garbcode.com
+[2025-07-22 12:56:28] INFO:    PKG_NAME=com.quikapp.app
+[2025-07-22 12:56:28] INFO:    PUSH_NOTIFY=true
+[2025-07-22 12:56:28] INFO:    IS_CHATBOT=false
+[2025-07-22 12:56:28] INFO:    IS_DOMAIN_URL=false
+[2025-07-22 12:56:28] INFO:    IS_SPLASH=true
+[2025-07-22 12:56:28] INFO:    IS_PULLDOWN=true
+[2025-07-22 12:56:28] INFO:    IS_BOTTOMMENU=true
+[2025-07-22 12:56:28] INFO:    IS_LOAD_IND=true
+[2025-07-22 12:56:28] INFO:    IS_CAMERA=false
+[2025-07-22 12:56:28] INFO:    IS_LOCATION=false
+[2025-07-22 12:56:28] INFO:    IS_MIC=true
+[2025-07-22 12:56:28] INFO:    IS_NOTIFICATION=true
+[2025-07-22 12:56:28] INFO:    IS_CONTACT=false
+[2025-07-22 12:56:28] INFO:    IS_BIOMETRIC=false
+[2025-07-22 12:56:28] INFO:    IS_CALENDAR=false
+[2025-07-22 12:56:28] INFO:    IS_STORAGE=true
+[2025-07-22 12:56:28] INFO:    SPLASH_ANIMATION=fade
+[2025-07-22 12:56:28] INFO:    SPLASH_DURATION=3
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ITEMS=[]
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_BG_COLOR=#FFFFFF
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ICON_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_TEXT_COLOR=#000000
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT=Roboto
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_SIZE=12
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_BOLD=false
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_FONT_ITALIC=false
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ACTIVE_TAB_COLOR=#0000FF
+[2025-07-22 12:56:28] INFO:    BOTTOMMENU_ICON_POSITION=above
+[2025-07-22 12:56:28] INFO:    FIREBASE_CONFIG_ANDROID=https://raw.githubusercontent.com/prasanna91/QuikApp/main/google-services-TK.json
+[2025-07-22 12:56:28] INFO:    APNS_KEY_ID=V566SWNF69
+[2025-07-22 12:56:28] INFO:    APNS_AUTH_KEY_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8
+[2025-07-22 12:56:28] INFO:    KEY_STORE_URL=https://raw.githubusercontent.com/prasanna91/QuikApp/main/keystore.jks
+[2025-07-22 12:56:28] INFO:    CM_KEYSTORE_PASSWORD=opeN@1234
+[2025-07-22 12:56:28] INFO:    CM_KEY_ALIAS=my_key_alias
+[2025-07-22 12:56:28] INFO:    CM_KEY_PASSWORD=opeN@1234
+[2025-07-22 12:56:28] INFO: 🔧 Testing environment configuration generation...
+[2025-07-22 12:56:29] SUCCESS: ✅ env_config.dart generated successfully
+[2025-07-22 12:56:29] WARN: ⚠️ APP_NAME not correctly injected
+[2025-07-22 12:56:29] WARN: ⚠️ VERSION_NAME not correctly injected
+[2025-07-22 12:56:29] SUCCESS: ✅ BUNDLE_ID correctly injected: com.twinklub.twinklub
+[2025-07-22 12:56:29] INFO: 🔍 Comparing expected vs actual values...
+[2025-07-22 12:56:29] INFO: 📋 Value Comparison:
+[2025-07-22 12:56:29] INFO:    APP_NAME: Expected='Garbcode App', Actual='Twinklub App'
+[2025-07-22 12:56:29] INFO:    VERSION_NAME: Expected='1.0.0', Actual='1.0.1'
+[2025-07-22 12:56:29] INFO:    VERSION_CODE: Expected='1', Actual='1'
+[2025-07-22 12:56:29] INFO:    BUNDLE_ID: Expected='com.twinklub.twinklub', Actual='com.twinklub.twinklub'
+[2025-07-22 12:56:29] WARN: ⚠️ APP_NAME mismatch
+[2025-07-22 12:56:29] WARN: ⚠️ VERSION_NAME mismatch
+[2025-07-22 12:56:29] ERROR: ❌ Found 2 mismatches
+[2025-07-22 12:56:29] ERROR: ❌ Environment variable injection verification failed
+2025-07-22 12:56:29,456 - INFO - === QuikApp Email System Debug Info ===
+2025-07-22 12:56:29,456 - INFO - Python version: 3.8.13 (default, Aug 12 2022, 16:48:03) 
 [Clang 13.1.6 (clang-1316.0.21.2.5)]
-2025-07-22 11:24:14,978 - INFO - Arguments received: ['./lib/scripts/utils/send_email.py', 'build_failed', 'iOS', '687f7456d089bc8e61d501eb', 'Code signing configuration fix failed.']
-2025-07-22 11:24:14,978 - INFO - Environment variables:
-2025-07-22 11:24:14,978 - INFO -   EMAIL_SMTP_SERVER: smtp.gmail.com
-2025-07-22 11:24:14,978 - INFO -   EMAIL_SMTP_PORT: 587
-2025-07-22 11:24:14,978 - INFO -   EMAIL_SMTP_USER: prasannasrie@gmail.com
-2025-07-22 11:24:14,978 - INFO -   EMAIL_SMTP_PASS: SET
-2025-07-22 11:24:14,978 - INFO -   EMAIL_ID: prasannasrinivasan32@gmail.com
-2025-07-22 11:24:14,978 - INFO -   ENABLE_EMAIL_NOTIFICATIONS: true
-2025-07-22 11:24:14,978 - INFO -   APP_NAME: Garbcode App
-2025-07-22 11:24:14,978 - INFO -   CM_BUILD_ID: 687f7456d089bc8e61d501eb
-2025-07-22 11:24:14,978 - INFO -   CM_PROJECT_ID: 687e79aee790cdc383887fb2
-2025-07-22 11:24:14,978 - INFO -   FCI_BUILD_ID: 687f7456d089bc8e61d501eb
-2025-07-22 11:24:14,978 - INFO -   FCI_PROJECT_ID: 687e79aee790cdc383887fb2
-2025-07-22 11:24:14,978 - INFO -   BUILD_NUMBER: 33
-2025-07-22 11:24:14,978 - INFO - =======================================
-2025-07-22 11:24:14,978 - INFO - Processing email: type=build_failed, platform=iOS, build_id=687f7456d089bc8e61d501eb
-2025-07-22 11:24:14,978 - INFO - Email notifier initialized for Garbcode App v1.0.0
-2025-07-22 11:24:14,978 - INFO - SMTP: smtp.gmail.com:587, User: prasannasrie@gmail.com
-2025-07-22 11:24:14,978 - INFO - Recipient: prasannasrinivasan32@gmail.com
-2025-07-22 11:24:14,978 - INFO - Email notifier initialized successfully
-2025-07-22 11:24:14,978 - INFO - Sending email to prasannasrinivasan32@gmail.com via smtp.gmail.com:587
-2025-07-22 11:24:17,230 - INFO - ✅ Email sent successfully to prasannasrinivasan32@gmail.com
-2025-07-22 11:24:17,290 - INFO - ✅ Email sent successfully
+2025-07-22 12:56:29,456 - INFO - Arguments received: ['./lib/scripts/utils/send_email.py', 'build_failed', 'iOS', '687f8a0d7e66ce30ce6bfcb0', 'Environment variable injection verification failed.']
+2025-07-22 12:56:29,456 - INFO - Environment variables:
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_SERVER: smtp.gmail.com
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_PORT: 587
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_USER: prasannasrie@gmail.com
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_PASS: SET
+2025-07-22 12:56:29,456 - INFO -   EMAIL_ID: prasannasrinivasan32@gmail.com
+2025-07-22 12:56:29,456 - INFO -   ENABLE_EMAIL_NOTIFICATIONS: true
+2025-07-22 12:56:29,456 - INFO -   APP_NAME: Garbcode App
+2025-07-22 12:56:29,456 - INFO -   CM_BUILD_ID: 687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO -   CM_PROJECT_ID: 687e79aee790cdc383887fb2
+2025-07-22 12:56:29,456 - INFO -   FCI_BUILD_ID: 687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO -   FCI_PROJECT_ID: 687e79aee790cdc383887fb2
+2025-07-22 12:56:29,456 - INFO -   BUILD_NUMBER: 36
+2025-07-22 12:56:29,456 - INFO - =======================================
+2025-07-22 12:56:29,456 - INFO - Processing email: type=build_failed, platform=iOS, build_id=687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO - Email notifier initialized for Garbcode App v1.0.0
+2025-07-22 12:56:29,456 - INFO - SMTP: smtp.gmail.com:587, User: prasannasrie@gmail.com
+2025-07-22 12:56:29,456 - INFO - Recipient: prasannasrinivasan32@gmail.com
+2025-07-22 12:56:29,456 - INFO - Email notifier initialized successfully
+2025-07-22 12:56:29,456 - INFO - Sending email to prasannasrinivasan32@gmail.com via smtp.gmail.com:587
+2025-07-22 12:56:30,966 - INFO - ✅ Email sent successfully to prasannasrinivasan32@gmail.com
+2025-07-22 12:56:30,999 - INFO - ✅ Email sent successfully
 ❌ iOS build failed
 
 
 Build failed :|
+Step 5 script `Build iOS App (Comprehensive)` exited with status code 1
+[2025-07-22 12:56:29] WARN: ⚠️ APP_NAME not correctly injected
+[2025-07-22 12:56:29] WARN: ⚠️ VERSION_NAME not correctly injected
+[2025-07-22 12:56:29] SUCCESS: ✅ BUNDLE_ID correctly injected: com.twinklub.twinklub
+[2025-07-22 12:56:29] INFO: 🔍 Comparing expected vs actual values...
+[2025-07-22 12:56:29] INFO: 📋 Value Comparison:
+[2025-07-22 12:56:29] INFO:    APP_NAME: Expected='Garbcode App', Actual='Twinklub App'
+[2025-07-22 12:56:29] INFO:    VERSION_NAME: Expected='1.0.0', Actual='1.0.1'
+[2025-07-22 12:56:29] INFO:    VERSION_CODE: Expected='1', Actual='1'
+[2025-07-22 12:56:29] INFO:    BUNDLE_ID: Expected='com.twinklub.twinklub', Actual='com.twinklub.twinklub'
+[2025-07-22 12:56:29] WARN: ⚠️ APP_NAME mismatch
+[2025-07-22 12:56:29] WARN: ⚠️ VERSION_NAME mismatch
+[2025-07-22 12:56:29] ERROR: ❌ Found 2 mismatches
+[2025-07-22 12:56:29] ERROR: ❌ Environment variable injection verification failed
+2025-07-22 12:56:29,456 - INFO - === QuikApp Email System Debug Info ===
+2025-07-22 12:56:29,456 - INFO - Python version: 3.8.13 (default, Aug 12 2022, 16:48:03) 
+[Clang 13.1.6 (clang-1316.0.21.2.5)]
+2025-07-22 12:56:29,456 - INFO - Arguments received: ['./lib/scripts/utils/send_email.py', 'build_failed', 'iOS', '687f8a0d7e66ce30ce6bfcb0', 'Environment variable injection verification failed.']
+2025-07-22 12:56:29,456 - INFO - Environment variables:
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_SERVER: smtp.gmail.com
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_PORT: 587
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_USER: prasannasrie@gmail.com
+2025-07-22 12:56:29,456 - INFO -   EMAIL_SMTP_PASS: SET
+2025-07-22 12:56:29,456 - INFO -   EMAIL_ID: prasannasrinivasan32@gmail.com
+2025-07-22 12:56:29,456 - INFO -   ENABLE_EMAIL_NOTIFICATIONS: true
+2025-07-22 12:56:29,456 - INFO -   APP_NAME: Garbcode App
+2025-07-22 12:56:29,456 - INFO -   CM_BUILD_ID: 687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO -   CM_PROJECT_ID: 687e79aee790cdc383887fb2
+2025-07-22 12:56:29,456 - INFO -   FCI_BUILD_ID: 687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO -   FCI_PROJECT_ID: 687e79aee790cdc383887fb2
+2025-07-22 12:56:29,456 - INFO -   BUILD_NUMBER: 36
+2025-07-22 12:56:29,456 - INFO - =======================================
+2025-07-22 12:56:29,456 - INFO - Processing email: type=build_failed, platform=iOS, build_id=687f8a0d7e66ce30ce6bfcb0
+2025-07-22 12:56:29,456 - INFO - Email notifier initialized for Garbcode App v1.0.0
+2025-07-22 12:56:29,456 - INFO - SMTP: smtp.gmail.com:587, User: prasannasrie@gmail.com
+2025-07-22 12:56:29,456 - INFO - Recipient: prasannasrinivasan32@gmail.com
+2025-07-22 12:56:29,456 - INFO - Email notifier initialized successfully
+2025-07-22 12:56:29,456 - INFO - Sending email to prasannasrinivasan32@gmail.com via smtp.gmail.com:587
+2025-07-22 12:56:30,966 - INFO - ✅ Email sent successfully to prasannasrinivasan32@gmail.com
+2025-07-22 12:56:30,999 - INFO - ✅ Email sent successfully
+❌ iOS build failed
+
+
+Build failed :|
+Step 5 script `Build iOS App (Comprehensive)` exited with status code 1
+
+Post-Build Validation (Comprehensive)
+< 1s
+App Store Validation (Simplified)
+< 1s
+Publishing
+< 1s
+Cleaning up
+< 1s
 Step 5 script `Build iOS App (Comprehensive)` exited with status code 1
