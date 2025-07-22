@@ -416,20 +416,31 @@ main() {
     fi
     
     # Validate UUID format (should be in format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
-    # But allow bypass if App Store Connect API is available
+    # But allow bypass if App Store Connect API is available or using modern code signing
     if [ -z "$profile_uuid" ] || [[ ! "$profile_uuid" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]]; then
-        log_error "❌ Invalid provisioning profile UUID format: '$profile_uuid'"
-        log_error "🔧 Expected format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-        log_error "💡 Check PROFILE_URL variable and UUID extraction"
-        
-        # Check if App Store Connect API is available as fallback
-        if [[ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" && -n "${APP_STORE_CONNECT_ISSUER_ID:-}" && -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" ]]; then
-            log_warn "⚠️ Invalid manual profile UUID, but App Store Connect API is available"
-            log_info "🔄 Will skip methods 1-3 and try Method 4 (App Store Connect API) directly"
-            export SKIP_MANUAL_METHODS="true"
+        # Check if we're using modern code signing (App Store Connect API)
+        if [[ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" && -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]]; then
+            log_info "📱 Modern code signing detected - skipping traditional UUID validation"
+            log_info "🔐 Automatic code signing will handle provisioning during export"
+            log_success "✅ Modern code signing configured - no manual UUID validation required"
+            
+            # Set a valid dummy UUID for compatibility
+            profile_uuid="00000000-0000-0000-0000-000000000000"
+            log_info "📋 Using compatibility UUID for modern signing: $profile_uuid"
         else
-            log_error "❌ No fallback available - App Store Connect API credentials not complete"
-            return 1
+            log_error "❌ Invalid provisioning profile UUID format: '$profile_uuid'"
+            log_error "🔧 Expected format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            log_error "💡 Check PROFILE_URL variable and UUID extraction"
+            
+            # Check if App Store Connect API is available as fallback
+            if [[ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" && -n "${APP_STORE_CONNECT_ISSUER_ID:-}" && -n "${APP_STORE_CONNECT_API_KEY_PATH:-}" ]]; then
+                log_warn "⚠️ Invalid manual profile UUID, but App Store Connect API is available"
+                log_info "🔄 Will skip methods 1-3 and try Method 4 (App Store Connect API) directly"
+                export SKIP_MANUAL_METHODS="true"
+            else
+                log_error "❌ No fallback available - App Store Connect API credentials not complete"
+                return 1
+            fi
         fi
     fi
     

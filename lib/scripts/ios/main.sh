@@ -754,7 +754,7 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
         log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
         
         # Set a dummy UUID for compatibility (won't be used with modern signing)
-        export MOBILEPROVISION_UUID="modern-signing-no-uuid-required"
+        export MOBILEPROVISION_UUID="00000000-0000-0000-0000-000000000000"
         log_info "📋 Using compatibility UUID for modern signing: $MOBILEPROVISION_UUID"
     else
         # Traditional code signing - check for provisioning profile UUID

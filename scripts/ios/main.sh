@@ -240,7 +240,7 @@ main() {
             log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
             
             # Set a dummy UUID for compatibility (won't be used with modern signing)
-            export MOBILEPROVISION_UUID="modern-signing-no-uuid-required"
+            export MOBILEPROVISION_UUID="00000000-0000-0000-0000-000000000000"
             log_info "📋 Using compatibility UUID for modern signing: $MOBILEPROVISION_UUID"
         else
             # Extract UUID from the log or try to get it from the script (only for traditional code signing)
@@ -860,7 +860,7 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
         log_success "✅ Modern code signing configured - no manual provisioning profile UUID required"
         
         # Set a dummy UUID for compatibility (won't be used with modern signing)
-        export MOBILEPROVISION_UUID="modern-signing-no-uuid-required"
+        export MOBILEPROVISION_UUID="00000000-0000-0000-0000-000000000000"
         log_info "📋 Using compatibility UUID for modern signing: $MOBILEPROVISION_UUID"
     else
         # Traditional code signing - check for provisioning profile UUID
@@ -1170,7 +1170,7 @@ EOF
         log_info "   ☢️ Nuclear IPA Modification: ${NUCLEAR_IPA_FIX_APPLIED:-false}"
         log_info "   🌍 Universal Nuclear Fix: ${UNIVERSAL_NUCLEAR_IPA_FIX_APPLIED:-false}"
         log_info "   🔍 Collision Diagnostics: ${COLLISION_DIAGNOSTICS_COMPLETED:-false}"
-        log_info "   🔧 Bundle Executable Fix: ${BUNDLE_EXECUTABLE_FIX_APPLIED:-false}"
+        log_info "   🔧 Bundle Executable: ${BUNDLE_EXECUTABLE_FIX_APPLIED:-false}"
         log_info "   ☢️ MEGA Nuclear Fix: ${MEGA_NUCLEAR_IPA_FIX_APPLIED:-false}"
         log_info "   💎 xcodeproj gem: ${XCODEPROJ_GEM_AVAILABLE:-false}"
         log_info ""
