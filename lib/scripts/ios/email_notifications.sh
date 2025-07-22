@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Email Notifications Script for iOS Build
 # Purpose: Send email notifications for build status
@@ -60,4 +60,4 @@ main() {
 }
 
 # Run main function
-main "$@"
+main "$@" 

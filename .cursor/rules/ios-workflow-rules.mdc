@@ -21,3 +21,27 @@ when:
             submit_to_app_store: false
       See: https://docs.codemagic.io/publishing-yaml/distribution/#publishing-to-app-store-connect-using-api-key
 severity: error
+requirement: |
+  To use the App Store Connect API for code signing, exporting IPA, and uploading to TestFlight, ensure the following:
+    - You have generated an App Store Connect API key with the necessary permissions (Access to Certificates, Identifiers & Profiles, and App Manager).
+    - The API key, key ID, and issuer ID are securely stored (e.g., as environment variables or in Codemagic's encrypted variables).
+    - Your workflow includes the `app_store_connect` block with the `api_key` credentials.
+    - Xcode project is properly configured for automatic code signing.
+
+usage: |
+  Example Codemagic YAML configuration for iOS workflows using App Store Connect API:
+
+    publishing:
+      app_store_connect:
+        api_key:
+          key_id: $APP_STORE_CONNECT_KEY_ID
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+          private_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        submit_to_testflight: true
+        submit_to_app_store: false
+
+  This configuration will:
+    - Use the App Store Connect API for code signing and exporting the IPA.
+    - Upload the generated IPA to TestFlight automatically.
+
+  For more details, see: https://docs.codemagic.io/publishing-yaml/distribution/#publishing-to-app-store-connect-using-api-key

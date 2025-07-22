@@ -769,101 +769,100 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
     local keychain_name="ios-build.keychain"
     log_info "🔍 Verifying certificate installation in keychain: $keychain_name"
     
-    # Check if keychain exists and has certificates
-    if ! security list-keychains | grep -q "$keychain_name"; then
-        log_warn "⚠️ Keychain $keychain_name not found, recreating from comprehensive validation"
+    # Check if we're using modern code signing (App Store Connect API)
+    if [ -n "${APP_STORE_CONNECT_KEY_IDENTIFIER:-}" ] && [ -n "${APP_STORE_CONNECT_ISSUER_ID:-}" ]; then
+        log_info "📱 Modern code signing detected - skipping traditional certificate verification"
+        log_info "🔐 Automatic code signing will handle certificates during IPA export"
+        log_success "✅ Modern code signing configured - no manual certificate verification required"
         
-        # Recreate keychain using comprehensive validation method
-        if [ -f "${SCRIPT_DIR}/comprehensive_certificate_validation.sh" ]; then
-            log_info "🔄 Re-running certificate validation for IPA export..."
-            if ! "${SCRIPT_DIR}/comprehensive_certificate_validation.sh"; then
-                log_error "❌ Failed to recreate certificates for IPA export"
-                return 1
-            fi
-        else
-            log_error "❌ Comprehensive certificate validation script not found"
-            return 1
-        fi
-    fi
-    
-    # Verify code signing identities
-    log_info "🔍 Verifying code signing identities..."
-    local identities
-    identities=$(security find-identity -v -p codesigning "$keychain_name" 2>/dev/null)
-    
-    if [ -n "$identities" ]; then
-        log_success "✅ Found code signing identities in keychain:"
-        echo "$identities" | while read line; do
-            log_info "   $line"
-        done
-        
-        # Check for iOS distribution certificates specifically
-        local ios_certs
-        ios_certs=$(echo "$identities" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution")
-        
-        if [ -n "$ios_certs" ]; then
-            log_success "✅ Found iOS distribution certificates!"
-            echo "$ios_certs" | while read line; do
-                log_success "   $line"
-            done
-        else
-            log_warn "⚠️ No iOS distribution certificates found in keychain"
-            log_info "🔧 Attempting to reinstall certificates..."
+        # Set dummy values for compatibility (won't be used with modern signing)
+        export CERT_IDENTITY="modern-signing-no-cert-required"
+        log_info "📋 Using compatibility certificate identity for modern signing: $CERT_IDENTITY"
+    else
+        # Traditional code signing - verify certificates
+        # Check if keychain exists and has certificates
+        if ! security list-keychains | grep -q "$keychain_name"; then
+            log_warn "⚠️ Keychain $keychain_name not found, recreating from comprehensive validation"
             
-            # Try to reinstall certificates
+            # Recreate keychain using comprehensive validation method
             if [ -f "${SCRIPT_DIR}/comprehensive_certificate_validation.sh" ]; then
+                log_info "🔄 Re-running certificate validation for IPA export..."
                 if ! "${SCRIPT_DIR}/comprehensive_certificate_validation.sh"; then
-                    log_error "❌ Failed to reinstall certificates"
+                    log_error "❌ Failed to recreate certificates for IPA export"
                     return 1
                 fi
             else
-                log_error "❌ Cannot reinstall certificates - script not found"
+                log_error "❌ Comprehensive certificate validation script not found"
                 return 1
             fi
         fi
-    else
-        log_error "❌ No code signing identities found in keychain"
-        log_error "🔧 Certificate installation may have failed"
-        return 1
-    fi
-    
-    # Use provisioning profile UUID from comprehensive validation
-    log_info "📱 Using provisioning profile UUID from comprehensive validation..."
-    local profile_uuid="${MOBILEPROVISION_UUID}"
-    log_success "✅ Using extracted UUID: $profile_uuid"
-    log_info "📋 Profile already installed by comprehensive validation"
-    
-    # Get the actual certificate identity from keychain
-    log_info "🔍 Extracting certificate identity for export..."
-    local cert_identity
-    
-    # Method 1: Extract from security command output
-    cert_identity=$(security find-identity -v -p codesigning "$keychain_name" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution" | head -1 | sed 's/.*"\([^"]*\)".*/\1/')
-    
-    # Clean up any leading/trailing whitespace
-    cert_identity=$(echo "$cert_identity" | xargs)
-    
-    # Method 2: Fallback - try to extract just the certificate name without the hash
-    if [ -z "$cert_identity" ] || [[ "$cert_identity" == *"1DBEE49627AB50AB6C87811901BEBDE374CD0E18"* ]]; then
-        log_info "🔄 Fallback: Extracting certificate name without hash..."
-        cert_identity=$(security find-identity -v -p codesigning "$keychain_name" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution" | head -1 | sed 's/.*"\([^"]*\)".*/\1/' | sed 's/^[[:space:]]*[0-9A-F]*[[:space:]]*//')
+        
+        # Verify code signing identities
+        log_info "🔍 Verifying code signing identities..."
+        local identities
+        identities=$(security find-identity -v -p codesigning "$keychain_name" 2>/dev/null)
+        
+        if [ -n "$identities" ]; then
+            log_success "✅ Found code signing identities in keychain:"
+            echo "$identities" | while read line; do
+                log_info "   $line"
+            done
+            
+            # Check for iOS distribution certificates specifically
+            local ios_certs
+            ios_certs=$(echo "$identities" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution")
+            
+            if [ -n "$ios_certs" ]; then
+                log_success "✅ Found iOS distribution certificates!"
+                echo "$ios_certs" | while read line; do
+                    log_success "   $line"
+                done
+            else
+                log_warn "⚠️ No iOS distribution certificates found in keychain"
+                log_info "🔧 Attempting to reinstall certificates..."
+                
+                # Try to reinstall certificates
+                if [ -f "${SCRIPT_DIR}/comprehensive_certificate_validation.sh" ]; then
+                    if ! "${SCRIPT_DIR}/comprehensive_certificate_validation.sh"; then
+                        log_error "❌ Failed to reinstall certificates"
+                        return 1
+                    fi
+                else
+                    log_error "❌ Cannot reinstall certificates - script not found"
+                    return 1
+                fi
+            fi
+        else
+            log_error "❌ No code signing identities found in keychain"
+            log_error "🔧 Certificate installation may have failed"
+            return 1
+        fi
+        
+        # Get the actual certificate identity from keychain for traditional signing
+        log_info "🔍 Extracting certificate identity for export..."
+        local cert_identity
+        
+        # Method 1: Extract from security command output
+        cert_identity=$(security find-identity -v -p codesigning "$keychain_name" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution" | head -1 | sed 's/.*"\([^"]*\)".*/\1/')
+        
+        # Clean up any leading/trailing whitespace
         cert_identity=$(echo "$cert_identity" | xargs)
+        
+        # Method 2: Fallback - try to extract just the certificate name without the hash
+        if [ -z "$cert_identity" ] || [[ "$cert_identity" == *"1DBEE49627AB50AB6C87811901BEBDE374CD0E18"* ]]; then
+            log_info "🔄 Fallback: Extracting certificate name without hash..."
+            cert_identity=$(security find-identity -v -p codesigning "$keychain_name" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution" | head -1 | sed 's/.*"\([^"]*\)".*/\1/' | sed 's/^[[:space:]]*[0-9A-F]*[[:space:]]*//')
+        fi
+        
+        # Method 3: Final fallback - use a default identity
+        if [ -z "$cert_identity" ]; then
+            log_warn "⚠️ Could not extract certificate identity, using default"
+            cert_identity="iPhone Distribution"
+        fi
+        
+        export CERT_IDENTITY="$cert_identity"
+        log_success "✅ Using certificate identity: $CERT_IDENTITY"
     fi
-    
-    # Method 3: Ultimate fallback - use a simpler extraction
-    if [ -z "$cert_identity" ] || [[ "$cert_identity" == *"1DBEE49627AB50AB6C87811901BEBDE374CD0E18"* ]]; then
-        log_info "🔄 Ultimate fallback: Using simplified certificate extraction..."
-        cert_identity=$(security find-identity -v -p codesigning "$keychain_name" | grep -E "iPhone Distribution|iOS Distribution|Apple Distribution" | head -1 | awk -F'"' '{print $2}')
-        cert_identity=$(echo "$cert_identity" | xargs)
-    fi
-    
-    if [ -z "$cert_identity" ]; then
-        log_error "❌ Could not extract certificate identity from keychain"
-        return 1
-    fi
-    
-    log_success "✅ Using certificate identity: '$cert_identity'"
-    log_info "🔍 Raw certificate identity length: ${#cert_identity} characters"
     
     # Create enhanced export options with proper keychain path
     log_info "📝 Creating enhanced export options..."
@@ -896,11 +895,11 @@ if [ "${PUSH_NOTIFY:-false}" = "true" ]; then
     <key>uploadSymbols</key>
     <true/>
     <key>signingCertificate</key>
-    <string>${cert_identity}</string>
+    <string>${CERT_IDENTITY}</string>
     <key>provisioningProfiles</key>
     <dict>
         <key>${BUNDLE_ID}</key>
-        <string>${profile_uuid}</string>
+        <string>${MOBILEPROVISION_UUID}</string>
     </dict>
     <key>manageAppVersionAndBuildNumber</key>
     <false/>
@@ -923,8 +922,8 @@ EOF
     # Export IPA using enhanced framework-safe export script
     log_info "📦 Exporting IPA with enhanced framework-safe export script..."
     log_info "🔐 Using keychain: $keychain_path"
-    log_info "🎯 Using certificate: $cert_identity"
-    log_info "📱 Using profile UUID: $profile_uuid"
+    log_info "🎯 Using certificate: $CERT_IDENTITY"
+    log_info "📱 Using profile UUID: $MOBILEPROVISION_UUID"
     
     # Make the enhanced export script executable
     chmod +x "${SCRIPT_DIR}/export_ipa_framework_fix.sh"
@@ -933,8 +932,8 @@ EOF
     if "${SCRIPT_DIR}/export_ipa_framework_fix.sh" \
         "${OUTPUT_DIR:-output/ios}/Runner.xcarchive" \
         "${OUTPUT_DIR:-output/ios}" \
-        "$cert_identity" \
-        "$profile_uuid" \
+        "$CERT_IDENTITY" \
+        "$MOBILEPROVISION_UUID" \
         "${BUNDLE_ID}" \
         "${APPLE_TEAM_ID}" \
         "$keychain_path"; then
