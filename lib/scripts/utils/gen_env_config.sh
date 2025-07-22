@@ -17,9 +17,9 @@ else
     log "Environment configuration file not found, using system environment variables"
 fi
 
-# 🔥 CRITICAL FIX: Prioritize Codemagic API variables over defaults
-# This ensures that dynamic API variables take precedence over static defaults
-log "🔍 Checking for Codemagic API variables..."
+# 🔥 CRITICAL FIX: Prioritize specific API variables over defaults
+# This ensures that only the specified API variables take precedence
+log "🔍 Checking for specific Codemagic API variables..."
 
 # Function to safely get environment variable with fallback
 get_api_var() {
@@ -36,39 +36,139 @@ get_api_var() {
     fi
 }
 
-# Override with actual API variables (prioritize Codemagic API variables)
-# This ensures that environment variables passed by Codemagic API take precedence
+# Only override the specific variables that should come from API
+# These are the ONLY variables that should be prioritized from API
+export WORKFLOW_ID=$(get_api_var "WORKFLOW_ID" "ios-workflow")
 export APP_NAME=$(get_api_var "APP_NAME" "QuikApp")
 export VERSION_NAME=$(get_api_var "VERSION_NAME" "1.0.0")
 export VERSION_CODE=$(get_api_var "VERSION_CODE" "1")
+export EMAIL_ID=$(get_api_var "EMAIL_ID" "")
 export BUNDLE_ID=$(get_api_var "BUNDLE_ID" "")
+export APPLE_TEAM_ID=$(get_api_var "APPLE_TEAM_ID" "")
+export PROFILE_TYPE=$(get_api_var "PROFILE_TYPE" "app-store")
+export PROFILE_URL=$(get_api_var "PROFILE_URL" "")
+export IS_TESTFLIGHT=$(get_api_var "IS_TESTFLIGHT" "true")
+export APP_STORE_CONNECT_KEY_IDENTIFIER=$(get_api_var "APP_STORE_CONNECT_KEY_IDENTIFIER" "")
+export APP_STORE_CONNECT_ISSUER_ID=$(get_api_var "APP_STORE_CONNECT_ISSUER_ID" "")
+export APP_STORE_CONNECT_API_KEY_URL=$(get_api_var "APP_STORE_CONNECT_API_KEY_URL" "")
+export LOGO_URL=$(get_api_var "LOGO_URL" "")
+export SPLASH_URL=$(get_api_var "SPLASH_URL" "")
+export SPLASH_BG_COLOR=$(get_api_var "SPLASH_BG_COLOR" "#FFFFFF")
+export SPLASH_TAGLINE=$(get_api_var "SPLASH_TAGLINE" "")
+export SPLASH_TAGLINE_COLOR=$(get_api_var "SPLASH_TAGLINE_COLOR" "#000000")
+export FIREBASE_CONFIG_IOS=$(get_api_var "FIREBASE_CONFIG_IOS" "")
+export ENABLE_EMAIL_NOTIFICATIONS=$(get_api_var "ENABLE_EMAIL_NOTIFICATIONS" "true")
+export EMAIL_SMTP_SERVER=$(get_api_var "EMAIL_SMTP_SERVER" "smtp.gmail.com")
+export EMAIL_SMTP_PORT=$(get_api_var "EMAIL_SMTP_PORT" "587")
+export EMAIL_SMTP_USER=$(get_api_var "EMAIL_SMTP_USER" "")
+export EMAIL_SMTP_PASS=$(get_api_var "EMAIL_SMTP_PASS" "")
+export USER_NAME=$(get_api_var "USER_NAME" "")
+export APP_ID=$(get_api_var "APP_ID" "")
 export ORG_NAME=$(get_api_var "ORG_NAME" "")
 export WEB_URL=$(get_api_var "WEB_URL" "")
-export USER_NAME=$(get_api_var "USER_NAME" "")
-export EMAIL_ID=$(get_api_var "EMAIL_ID" "")
 export PKG_NAME=$(get_api_var "PKG_NAME" "")
-export OUTPUT_DIR=$(get_api_var "OUTPUT_DIR" "output")
-export APP_ID=$(get_api_var "APP_ID" "")
-export WORKFLOW_ID=$(get_api_var "WORKFLOW_ID" "unknown")
-export APPLE_TEAM_ID=$(get_api_var "APPLE_TEAM_ID" "")
+export PUSH_NOTIFY=$(get_api_var "PUSH_NOTIFY" "false")
+export IS_CHATBOT=$(get_api_var "IS_CHATBOT" "false")
+export IS_DOMAIN_URL=$(get_api_var "IS_DOMAIN_URL" "false")
+export IS_SPLASH=$(get_api_var "IS_SPLASH" "false")
+export IS_PULLDOWN=$(get_api_var "IS_PULLDOWN" "false")
+export IS_BOTTOMMENU=$(get_api_var "IS_BOTTOMMENU" "false")
+export IS_LOAD_IND=$(get_api_var "IS_LOAD_IND" "false")
+export IS_CAMERA=$(get_api_var "IS_CAMERA" "false")
+export IS_LOCATION=$(get_api_var "IS_LOCATION" "false")
+export IS_MIC=$(get_api_var "IS_MIC" "false")
+export IS_NOTIFICATION=$(get_api_var "IS_NOTIFICATION" "false")
+export IS_CONTACT=$(get_api_var "IS_CONTACT" "false")
+export IS_BIOMETRIC=$(get_api_var "IS_BIOMETRIC" "false")
+export IS_CALENDAR=$(get_api_var "IS_CALENDAR" "false")
+export IS_STORAGE=$(get_api_var "IS_STORAGE" "false")
+export SPLASH_BG_URL=$(get_api_var "SPLASH_BG_URL" "")
+export SPLASH_ANIMATION=$(get_api_var "SPLASH_ANIMATION" "none")
+export SPLASH_DURATION=$(get_api_var "SPLASH_DURATION" "3")
+export BOTTOMMENU_ITEMS=$(get_api_var "BOTTOMMENU_ITEMS" "[]")
+export BOTTOMMENU_BG_COLOR=$(get_api_var "BOTTOMMENU_BG_COLOR" "#FFFFFF")
+export BOTTOMMENU_ICON_COLOR=$(get_api_var "BOTTOMMENU_ICON_COLOR" "#000000")
+export BOTTOMMENU_TEXT_COLOR=$(get_api_var "BOTTOMMENU_TEXT_COLOR" "#000000")
+export BOTTOMMENU_FONT=$(get_api_var "BOTTOMMENU_FONT" "DM Sans")
+export BOTTOMMENU_FONT_SIZE=$(get_api_var "BOTTOMMENU_FONT_SIZE" "12")
+export BOTTOMMENU_FONT_BOLD=$(get_api_var "BOTTOMMENU_FONT_BOLD" "false")
+export BOTTOMMENU_FONT_ITALIC=$(get_api_var "BOTTOMMENU_FONT_ITALIC" "false")
+export BOTTOMMENU_ACTIVE_TAB_COLOR=$(get_api_var "BOTTOMMENU_ACTIVE_TAB_COLOR" "#0000FF")
+export BOTTOMMENU_ICON_POSITION=$(get_api_var "BOTTOMMENU_ICON_POSITION" "above")
+export FIREBASE_CONFIG_ANDROID=$(get_api_var "FIREBASE_CONFIG_ANDROID" "")
 export APNS_KEY_ID=$(get_api_var "APNS_KEY_ID" "")
+export APNS_AUTH_KEY_URL=$(get_api_var "APNS_AUTH_KEY_URL" "")
+export KEY_STORE_URL=$(get_api_var "KEY_STORE_URL" "")
+export CM_KEYSTORE_PASSWORD=$(get_api_var "CM_KEYSTORE_PASSWORD" "")
+export CM_KEY_ALIAS=$(get_api_var "CM_KEY_ALIAS" "")
+export CM_KEY_PASSWORD=$(get_api_var "CM_KEY_PASSWORD" "")
 
-# Log the final values being used
-log "📋 Final API variable values:"
+# Log the final API variable values
+log "📋 Final API variable values (prioritized over defaults):"
+log "   WORKFLOW_ID: $WORKFLOW_ID"
 log "   APP_NAME: $APP_NAME"
 log "   VERSION_NAME: $VERSION_NAME"
 log "   VERSION_CODE: $VERSION_CODE"
+log "   EMAIL_ID: $EMAIL_ID"
 log "   BUNDLE_ID: $BUNDLE_ID"
+log "   APPLE_TEAM_ID: $APPLE_TEAM_ID"
+log "   PROFILE_TYPE: $PROFILE_TYPE"
+log "   PROFILE_URL: $PROFILE_URL"
+log "   IS_TESTFLIGHT: $IS_TESTFLIGHT"
+log "   APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER"
+log "   APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID"
+log "   APP_STORE_CONNECT_API_KEY_URL: $APP_STORE_CONNECT_API_KEY_URL"
+log "   LOGO_URL: $LOGO_URL"
+log "   SPLASH_URL: $SPLASH_URL"
+log "   SPLASH_BG_COLOR: $SPLASH_BG_COLOR"
+log "   SPLASH_TAGLINE: $SPLASH_TAGLINE"
+log "   SPLASH_TAGLINE_COLOR: $SPLASH_TAGLINE_COLOR"
+log "   FIREBASE_CONFIG_IOS: $FIREBASE_CONFIG_IOS"
+log "   ENABLE_EMAIL_NOTIFICATIONS: $ENABLE_EMAIL_NOTIFICATIONS"
+log "   EMAIL_SMTP_SERVER: $EMAIL_SMTP_SERVER"
+log "   EMAIL_SMTP_PORT: $EMAIL_SMTP_PORT"
+log "   EMAIL_SMTP_USER: $EMAIL_SMTP_USER"
+log "   EMAIL_SMTP_PASS: [HIDDEN]"
+log "   USER_NAME: $USER_NAME"
+log "   APP_ID: $APP_ID"
 log "   ORG_NAME: $ORG_NAME"
 log "   WEB_URL: $WEB_URL"
-log "   USER_NAME: $USER_NAME"
-log "   EMAIL_ID: $EMAIL_ID"
 log "   PKG_NAME: $PKG_NAME"
-log "   OUTPUT_DIR: $OUTPUT_DIR"
-log "   APP_ID: $APP_ID"
-log "   WORKFLOW_ID: $WORKFLOW_ID"
-log "   APPLE_TEAM_ID: $APPLE_TEAM_ID"
+log "   PUSH_NOTIFY: $PUSH_NOTIFY"
+log "   IS_CHATBOT: $IS_CHATBOT"
+log "   IS_DOMAIN_URL: $IS_DOMAIN_URL"
+log "   IS_SPLASH: $IS_SPLASH"
+log "   IS_PULLDOWN: $IS_PULLDOWN"
+log "   IS_BOTTOMMENU: $IS_BOTTOMMENU"
+log "   IS_LOAD_IND: $IS_LOAD_IND"
+log "   IS_CAMERA: $IS_CAMERA"
+log "   IS_LOCATION: $IS_LOCATION"
+log "   IS_MIC: $IS_MIC"
+log "   IS_NOTIFICATION: $IS_NOTIFICATION"
+log "   IS_CONTACT: $IS_CONTACT"
+log "   IS_BIOMETRIC: $IS_BIOMETRIC"
+log "   IS_CALENDAR: $IS_CALENDAR"
+log "   IS_STORAGE: $IS_STORAGE"
+log "   SPLASH_BG_URL: $SPLASH_BG_URL"
+log "   SPLASH_ANIMATION: $SPLASH_ANIMATION"
+log "   SPLASH_DURATION: $SPLASH_DURATION"
+log "   BOTTOMMENU_ITEMS: $BOTTOMMENU_ITEMS"
+log "   BOTTOMMENU_BG_COLOR: $BOTTOMMENU_BG_COLOR"
+log "   BOTTOMMENU_ICON_COLOR: $BOTTOMMENU_ICON_COLOR"
+log "   BOTTOMMENU_TEXT_COLOR: $BOTTOMMENU_TEXT_COLOR"
+log "   BOTTOMMENU_FONT: $BOTTOMMENU_FONT"
+log "   BOTTOMMENU_FONT_SIZE: $BOTTOMMENU_FONT_SIZE"
+log "   BOTTOMMENU_FONT_BOLD: $BOTTOMMENU_FONT_BOLD"
+log "   BOTTOMMENU_FONT_ITALIC: $BOTTOMMENU_FONT_ITALIC"
+log "   BOTTOMMENU_ACTIVE_TAB_COLOR: $BOTTOMMENU_ACTIVE_TAB_COLOR"
+log "   BOTTOMMENU_ICON_POSITION: $BOTTOMMENU_ICON_POSITION"
+log "   FIREBASE_CONFIG_ANDROID: $FIREBASE_CONFIG_ANDROID"
 log "   APNS_KEY_ID: $APNS_KEY_ID"
+log "   APNS_AUTH_KEY_URL: $APNS_AUTH_KEY_URL"
+log "   KEY_STORE_URL: $KEY_STORE_URL"
+log "   CM_KEYSTORE_PASSWORD: [HIDDEN]"
+log "   CM_KEY_ALIAS: $CM_KEY_ALIAS"
+log "   CM_KEY_PASSWORD: [HIDDEN]"
 
 # Network connectivity test (made optional)
 test_network_connectivity() {
