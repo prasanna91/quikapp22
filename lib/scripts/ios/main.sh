@@ -24,41 +24,78 @@ clean_bom_characters() {
     
     for script_file in "${script_files[@]}"; do
         if [ -f "$script_file" ]; then
-            # Check if file has BOM and remove it
-            if file "$script_file" 2>/dev/null | grep -q "UTF-8 Unicode (with BOM)"; then
-                log_warn "⚠️ BOM detected in $script_file, removing..."
-                # Create a temporary file without BOM
-                tail -c +4 "$script_file" > "${script_file}.tmp" && mv "${script_file}.tmp" "$script_file"
-                chmod +x "$script_file"
-                log_success "✅ BOM removed from $script_file"
-            fi
+            log_info "🔍 Checking $script_file for BOM characters..."
             
-            # Additional check: if file starts with invisible characters, try to fix
-            if [ -f "$script_file" ]; then
-                local first_line
-                first_line=$(head -1 "$script_file" 2>/dev/null)
-                if [[ "$first_line" != "#!/bin/bash"* ]] && [[ "$first_line" != "#!/bin/sh"* ]]; then
-                    log_warn "⚠️ Invalid shebang detected in $script_file, attempting to fix..."
-                    # Try to find the actual shebang line
-                    local shebang_line
-                    shebang_line=$(grep -m 1 "^#!" "$script_file" 2>/dev/null)
-                    if [ -n "$shebang_line" ]; then
-                        # Create a new file starting from the shebang
-                        local temp_file="${script_file}.tmp"
-                        grep -A 1000 "^#!" "$script_file" > "$temp_file" 2>/dev/null
-                        if [ -s "$temp_file" ]; then
-                            mv "$temp_file" "$script_file"
-                            chmod +x "$script_file"
-                            log_success "✅ Fixed shebang in $script_file"
-                        else
-                            rm -f "$temp_file"
-                            log_error "❌ Failed to fix shebang in $script_file"
-                        fi
+            # Method 1: Check if file has BOM using file command
+            if command -v file >/dev/null 2>&1; then
+                if file "$script_file" 2>/dev/null | grep -q "UTF-8 Unicode (with BOM)"; then
+                    log_warn "⚠️ BOM detected in $script_file, removing..."
+                    # Create a temporary file without BOM
+                    if tail -c +4 "$script_file" > "${script_file}.tmp" 2>/dev/null; then
+                        mv "${script_file}.tmp" "$script_file"
+                        chmod +x "$script_file"
+                        log_success "✅ BOM removed from $script_file"
                     else
-                        log_error "❌ No valid shebang found in $script_file"
+                        log_error "❌ Failed to remove BOM from $script_file"
+                        rm -f "${script_file}.tmp" 2>/dev/null
                     fi
                 fi
             fi
+            
+            # Method 2: Check first line for invalid shebang
+            if [ -f "$script_file" ]; then
+                local first_line
+                first_line=$(head -1 "$script_file" 2>/dev/null | tr -d '\r')
+                
+                # Check if first line doesn't start with proper shebang
+                if [[ "$first_line" != "#!/bin/bash"* ]] && [[ "$first_line" != "#!/bin/sh"* ]] && [[ "$first_line" != "#!/usr/bin/env bash"* ]]; then
+                    log_warn "⚠️ Invalid shebang detected in $script_file, attempting to fix..."
+                    
+                    # Try to find the actual shebang line
+                    local shebang_line
+                    shebang_line=$(grep -m 1 "^#!" "$script_file" 2>/dev/null)
+                    
+                    if [ -n "$shebang_line" ]; then
+                        # Create a new file starting from the shebang
+                        local temp_file="${script_file}.tmp"
+                        if grep -A 1000 "^#!" "$script_file" > "$temp_file" 2>/dev/null; then
+                            if [ -s "$temp_file" ]; then
+                                mv "$temp_file" "$script_file"
+                                chmod +x "$script_file"
+                                log_success "✅ Fixed shebang in $script_file"
+                            else
+                                rm -f "$temp_file"
+                                log_error "❌ Failed to fix shebang in $script_file - empty result"
+                            fi
+                        else
+                            rm -f "$temp_file"
+                            log_error "❌ Failed to extract content from $script_file"
+                        fi
+                    else
+                        log_error "❌ No valid shebang found in $script_file"
+                        
+                        # Try to create a new file with proper shebang
+                        if [ -s "$script_file" ]; then
+                            local temp_file="${script_file}.tmp"
+                            echo "#!/bin/bash" > "$temp_file"
+                            echo "" >> "$temp_file"
+                            cat "$script_file" >> "$temp_file" 2>/dev/null
+                            if [ -s "$temp_file" ]; then
+                                mv "$temp_file" "$script_file"
+                                chmod +x "$script_file"
+                                log_success "✅ Created new file with proper shebang for $script_file"
+                            else
+                                rm -f "$temp_file"
+                                log_error "❌ Failed to create new file for $script_file"
+                            fi
+                        fi
+                    fi
+                else
+                    log_success "✅ $script_file has valid shebang"
+                fi
+            fi
+        else
+            log_warn "⚠️ Script file not found: $script_file"
         fi
     done
     
@@ -83,7 +120,16 @@ fi
 log_info "Starting iOS Build Workflow..."
 
 # Clean BOM characters before proceeding
-clean_bom_characters
+log_info "🧹 Starting BOM cleanup process..."
+if clean_bom_characters; then
+    log_success "✅ BOM cleanup completed successfully"
+else
+    log_warn "⚠️ BOM cleanup encountered issues, continuing anyway..."
+    # Try to ensure critical scripts are executable
+    chmod +x "lib/scripts/ios/main.sh" 2>/dev/null || true
+    chmod +x "lib/scripts/ios/email_notifications.sh" 2>/dev/null || true
+    chmod +x "lib/scripts/ios/comprehensive_certificate_validation.sh" 2>/dev/null || true
+fi
 
 # Function to send email notifications
 send_email() {
