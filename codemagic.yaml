@@ -383,8 +383,11 @@ workflows:
 
       - name: 🏗️ Build and Archive iOS (.ipa)
         script: |
-          chmod +x scripts/build_ios_app.sh
-          ./scripts/build_ios_app.sh
+          echo "🚀 Using Nuclear GoogleUtilities Fix for guaranteed iOS build success"
+          echo "⚠️ This bypasses GoogleUtilities 8.1.0 header issues completely"
+          chmod +x scripts/nuclear_google_utilities_fix.sh
+          chmod +x scripts/build_ios_nuclear.sh
+          ./scripts/build_ios_nuclear.sh
 
       - name: 📦 Export IPA
         script: |
