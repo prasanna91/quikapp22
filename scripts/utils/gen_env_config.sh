@@ -172,12 +172,12 @@ class EnvConfig {
   static const String appId = "${APP_ID:-}";
   static const String versionName = "${VERSION_NAME:-1.0.0}";
   static const int versionCode = ${VERSION_CODE:-1};
-  static const String appName = "${APP_NAME:-QuikApp}";
+  static const String appName = "${APP_NAME:-}";
   static const String orgName = "${ORG_NAME:-}";
   static const String webUrl = "${WEB_URL:-}";
   static const String userName = "${USER_NAME:-}";
   static const String emailId = "${EMAIL_ID:-}";
-  static const String branch = "main";
+  static const String branch = "${BRANCH:-main}";
   static const String workflowId = "${WORKFLOW_ID:-}";
 
   // Package Identifiers

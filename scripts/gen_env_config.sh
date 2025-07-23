@@ -23,59 +23,59 @@ class EnvConfig {
   static const String appId = "${APP_ID:-}";
   static const String versionName = "${VERSION_NAME:-1.0.0}";
   static const int versionCode = ${VERSION_CODE:-1};
-  static const String appName = "${APP_NAME:-QuikApp}";
+  static const String appName = "${APP_NAME:-}";
   static const String orgName = "${ORG_NAME:-}";
   static const String webUrl = "${WEB_URL:-}";
   static const String userName = "${USER_NAME:-}";
   static const String emailId = "${EMAIL_ID:-}";
-  static const String branch = "main";
-  static const String workflowId = "${WORKFLOW_ID:-ios-workflow}";
+  static const String branch = "${BRANCH:-main}";
+  static const String workflowId = "${WORKFLOW_ID:-}";
 
   // Package Identifiers
   static const String pkgName = "${PKG_NAME:-}";
   static const String bundleId = "${BUNDLE_ID:-}";
 
   // Feature Flags (converted to bool)
-  static const bool pushNotify = ${PUSH_NOTIFY:-true};
-  static const bool isChatbot = ${IS_CHATBOT:-true};
-  static const bool isDomainUrl = ${IS_DOMAIN_URL:-true};
-  static const bool isSplash = ${IS_SPLASH:-true};
-  static const bool isPulldown = ${IS_PULLDOWN:-true};
-  static const bool isBottommenu = ${IS_BOTTOMMENU:-true};
-  static const bool isLoadIndicator = ${IS_LOAD_IND:-true};
+  static const bool pushNotify = ${PUSH_NOTIFY:-false};
+  static const bool isChatbot = ${IS_CHATBOT:-false};
+  static const bool isDomainUrl = ${IS_DOMAIN_URL:-false};
+  static const bool isSplash = ${IS_SPLASH:-false};
+  static const bool isPulldown = ${IS_PULLDOWN:-false};
+  static const bool isBottommenu = ${IS_BOTTOMMENU:-false};
+  static const bool isLoadIndicator = ${IS_LOAD_IND:-false};
 
   // Permissions (converted to bool)
   static const bool isCamera = ${IS_CAMERA:-false};
   static const bool isLocation = ${IS_LOCATION:-false};
-  static const bool isMic = ${IS_MIC:-true};
-  static const bool isNotification = ${IS_NOTIFICATION:-true};
+  static const bool isMic = ${IS_MIC:-false};
+  static const bool isNotification = ${IS_NOTIFICATION:-false};
   static const bool isContact = ${IS_CONTACT:-false};
   static const bool isBiometric = ${IS_BIOMETRIC:-false};
   static const bool isCalendar = ${IS_CALENDAR:-false};
-  static const bool isStorage = ${IS_STORAGE:-true};
+  static const bool isStorage = ${IS_STORAGE:-false};
 
   // UI/Branding
   static const String logoUrl = "${LOGO_URL:-}";
   static const String splashUrl = "${SPLASH_URL:-}";
   static const String splashBg = "${SPLASH_BG:-}";
-  static const String splashBgColor = "${SPLASH_BG_COLOR:-#FFFFFF}";
+  static const String splashBgColor = "${SPLASH_BG_COLOR:-}";
   static const String splashTagline = "${SPLASH_TAGLINE:-}";
-  static const String splashTaglineColor = "${SPLASH_TAGLINE_COLOR:-#000000}";
+  static const String splashTaglineColor = "${SPLASH_TAGLINE_COLOR:-}";
   static const String splashBgUrl = "${SPLASH_BG_URL:-}";
-  static const String splashAnimation = "${SPLASH_ANIMATION:-none}";
-  static const int splashDuration = ${SPLASH_DURATION:-4};
+  static const String splashAnimation = "${SPLASH_ANIMATION:-}";
+  static const int splashDuration = ${SPLASH_DURATION:-3};
   
   // Bottom Menu Configuration
   static const String bottommenuItems = r'${BOTTOMMENU_ITEMS:-[]}';
-  static const String bottommenuBgColor = "${BOTTOMMENU_BG_COLOR:-#FFFFFF}";
-  static const String bottommenuIconColor = "${BOTTOMMENU_ICON_COLOR:-#000000}";
-  static const String bottommenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-#000000}";
-  static const String bottommenuFont = "${BOTTOMMENU_FONT:-System}";
+  static const String bottommenuBgColor = "${BOTTOMMENU_BG_COLOR:-}";
+  static const String bottommenuIconColor = "${BOTTOMMENU_ICON_COLOR:-}";
+  static const String bottommenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-}";
+  static const String bottommenuFont = "${BOTTOMMENU_FONT:-}";
   static const double bottommenuFontSize = ${BOTTOMMENU_FONT_SIZE:-12.0};
   static const bool bottommenuFontBold = ${BOTTOMMENU_FONT_BOLD:-false};
   static const bool bottommenuFontItalic = ${BOTTOMMENU_FONT_ITALIC:-false};
-  static const String bottommenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-#000000}";
-  static const String bottommenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-above}";
+  static const String bottommenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-}";
+  static const String bottommenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-}";
   
   // Firebase Configuration
   static const String firebaseConfigIos = "${FIREBASE_CONFIG_IOS:-}";
@@ -83,7 +83,7 @@ class EnvConfig {
   
   // iOS Signing
   static const String appleTeamId = "${APPLE_TEAM_ID:-}";
-  static const String profileType = "${PROFILE_TYPE:-app-store}";
+  static const String profileType = "${PROFILE_TYPE:-}";
   static const bool isTestflight = ${IS_TESTFLIGHT:-false};
   
   // Email Configuration
