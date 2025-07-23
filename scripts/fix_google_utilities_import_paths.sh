@@ -30,14 +30,31 @@ fi
 log_info "Found GoogleUtilities pod at: $(pwd)/Pods/GoogleUtilities"
 
 # The specific import paths that are failing and their solutions
-declare -A import_fixes=(
-    # Format: "import_path" = "source_location"
-    ["third_party/IsAppEncrypted/Public/IsAppEncrypted.h"]="third_party/IsAppEncrypted/IsAppEncrypted.h"
-    ["GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h"]="GoogleUtilities/UserDefaults/GULUserDefaults.h"
-    ["GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h"]="GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h"
-    ["GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h"]="GoogleUtilities/Reachability/GULReachabilityChecker.h"
-    ["GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h"]="GoogleUtilities/Network/GULNetworkURLSession.h"
+# Using arrays instead of associative arrays to avoid bash syntax issues
+import_paths=(
+    "third_party/IsAppEncrypted/Public/IsAppEncrypted.h"
+    "GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h"
+    "GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h"
+    "GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h"
+    "GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h"
 )
+
+source_locations=(
+    "third_party/IsAppEncrypted/IsAppEncrypted.h"
+    "GoogleUtilities/UserDefaults/GULUserDefaults.h"
+    "GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h"
+    "GoogleUtilities/Reachability/GULReachabilityChecker.h"
+    "GoogleUtilities/Network/GULNetworkURLSession.h"
+)
+
+# Function to find a header file in the GoogleUtilities directory
+find_header() {
+    local header_name="$1"
+    local search_path="Pods/GoogleUtilities"
+    
+    # Search recursively for the header file
+    find "$search_path" -name "$header_name" -type f 2>/dev/null | head -1
+}
 
 # Function to create the exact import path structure
 create_import_path() {
@@ -59,11 +76,21 @@ create_import_path() {
     # Create directory structure
     mkdir -p "$import_dir"
     
-    # Copy the header to the exact import path
-    cp "$source_file" "$import_file"
-    
-    log_success "Created import path: $import_path"
-    return 0
+    # Copy the header to the exact import path (with error handling)
+    if cp "$source_file" "$import_file" 2>/dev/null; then
+        log_success "Created import path: $import_path"
+        return 0
+    else
+        log_warning "Permission denied or file already exists: $import_path"
+        # Try to create a symbolic link instead
+        if ln -sf "$source_file" "$import_file" 2>/dev/null; then
+            log_success "Created symbolic link: $import_path"
+            return 0
+        else
+            log_warning "Could not create symbolic link: $import_path"
+            return 1
+        fi
+    fi
 }
 
 # Process each import fix
@@ -72,9 +99,10 @@ log_info "Processing import path fixes..."
 success_count=0
 total_count=0
 
-for import_path in "${!import_fixes[@]}"; do
+for i in "${!import_paths[@]}"; do
     total_count=$((total_count + 1))
-    source_location="${import_fixes[$import_path]}"
+    import_path="${import_paths[$i]}"
+    source_location="${source_locations[$i]}"
     
     if create_import_path "$import_path" "$source_location"; then
         success_count=$((success_count + 1))
@@ -87,8 +115,9 @@ log_info "Import path fix summary: $success_count/$total_count paths created suc
 log_info "Creating symbolic links for broader compatibility..."
 
 # Create symbolic links for the problematic imports
-for import_path in "${!import_fixes[@]}"; do
-    source_location="${import_fixes[$import_path]}"
+for i in "${!import_paths[@]}"; do
+    import_path="${import_paths[$i]}"
+    source_location="${source_locations[$i]}"
     google_utilities_path="Pods/GoogleUtilities"
     
     source_file="$google_utilities_path/$source_location"
@@ -98,8 +127,7 @@ for import_path in "${!import_fixes[@]}"; do
         # Create a symbolic link as backup
         backup_file="$google_utilities_path/${import_path}.backup"
         if [ ! -f "$backup_file" ]; then
-            ln -sf "$source_file" "$backup_file"
-            log_info "Created symbolic link: $backup_file -> $source_file"
+            ln -sf "$source_file" "$backup_file" 2>/dev/null || log_warning "Could not create backup link: $backup_file"
         fi
     fi
 done
@@ -120,7 +148,7 @@ critical_imports=(
 all_imports_exist=true
 
 for import_file in "${critical_imports[@]}"; do
-    if [ -f "$import_file" ]; then
+    if [ -f "$import_file" ] || [ -L "$import_file" ]; then
         log_success "✅ $import_file exists"
     else
         log_error "❌ $import_file missing"

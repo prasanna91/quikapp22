@@ -112,12 +112,24 @@ copy_header_to_location() {
         local target_dir="$google_utilities_path/$(dirname "$expected_path")"
         mkdir -p "$target_dir"
         
-        # Copy header to expected location
+        # Copy header to expected location (with error handling)
         local target_file="$google_utilities_path/$expected_path"
-        cp "$actual_header" "$target_file"
         
-        log_success "Copied $header_name to: $target_file"
-        return 0
+        # Try to copy first
+        if cp "$actual_header" "$target_file" 2>/dev/null; then
+            log_success "Copied $header_name to: $target_file"
+            return 0
+        else
+            log_warning "Permission denied copying $header_name, trying symbolic link"
+            # Try symbolic link as fallback
+            if ln -sf "$actual_header" "$target_file" 2>/dev/null; then
+                log_success "Created symbolic link for $header_name to: $target_file"
+                return 0
+            else
+                log_warning "Could not create symbolic link for $header_name"
+                return 1
+            fi
+        fi
     else
         log_warning "Could not find $header_name"
         return 1

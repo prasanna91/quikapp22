@@ -204,8 +204,19 @@ post_install do |installer|
           end
           
           unless File.exist?(target_file)
-            FileUtils.cp(actual_header, target_file)
-            puts "    ✅ Copied #{header_name} to: #{target_file}"
+            begin
+              FileUtils.cp(actual_header, target_file)
+              puts "    ✅ Copied #{header_name} to: #{target_file}"
+            rescue => e
+              puts "    ⚠️ Could not copy #{header_name}: #{e.message}"
+              # Try symbolic link as fallback
+              begin
+                FileUtils.ln_sf(actual_header, target_file)
+                puts "    ✅ Created symbolic link for #{header_name} to: #{target_file}"
+              rescue => e2
+                puts "    ❌ Could not create symbolic link for #{header_name}: #{e2.message}"
+              end
+            end
           end
         end
       else
