@@ -443,6 +443,12 @@ workflows:
             ./scripts/gen_env_config.sh || echo "⚠️ Failed to generate env config"
           fi
           
+          # Fix env_config.dart syntax if script exists
+          if [ -f "scripts/fix_env_config_syntax.sh" ]; then
+            chmod +x scripts/fix_env_config_syntax.sh
+            ./scripts/fix_env_config_syntax.sh || echo "⚠️ Failed to fix env config syntax"
+          fi
+          
           # Configure permissions if script exists
           if [ -f "scripts/configure_permissions.sh" ]; then
             chmod +x scripts/configure_permissions.sh

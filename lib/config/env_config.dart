@@ -52,8 +52,7 @@ class EnvConfig {
   static const int splashDuration = 4;
   
   // Bottom Menu Configuration
-  static const String bottommenuItems = r'[]';
-  static const String bottommenuBgColor = "#FFFFFF";
+static const String bottommenuItems = r"[]";
   static const String bottommenuIconColor = "#000000";
   static const String bottommenuTextColor = "#000000";
   static const String bottommenuFont = "System";
