@@ -57,6 +57,13 @@ if [ -d "Pods" ]; then
     rm -f Podfile.lock
 fi
 
+# Run pre-install GoogleUtilities header fix
+log_info "Running pre-install GoogleUtilities header fix"
+cd ..
+chmod +x scripts/fix_google_utilities_pre_install.sh
+./scripts/fix_google_utilities_pre_install.sh
+cd ios
+
 # Install pods with the dynamically generated Podfile
 log_info "Installing pods with comprehensive fixes"
 pod install --repo-update

@@ -1,27 +1,84 @@
+Applications
+Builds
+App Preview
+Teams
+Billing
+
+
+quikapp22
+quikapp22
+github.com/prasanna91/quikapp22
+
+
+Start new build
+Build overview
+ID:
+68806420a977dc5ef905c279
+Please provide this ID when you contact our support team
+Index:
+56
+Status:
+failed
+Workflow:
+Build iOS App using Dynamic Config
+Started by:
+prasannasrie@gmail.com
+
+prasannasrie@gmail.com
+Started:
+3 minutes ago
+Jul 23rd, 2025 at 09:55 IST
+Duration:
+2m 45s
+Machine:
+Mac mini M2
+Branch:
+main
+Commit:
+b30f11a
+Click on the build steps for details.
+Preparing build machine
+34s
+Fetching app sources
+3s
+Restoring cache
+< 1s
+Installing SDKs
+56s
+🔍 Validate Required Environment Vars
+< 1s
+⬇️ Download Assets (icons, splash, certificates)
+2s
+🎨 Change App Name and Icons
+16s
+🎯 Update Bundle ID and Versioning
+< 1s
+⚙️ Inject Permissions and Features
+< 1s
+🚀 Generate Env Configs (env_config.dart, Info.plist, etc)
+< 1s
+🧪 Run Flutter Tests
+8s
 🏗️ Build and Archive iOS (.ipa)
-44s
+42s
 
 
 
-Hide command
-#!/usr/bin/env bash
-
-chmod +x scripts/build_ios_app.sh
-./scripts/build_ios_app.sh
-[2025-07-22 18:33:46] [IOS_BUILD] 🏗️ Building iOS App
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 1: Generating dynamic Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔧 Generating Dynamic Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Creating backup of original Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Generating dynamic Podfile with comprehensive fixes
-[2025-07-22 18:33:46] [PODFILE_GEN] ✅ ✅ Dynamic Podfile generated successfully
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Podfile contents:
+Show command
+[2025-07-23 04:27:10] [IOS_BUILD] 🏗️ Building iOS App
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 1: Generating dynamic Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔧 Generating Dynamic Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Creating backup of original Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Generating dynamic Podfile with comprehensive fixes
+[2025-07-23 04:27:10] [PODFILE_GEN] ✅ ✅ Dynamic Podfile generated successfully
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Podfile contents:
 ==========================================
 # Dynamically Generated Podfile for iOS Build
 # Generated on: $(date)
 # This Podfile includes all necessary fixes for iOS build issues
 
 # Uncomment this line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '13.0' # Updated to 13.0 for Firebase compatibility
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -37,36 +94,36 @@ def flutter_root
   unless File.exist?(generated_xcode_build_settings_path)
     raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
 ...
+      public_header = File.join(public_dir, File.basename(header_file))
+      unless File.exist?(public_header)
+        FileUtils.cp(header_file, public_header)
+      end
     end
   end
-  
-  # Fix any other missing headers by copying all .h files to their Public directories
-  # Note: This section was removed due to Ruby compatibility issues
-  # The GoogleUtilities header fix above should handle most cases
   
   # Suppress master specs repo warning
   puts "✅ CocoaPods installation completed successfully with all fixes applied"
 end
 ==========================================
-[2025-07-22 18:33:46] [PODFILE_GEN] ✅ ✅ Dynamic Podfile ready for use
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 2: Handling Firebase dependencies
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔧 Fixing Firebase Dependencies
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Firebase dependencies detected in parent directory
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 firebase_core detected
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 firebase_messaging detected
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Updating iOS deployment target for Firebase compatibility
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ Updated iOS deployment target to 13.0
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ GoogleService-Info.plist found
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Validating Firebase configuration...
-[2025-07-22 18:33:46] [FIREBASE_FIX] ⚠️ Firebase configuration may be incomplete
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ ✅ Firebase dependency checks completed
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 3: Handling speech_to_text dependency issue
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔧 Fixing speech_to_text dependency issue
-[2025-07-22 18:33:46] [SPEECH_FIX] ⚠️ speech_to_text plugin detected - this causes CwlCatchException dependency
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Temporarily removing speech_to_text to prevent CwlCatchException issues
-[2025-07-22 18:33:46] [SPEECH_FIX] ✅ Temporarily removed speech_to_text from pubspec.yaml
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Note: speech_to_text functionality will be disabled in this build
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Running flutter pub get to update dependencies
+[2025-07-23 04:27:10] [PODFILE_GEN] ✅ ✅ Dynamic Podfile ready for use
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 2: Handling Firebase dependencies
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔧 Fixing Firebase Dependencies
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Firebase dependencies detected in parent directory
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 firebase_core detected
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 firebase_messaging detected
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Updating iOS deployment target for Firebase compatibility
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ Updated iOS deployment target to 13.0
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ GoogleService-Info.plist found
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Validating Firebase configuration...
+[2025-07-23 04:27:10] [FIREBASE_FIX] ⚠️ Firebase configuration may be incomplete
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ ✅ Firebase dependency checks completed
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 3: Handling speech_to_text dependency issue
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔧 Fixing speech_to_text dependency issue
+[2025-07-23 04:27:10] [SPEECH_FIX] ⚠️ speech_to_text plugin detected - this causes CwlCatchException dependency
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Temporarily removing speech_to_text to prevent CwlCatchException issues
+[2025-07-23 04:27:10] [SPEECH_FIX] ✅ Temporarily removed speech_to_text from pubspec.yaml
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Note: speech_to_text functionality will be disabled in this build
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Running flutter pub get to update dependencies
 Resolving dependencies...
 Downloading packages...
   characters 1.4.0 (1.4.1 available)
@@ -96,7 +153,7 @@ These packages are no longer being depended on:
 Changed 3 dependencies!
 20 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-[2025-07-22 18:33:48] [SPEECH_FIX] 🔍 Installing pods without speech_to_text
+[2025-07-23 04:27:12] [SPEECH_FIX] 🔍 Installing pods without speech_to_text
 Updating local specs repositories
 Adding spec repo `trunk` with CDN `https://cdn.cocoapods.org/`
 Analyzing dependencies
@@ -133,43 +190,16 @@ Generating Pods project
 🔧 Fixing flutter_inappwebview_ios module configuration...
 🔧 Fixing url_launcher_ios module configuration...
 🔧 Fixing GoogleUtilities header files...
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/AppDelegateSwizzler/Internal
-  ✅ Copied header: GULAppDelegateSwizzler_Private.h
-  ✅ Copied header: GULSceneDelegateSwizzler_Private.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
-  ✅ Copied header: GULAppDelegateSwizzler.h
-  ✅ Copied header: GULApplication.h
-  ✅ Copied header: GULSceneDelegateSwizzler.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/Common
-  ✅ Copied header: GULLoggerCodes.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities
-  ✅ Copied header: GULAppEnvironmentUtil.h
-  ✅ Copied header: GULKeychainStorage.h
-  ✅ Copied header: GULKeychainUtils.h
-  ✅ Copied header: GULNetworkInfo.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities
-  ✅ Copied header: GULLogger.h
-  ✅ Copied header: GULLoggerLevel.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities
-  ✅ Copied header: GULNSData+zlib.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Network
-  ✅ Copied header: GULNetworkInternal.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities
-  ✅ Copied header: GULMutableDictionary.h
-  ✅ Copied header: GULNetwork.h
-  ✅ Copied header: GULNetworkConstants.h
-  ✅ Copied header: GULNetworkLoggerProtocol.h
-  ✅ Copied header: GULNetworkMessageCode.h
-  ✅ Copied header: GULNetworkURLSession.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Reachability
-  ✅ Copied header: GULReachabilityChecker+Internal.h
-  ✅ Copied header: GULReachabilityMessageCode.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities
-  ✅ Copied header: GULReachabilityChecker.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/Public/GoogleUtilities/UserDefaults/Public/GoogleUtilities
-  ✅ Copied header: GULUserDefaults.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/Public/third_party/IsAppEncrypted/Public
-  ✅ Copied header: IsAppEncrypted.h
+  ✅ Found IsAppEncrypted.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+    ✅ Copied IsAppEncrypted.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+  ✅ Found GULUserDefaults.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+    ✅ Copied GULUserDefaults.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+  ✅ Found GULSceneDelegateSwizzler.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+    ✅ Copied GULSceneDelegateSwizzler.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h
+  ✅ Found GULReachabilityChecker.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+    ✅ Copied GULReachabilityChecker.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h
+  ✅ Found GULNetworkURLSession.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+    ✅ Copied GULNetworkURLSession.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
 ✅ CocoaPods installation completed successfully with all fixes applied
 Integrating client project
 Pod installation complete! There are 12 dependencies from the Podfile and 22 total pods installed.
@@ -177,12 +207,12 @@ Pod installation complete! There are 12 dependencies from the Podfile and 22 tot
 [!] CocoaPods did not set the base configuration of your project because your project already has a custom config set. In order for CocoaPods integration to work at all, please either set the base configurations of the target `Runner` to `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` or include the `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` in your build configuration (`Flutter/Release.xcconfig`).
 
 [!] Your project does not explicitly specify the CocoaPods master specs repo. Since CDN is now used as the default, you may safely remove it from your repos directory via `pod repo remove master`. To suppress this warning please add `warn_for_unused_master_specs_repo => false` to your Podfile.
-[2025-07-22 18:34:13] [SPEECH_FIX] ✅ ✅ speech_to_text dependency issue fixed
-[2025-07-22 18:34:13] [SPEECH_FIX] ⚠️ ⚠️ speech_to_text functionality is disabled in this build
-[2025-07-22 18:34:13] [SPEECH_FIX] 🔍 To restore speech_to_text, run: git checkout pubspec.yaml
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Step 4: Installing pods with dynamic Podfile
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Cleaning existing pods
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Installing pods with comprehensive fixes
+[2025-07-23 04:27:44] [SPEECH_FIX] ✅ ✅ speech_to_text dependency issue fixed
+[2025-07-23 04:27:44] [SPEECH_FIX] ⚠️ ⚠️ speech_to_text functionality is disabled in this build
+[2025-07-23 04:27:44] [SPEECH_FIX] 🔍 To restore speech_to_text, run: git checkout pubspec.yaml
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Step 4: Installing pods with dynamic Podfile
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Cleaning existing pods
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Installing pods with comprehensive fixes
 Updating local specs repositories
 Analyzing dependencies
 firebase_core: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
@@ -218,43 +248,16 @@ Generating Pods project
 🔧 Fixing flutter_inappwebview_ios module configuration...
 🔧 Fixing url_launcher_ios module configuration...
 🔧 Fixing GoogleUtilities header files...
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/AppDelegateSwizzler/Internal
-  ✅ Copied header: GULAppDelegateSwizzler_Private.h
-  ✅ Copied header: GULSceneDelegateSwizzler_Private.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
-  ✅ Copied header: GULAppDelegateSwizzler.h
-  ✅ Copied header: GULApplication.h
-  ✅ Copied header: GULSceneDelegateSwizzler.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/Common
-  ✅ Copied header: GULLoggerCodes.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities
-  ✅ Copied header: GULAppEnvironmentUtil.h
-  ✅ Copied header: GULKeychainStorage.h
-  ✅ Copied header: GULKeychainUtils.h
-  ✅ Copied header: GULNetworkInfo.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities
-  ✅ Copied header: GULLogger.h
-  ✅ Copied header: GULLoggerLevel.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities
-  ✅ Copied header: GULNSData+zlib.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Network
-  ✅ Copied header: GULNetworkInternal.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities
-  ✅ Copied header: GULMutableDictionary.h
-  ✅ Copied header: GULNetwork.h
-  ✅ Copied header: GULNetworkConstants.h
-  ✅ Copied header: GULNetworkLoggerProtocol.h
-  ✅ Copied header: GULNetworkMessageCode.h
-  ✅ Copied header: GULNetworkURLSession.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Reachability
-  ✅ Copied header: GULReachabilityChecker+Internal.h
-  ✅ Copied header: GULReachabilityMessageCode.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities
-  ✅ Copied header: GULReachabilityChecker.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/Public/GoogleUtilities/UserDefaults/Public/GoogleUtilities
-  ✅ Copied header: GULUserDefaults.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/Public/third_party/IsAppEncrypted/Public
-  ✅ Copied header: IsAppEncrypted.h
+  ✅ Found IsAppEncrypted.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+    ✅ Copied IsAppEncrypted.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+  ✅ Found GULUserDefaults.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+    ✅ Copied GULUserDefaults.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+  ✅ Found GULSceneDelegateSwizzler.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+    ✅ Copied GULSceneDelegateSwizzler.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h
+  ✅ Found GULReachabilityChecker.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+    ✅ Copied GULReachabilityChecker.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h
+  ✅ Found GULNetworkURLSession.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+    ✅ Copied GULNetworkURLSession.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
 ✅ CocoaPods installation completed successfully with all fixes applied
 Integrating client project
 Pod installation complete! There are 12 dependencies from the Podfile and 22 total pods installed.
@@ -262,47 +265,132 @@ Pod installation complete! There are 12 dependencies from the Podfile and 22 tot
 [!] CocoaPods did not set the base configuration of your project because your project already has a custom config set. In order for CocoaPods integration to work at all, please either set the base configurations of the target `Runner` to `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` or include the `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` in your build configuration (`Flutter/Release.xcconfig`).
 
 [!] Your project does not explicitly specify the CocoaPods master specs repo. Since CDN is now used as the default, you may safely remove it from your repos directory via `pod repo remove master`. To suppress this warning please add `warn_for_unused_master_specs_repo => false` to your Podfile.
-[2025-07-22 18:34:14] [IOS_BUILD] 🔍 Step 5: Building Flutter app
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 4.5: Applying comprehensive GoogleUtilities header fix
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔧 Comprehensive GoogleUtilities Header Fix
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GoogleUtilities pod at: /Users/builder/clone/ios/Pods/GoogleUtilities
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Processing header mappings...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found IsAppEncrypted.h at: Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying IsAppEncrypted.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for IsAppEncrypted.h to: Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULUserDefaults.h at: Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULUserDefaults.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULUserDefaults.h to: Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULSceneDelegateSwizzler.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULSceneDelegateSwizzler.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULSceneDelegateSwizzler.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityChecker.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULReachabilityChecker.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULReachabilityChecker.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkURLSession.h at: Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkURLSession.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkURLSession.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppDelegateSwizzler.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULAppDelegateSwizzler.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULAppDelegateSwizzler.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULApplication.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULApplication.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULApplication.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityChecker+Internal.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULReachabilityChecker+Internal.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker+Internal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityMessageCode.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULReachabilityMessageCode.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetwork.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetwork.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetwork.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkConstants.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkConstants.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkConstants.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkLoggerProtocol.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkLoggerProtocol.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkLoggerProtocol.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkMessageCode.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkMessageCode.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkMessageCode.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULMutableDictionary.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULMutableDictionary.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULMutableDictionary.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkInternal.h at: Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkInternal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULNetworkInternal.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkInternal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLogger.h at: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULLogger.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULLogger.h to: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLoggerLevel.h at: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULLoggerLevel.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULLoggerLevel.h to: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLoggerCodes.h at: Pods/GoogleUtilities/GoogleUtilities/Common/GULLoggerCodes.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULLoggerCodes.h to: Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/GULLoggerCodes.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppEnvironmentUtil.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULAppEnvironmentUtil.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULAppEnvironmentUtil.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULKeychainStorage.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULKeychainStorage.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULKeychainStorage.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULKeychainUtils.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULKeychainUtils.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULKeychainUtils.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkInfo.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkInfo.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkInfo.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNSData+zlib.h at: Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNSData+zlib.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNSData+zlib.h to: Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppDelegateSwizzler_Private.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULAppDelegateSwizzler_Private.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULAppDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULSceneDelegateSwizzler_Private.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULSceneDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULSceneDelegateSwizzler_Private.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULSceneDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Header fix summary: 25/25 headers processed successfully
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Creating additional header locations for broader compatibility...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ ✅ Comprehensive GoogleUtilities header fix completed
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Verifying critical headers...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ ⚠️ Some critical headers are missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ ✅ GoogleUtilities header fix completed
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 4.6: Applying import path fix for GoogleUtilities
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔧 Fixing GoogleUtilities Import Paths
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Found GoogleUtilities pod at: /Users/builder/clone/ios/Pods/GoogleUtilities
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Processing import path fixes...
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Import path fix summary: 5/5 paths created successfully
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Creating symbolic links for broader compatibility...
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Import path fixes completed
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Verifying critical import paths...
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ All critical import paths verified successfully
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ GoogleUtilities import path fix completed
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 5: Building Flutter app
 Warning: Building for device with codesigning disabled. You will have to manually codesign before deploying to device.
 Building com.twinklub.twinklub for device (ios-release)...
-Running pod install...                                           1,152ms
-Running Xcode build...                                          
-Xcode build done.                                            9.8s
-Failed to build iOS app
-Lexical or Preprocessor Issue (Xcode): 'third_party/IsAppEncrypted/Public/IsAppEncrypted.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.m:42:8
-
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.m:14:8
-
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.m:16:8
-
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.m:16:8
-
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.m:16:8
-
-Encountered error while building for device.
-
-
-Build failed :|
-Step 11 script `🏗️ Build and Archive iOS (.ipa)` exited with status code 1
-[2025-07-22 18:33:46] [IOS_BUILD] 🏗️ Building iOS App
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 1: Generating dynamic Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔧 Generating Dynamic Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Creating backup of original Podfile
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Generating dynamic Podfile with comprehensive fixes
-[2025-07-22 18:33:46] [PODFILE_GEN] ✅ ✅ Dynamic Podfile generated successfully
-[2025-07-22 18:33:46] [PODFILE_GEN] 🔍 Podfile contents:
+[2025-07-23 04:27:10] [IOS_BUILD] 🏗️ Building iOS App
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 1: Generating dynamic Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔧 Generating Dynamic Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Creating backup of original Podfile
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Generating dynamic Podfile with comprehensive fixes
+[2025-07-23 04:27:10] [PODFILE_GEN] ✅ ✅ Dynamic Podfile generated successfully
+[2025-07-23 04:27:10] [PODFILE_GEN] 🔍 Podfile contents:
 ==========================================
 # Dynamically Generated Podfile for iOS Build
 # Generated on: $(date)
 # This Podfile includes all necessary fixes for iOS build issues
 
 # Uncomment this line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '13.0' # Updated to 13.0 for Firebase compatibility
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -318,36 +406,36 @@ def flutter_root
   unless File.exist?(generated_xcode_build_settings_path)
     raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
 ...
+      public_header = File.join(public_dir, File.basename(header_file))
+      unless File.exist?(public_header)
+        FileUtils.cp(header_file, public_header)
+      end
     end
   end
-  
-  # Fix any other missing headers by copying all .h files to their Public directories
-  # Note: This section was removed due to Ruby compatibility issues
-  # The GoogleUtilities header fix above should handle most cases
   
   # Suppress master specs repo warning
   puts "✅ CocoaPods installation completed successfully with all fixes applied"
 end
 ==========================================
-[2025-07-22 18:33:46] [PODFILE_GEN] ✅ ✅ Dynamic Podfile ready for use
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 2: Handling Firebase dependencies
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔧 Fixing Firebase Dependencies
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Firebase dependencies detected in parent directory
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 firebase_core detected
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 firebase_messaging detected
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Updating iOS deployment target for Firebase compatibility
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ Updated iOS deployment target to 13.0
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ GoogleService-Info.plist found
-[2025-07-22 18:33:46] [FIREBASE_FIX] 🔍 Validating Firebase configuration...
-[2025-07-22 18:33:46] [FIREBASE_FIX] ⚠️ Firebase configuration may be incomplete
-[2025-07-22 18:33:46] [FIREBASE_FIX] ✅ ✅ Firebase dependency checks completed
-[2025-07-22 18:33:46] [IOS_BUILD] 🔍 Step 3: Handling speech_to_text dependency issue
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔧 Fixing speech_to_text dependency issue
-[2025-07-22 18:33:46] [SPEECH_FIX] ⚠️ speech_to_text plugin detected - this causes CwlCatchException dependency
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Temporarily removing speech_to_text to prevent CwlCatchException issues
-[2025-07-22 18:33:46] [SPEECH_FIX] ✅ Temporarily removed speech_to_text from pubspec.yaml
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Note: speech_to_text functionality will be disabled in this build
-[2025-07-22 18:33:46] [SPEECH_FIX] 🔍 Running flutter pub get to update dependencies
+[2025-07-23 04:27:10] [PODFILE_GEN] ✅ ✅ Dynamic Podfile ready for use
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 2: Handling Firebase dependencies
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔧 Fixing Firebase Dependencies
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Firebase dependencies detected in parent directory
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 firebase_core detected
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 firebase_messaging detected
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Updating iOS deployment target for Firebase compatibility
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ Updated iOS deployment target to 13.0
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ GoogleService-Info.plist found
+[2025-07-23 04:27:10] [FIREBASE_FIX] 🔍 Validating Firebase configuration...
+[2025-07-23 04:27:10] [FIREBASE_FIX] ⚠️ Firebase configuration may be incomplete
+[2025-07-23 04:27:10] [FIREBASE_FIX] ✅ ✅ Firebase dependency checks completed
+[2025-07-23 04:27:10] [IOS_BUILD] 🔍 Step 3: Handling speech_to_text dependency issue
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔧 Fixing speech_to_text dependency issue
+[2025-07-23 04:27:10] [SPEECH_FIX] ⚠️ speech_to_text plugin detected - this causes CwlCatchException dependency
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Temporarily removing speech_to_text to prevent CwlCatchException issues
+[2025-07-23 04:27:10] [SPEECH_FIX] ✅ Temporarily removed speech_to_text from pubspec.yaml
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Note: speech_to_text functionality will be disabled in this build
+[2025-07-23 04:27:10] [SPEECH_FIX] 🔍 Running flutter pub get to update dependencies
 Resolving dependencies...
 Downloading packages...
   characters 1.4.0 (1.4.1 available)
@@ -377,7 +465,7 @@ These packages are no longer being depended on:
 Changed 3 dependencies!
 20 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-[2025-07-22 18:33:48] [SPEECH_FIX] 🔍 Installing pods without speech_to_text
+[2025-07-23 04:27:12] [SPEECH_FIX] 🔍 Installing pods without speech_to_text
 Updating local specs repositories
 Adding spec repo `trunk` with CDN `https://cdn.cocoapods.org/`
 Analyzing dependencies
@@ -414,43 +502,16 @@ Generating Pods project
 🔧 Fixing flutter_inappwebview_ios module configuration...
 🔧 Fixing url_launcher_ios module configuration...
 🔧 Fixing GoogleUtilities header files...
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/AppDelegateSwizzler/Internal
-  ✅ Copied header: GULAppDelegateSwizzler_Private.h
-  ✅ Copied header: GULSceneDelegateSwizzler_Private.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
-  ✅ Copied header: GULAppDelegateSwizzler.h
-  ✅ Copied header: GULApplication.h
-  ✅ Copied header: GULSceneDelegateSwizzler.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/Common
-  ✅ Copied header: GULLoggerCodes.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities
-  ✅ Copied header: GULAppEnvironmentUtil.h
-  ✅ Copied header: GULKeychainStorage.h
-  ✅ Copied header: GULKeychainUtils.h
-  ✅ Copied header: GULNetworkInfo.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities
-  ✅ Copied header: GULLogger.h
-  ✅ Copied header: GULLoggerLevel.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities
-  ✅ Copied header: GULNSData+zlib.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Network
-  ✅ Copied header: GULNetworkInternal.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities
-  ✅ Copied header: GULMutableDictionary.h
-  ✅ Copied header: GULNetwork.h
-  ✅ Copied header: GULNetworkConstants.h
-  ✅ Copied header: GULNetworkLoggerProtocol.h
-  ✅ Copied header: GULNetworkMessageCode.h
-  ✅ Copied header: GULNetworkURLSession.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Reachability
-  ✅ Copied header: GULReachabilityChecker+Internal.h
-  ✅ Copied header: GULReachabilityMessageCode.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities
-  ✅ Copied header: GULReachabilityChecker.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/Public/GoogleUtilities/UserDefaults/Public/GoogleUtilities
-  ✅ Copied header: GULUserDefaults.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/Public/third_party/IsAppEncrypted/Public
-  ✅ Copied header: IsAppEncrypted.h
+  ✅ Found IsAppEncrypted.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+    ✅ Copied IsAppEncrypted.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+  ✅ Found GULUserDefaults.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+    ✅ Copied GULUserDefaults.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+  ✅ Found GULSceneDelegateSwizzler.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+    ✅ Copied GULSceneDelegateSwizzler.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h
+  ✅ Found GULReachabilityChecker.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+    ✅ Copied GULReachabilityChecker.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h
+  ✅ Found GULNetworkURLSession.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+    ✅ Copied GULNetworkURLSession.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
 ✅ CocoaPods installation completed successfully with all fixes applied
 Integrating client project
 Pod installation complete! There are 12 dependencies from the Podfile and 22 total pods installed.
@@ -458,12 +519,12 @@ Pod installation complete! There are 12 dependencies from the Podfile and 22 tot
 [!] CocoaPods did not set the base configuration of your project because your project already has a custom config set. In order for CocoaPods integration to work at all, please either set the base configurations of the target `Runner` to `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` or include the `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` in your build configuration (`Flutter/Release.xcconfig`).
 
 [!] Your project does not explicitly specify the CocoaPods master specs repo. Since CDN is now used as the default, you may safely remove it from your repos directory via `pod repo remove master`. To suppress this warning please add `warn_for_unused_master_specs_repo => false` to your Podfile.
-[2025-07-22 18:34:13] [SPEECH_FIX] ✅ ✅ speech_to_text dependency issue fixed
-[2025-07-22 18:34:13] [SPEECH_FIX] ⚠️ ⚠️ speech_to_text functionality is disabled in this build
-[2025-07-22 18:34:13] [SPEECH_FIX] 🔍 To restore speech_to_text, run: git checkout pubspec.yaml
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Step 4: Installing pods with dynamic Podfile
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Cleaning existing pods
-[2025-07-22 18:34:13] [IOS_BUILD] 🔍 Installing pods with comprehensive fixes
+[2025-07-23 04:27:44] [SPEECH_FIX] ✅ ✅ speech_to_text dependency issue fixed
+[2025-07-23 04:27:44] [SPEECH_FIX] ⚠️ ⚠️ speech_to_text functionality is disabled in this build
+[2025-07-23 04:27:44] [SPEECH_FIX] 🔍 To restore speech_to_text, run: git checkout pubspec.yaml
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Step 4: Installing pods with dynamic Podfile
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Cleaning existing pods
+[2025-07-23 04:27:44] [IOS_BUILD] 🔍 Installing pods with comprehensive fixes
 Updating local specs repositories
 Analyzing dependencies
 firebase_core: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
@@ -499,43 +560,16 @@ Generating Pods project
 🔧 Fixing flutter_inappwebview_ios module configuration...
 🔧 Fixing url_launcher_ios module configuration...
 🔧 Fixing GoogleUtilities header files...
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/AppDelegateSwizzler/Internal
-  ✅ Copied header: GULAppDelegateSwizzler_Private.h
-  ✅ Copied header: GULSceneDelegateSwizzler_Private.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities
-  ✅ Copied header: GULAppDelegateSwizzler.h
-  ✅ Copied header: GULApplication.h
-  ✅ Copied header: GULSceneDelegateSwizzler.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/Common
-  ✅ Copied header: GULLoggerCodes.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities
-  ✅ Copied header: GULAppEnvironmentUtil.h
-  ✅ Copied header: GULKeychainStorage.h
-  ✅ Copied header: GULKeychainUtils.h
-  ✅ Copied header: GULNetworkInfo.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities
-  ✅ Copied header: GULLogger.h
-  ✅ Copied header: GULLoggerLevel.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities
-  ✅ Copied header: GULNSData+zlib.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Network
-  ✅ Copied header: GULNetworkInternal.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities
-  ✅ Copied header: GULMutableDictionary.h
-  ✅ Copied header: GULNetwork.h
-  ✅ Copied header: GULNetworkConstants.h
-  ✅ Copied header: GULNetworkLoggerProtocol.h
-  ✅ Copied header: GULNetworkMessageCode.h
-  ✅ Copied header: GULNetworkURLSession.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Reachability
-  ✅ Copied header: GULReachabilityChecker+Internal.h
-  ✅ Copied header: GULReachabilityMessageCode.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities
-  ✅ Copied header: GULReachabilityChecker.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/Public/GoogleUtilities/UserDefaults/Public/GoogleUtilities
-  ✅ Copied header: GULUserDefaults.h
-  ✅ Created directory: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/Public/third_party/IsAppEncrypted/Public
-  ✅ Copied header: IsAppEncrypted.h
+  ✅ Found IsAppEncrypted.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+    ✅ Copied IsAppEncrypted.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+  ✅ Found GULUserDefaults.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+    ✅ Copied GULUserDefaults.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+  ✅ Found GULSceneDelegateSwizzler.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+    ✅ Copied GULSceneDelegateSwizzler.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h
+  ✅ Found GULReachabilityChecker.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+    ✅ Copied GULReachabilityChecker.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.h
+  ✅ Found GULNetworkURLSession.h at: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+    ✅ Copied GULNetworkURLSession.h to: /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
 ✅ CocoaPods installation completed successfully with all fixes applied
 Integrating client project
 Pod installation complete! There are 12 dependencies from the Podfile and 22 total pods installed.
@@ -543,30 +577,1138 @@ Pod installation complete! There are 12 dependencies from the Podfile and 22 tot
 [!] CocoaPods did not set the base configuration of your project because your project already has a custom config set. In order for CocoaPods integration to work at all, please either set the base configurations of the target `Runner` to `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` or include the `Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig` in your build configuration (`Flutter/Release.xcconfig`).
 
 [!] Your project does not explicitly specify the CocoaPods master specs repo. Since CDN is now used as the default, you may safely remove it from your repos directory via `pod repo remove master`. To suppress this warning please add `warn_for_unused_master_specs_repo => false` to your Podfile.
-[2025-07-22 18:34:14] [IOS_BUILD] 🔍 Step 5: Building Flutter app
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 4.5: Applying comprehensive GoogleUtilities header fix
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔧 Comprehensive GoogleUtilities Header Fix
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GoogleUtilities pod at: /Users/builder/clone/ios/Pods/GoogleUtilities
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Processing header mappings...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found IsAppEncrypted.h at: Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying IsAppEncrypted.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for IsAppEncrypted.h to: Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULUserDefaults.h at: Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULUserDefaults.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULUserDefaults.h to: Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULSceneDelegateSwizzler.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/Public/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULSceneDelegateSwizzler.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULSceneDelegateSwizzler.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityChecker.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/Public/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULReachabilityChecker.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULReachabilityChecker.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkURLSession.h at: Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkURLSession.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkURLSession.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppDelegateSwizzler.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULAppDelegateSwizzler.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULAppDelegateSwizzler.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULApplication.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULApplication.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULApplication.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityChecker+Internal.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULReachabilityChecker+Internal.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker+Internal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULReachabilityMessageCode.h at: Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULReachabilityMessageCode.h to: Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetwork.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetwork.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetwork.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkConstants.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/Public/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkConstants.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkConstants.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkLoggerProtocol.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkLoggerProtocol.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkLoggerProtocol.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkMessageCode.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkMessageCode.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkMessageCode.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULMutableDictionary.h at: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULMutableDictionary.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULMutableDictionary.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkInternal.h at: Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkInternal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULNetworkInternal.h to: Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkInternal.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLogger.h at: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULLogger.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULLogger.h to: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLoggerLevel.h at: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/Public/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULLoggerLevel.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULLoggerLevel.h to: Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULLoggerCodes.h at: Pods/GoogleUtilities/GoogleUtilities/Common/GULLoggerCodes.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULLoggerCodes.h to: Pods/GoogleUtilities/GoogleUtilities/Common/Public/GoogleUtilities/GULLoggerCodes.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppEnvironmentUtil.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULAppEnvironmentUtil.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULAppEnvironmentUtil.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULKeychainStorage.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULKeychainStorage.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULKeychainStorage.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULKeychainUtils.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/Public/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULKeychainUtils.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULKeychainUtils.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNetworkInfo.h at: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNetworkInfo.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNetworkInfo.h to: Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULNSData+zlib.h at: Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/Public/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ Permission denied copying GULNSData+zlib.h, trying symbolic link
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Created symbolic link for GULNSData+zlib.h to: Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULAppDelegateSwizzler_Private.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULAppDelegateSwizzler_Private.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULAppDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Found GULSceneDelegateSwizzler_Private.h at: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULSceneDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ Copied GULSceneDelegateSwizzler_Private.h to: Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/Public/GoogleUtilities/GULSceneDelegateSwizzler_Private.h
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Header fix summary: 25/25 headers processed successfully
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Creating additional header locations for broader compatibility...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ ✅ Comprehensive GoogleUtilities header fix completed
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] 🔍 Verifying critical headers...
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ❌ ❌ Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ⚠️ ⚠️ Some critical headers are missing
+[2025-07-23 04:27:46] [GOOGLE_UTILS_FIX] ✅ ✅ GoogleUtilities header fix completed
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 4.6: Applying import path fix for GoogleUtilities
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔧 Fixing GoogleUtilities Import Paths
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Found GoogleUtilities pod at: /Users/builder/clone/ios/Pods/GoogleUtilities
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Processing import path fixes...
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ⚠️ Permission denied or file already exists: GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ Created symbolic link: GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Import path fix summary: 5/5 paths created successfully
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Creating symbolic links for broader compatibility...
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Import path fixes completed
+[2025-07-23 04:27:46] [IMPORT_FIX] 🔍 Verifying critical import paths...
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h exists
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ All critical import paths verified successfully
+[2025-07-23 04:27:46] [IMPORT_FIX] ✅ ✅ GoogleUtilities import path fix completed
+[2025-07-23 04:27:46] [IOS_BUILD] 🔍 Step 5: Building Flutter app
 Warning: Building for device with codesigning disabled. You will have to manually codesign before deploying to device.
 Building com.twinklub.twinklub for device (ios-release)...
-Running pod install...                                           1,152ms
-Running Xcode build...                                          
-Xcode build done.                                            9.8s
-Failed to build iOS app
-Lexical or Preprocessor Issue (Xcode): 'third_party/IsAppEncrypted/Public/IsAppEncrypted.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.m:42:8
+Running pod install...                                           1,100ms
+CocoaPods' output:
+↳
+      Preparing
 
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.m:14:8
+    Analyzing dependencies
 
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.m:16:8
+    Inspecting targets to integrate
+      Using `ARCHS` setting to build architectures of target `Pods-Runner`: (``)
 
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.m:16:8
+    Finding Podfile changes
+      - Flutter
+      - connectivity_plus
+      - firebase_core
+      - firebase_messaging
+      - flutter_inappwebview_ios
+      - flutter_local_notifications
+      - fluttertoast
+      - package_info_plus
+      - path_provider_foundation
+      - permission_handler_apple
+      - shared_preferences_foundation
+      - url_launcher_ios
 
-Lexical or Preprocessor Issue (Xcode): 'GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h' file not found
-/Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.m:16:8
+    Fetching external sources
+    -> Fetching podspec for `Flutter` from `Flutter`
+    -> Fetching podspec for `connectivity_plus` from `.symlinks/plugins/connectivity_plus/ios`
+    -> Fetching podspec for `firebase_core` from `.symlinks/plugins/firebase_core/ios`
+    firebase_core: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
+    -> Fetching podspec for `firebase_messaging` from `.symlinks/plugins/firebase_messaging/ios`
+    firebase_messaging: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
+    -> Fetching podspec for `flutter_inappwebview_ios` from `.symlinks/plugins/flutter_inappwebview_ios/ios`
+    -> Fetching podspec for `flutter_local_notifications` from `.symlinks/plugins/flutter_local_notifications/ios`
+    -> Fetching podspec for `fluttertoast` from `.symlinks/plugins/fluttertoast/ios`
+    -> Fetching podspec for `package_info_plus` from `.symlinks/plugins/package_info_plus/ios`
+    -> Fetching podspec for `path_provider_foundation` from `.symlinks/plugins/path_provider_foundation/darwin`
+    -> Fetching podspec for `permission_handler_apple` from `.symlinks/plugins/permission_handler_apple/ios`
+    -> Fetching podspec for `shared_preferences_foundation` from `.symlinks/plugins/shared_preferences_foundation/darwin`
+    -> Fetching podspec for `url_launcher_ios` from `.symlinks/plugins/url_launcher_ios/ios`
 
-Encountered error while building for device.
+    Resolving dependencies of `Podfile`
+      CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_3_5.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/12.0.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/11.15.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/11.15.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_4_2_c.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.16.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_6_8_6.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/8/6/OrderedSet/6.0.3/OrderedSet.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_8_b_d.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/8/b/d/FirebaseCore/12.0.0/FirebaseCore.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_2_d_6.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/d/6/FirebaseMessaging/12.0.0/FirebaseMessaging.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/8/6/OrderedSet/6.0.3/OrderedSet.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/8/b/d/FirebaseCore/11.15.0/FirebaseCore.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_8_4.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_7_9_1.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/7/9/1/FirebaseCoreInternal/12.0.0/FirebaseCoreInternal.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/d/6/FirebaseMessaging/11.15.0/FirebaseMessaging.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_2_f_7.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/f/7/FirebaseInstallations/12.0.0/FirebaseInstallations.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_6_a.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/6/a/GoogleDataTransport/10.1.0/GoogleDataTransport.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_6_1_e.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/f/7/FirebaseInstallations/11.15.0/FirebaseInstallations.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_b_5.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/b/5/PromisesObjC/2.4.0/PromisesObjC.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/7/9/1/FirebaseCoreInternal/11.15.0/FirebaseCoreInternal.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/b/5/PromisesObjC/2.4.0/PromisesObjC.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/6/a/GoogleDataTransport/10.1.0/GoogleDataTransport.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.16.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.13.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.13.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.0.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.10.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.5/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.2.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.0.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.22.4/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.17.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.12.1303/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.9.102/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+
+    Comparing resolved specification to the sandbox manifest
+      - Firebase
+      - FirebaseCore
+      - FirebaseCoreInternal
+      - FirebaseInstallations
+      - FirebaseMessaging
+      - Flutter
+      - GoogleDataTransport
+      - GoogleUtilities
+      - OrderedSet
+      - PromisesObjC
+      - connectivity_plus
+      - firebase_core
+      - firebase_messaging
+      - flutter_inappwebview_ios
+      - flutter_local_notifications
+      - fluttertoast
+      - nanopb
+      - package_info_plus
+      - path_provider_foundation
+      - permission_handler_apple
+      - shared_preferences_foundation
+      - url_launcher_ios
+
+    Downloading dependencies
+
+    -> Using Firebase (11.15.0)
+
+    -> Using FirebaseCore (11.15.0)
+
+    -> Using FirebaseCoreInternal (11.15.0)
+
+    -> Using FirebaseInstallations (11.15.0)
+
+    -> Using FirebaseMessaging (11.15.0)
+
+    -> Using Flutter (1.0.0)
+
+    -> Using GoogleDataTransport (10.1.0)
+
+    -> Using GoogleUtilities (8.1.0)
+
+    -> Using OrderedSet (6.0.3)
+
+    -> Using PromisesObjC (2.4.0)
+
+    -> Using connectivity_plus (0.0.1)
+
+    -> Using firebase_core (3.15.2)
+
+    -> Using firebase_messaging (15.2.10)
+
+    -> Using flutter_inappwebview_ios (0.0.1)
+
+    -> Using flutter_local_notifications (0.0.1)
+
+    -> Using fluttertoast (0.0.2)
+
+    -> Using nanopb (3.30910.0)
+
+    -> Using package_info_plus (0.4.5)
+
+    -> Using path_provider_foundation (0.0.1)
+
+    -> Using permission_handler_apple (9.3.0)
+
+    -> Using shared_preferences_foundation (0.0.1)
+
+    -> Using url_launcher_ios (0.0.1)
+      - Running pre install hooks
+      - Running pre integrate hooks
+
+    Generating Pods project
+      - Creating Pods project
+      - Installing files into Pods project
+        - Adding source files
+      CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+
+    ――― MARKDOWN TEMPLATE ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+    ### Command
+
+    ```
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod install --verbose
+    ```
+
+    ### Report
+
+    * What did you do?
+
+    * What did you expect to happen?
+
+    * What happened instead?
+
+
+    ### Stack
+
+    ```
+       CocoaPods : 1.16.2
+            Ruby : ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [arm64-darwin24]
+        RubyGems : 3.6.9
+            Host : macOS 15.5 (24F74)
+           Xcode : 16.4 (16F6)
+             Git : git version 2.50.0
+    Ruby lib dir : /Users/builder/.rbenv/versions/3.3.6/lib
+    Repositories : master - git - https://github.com/CocoaPods/Specs.git @ 0d75200eca7807b710f36b5ab7e4b7582526b931
+
+                   trunk - CDN - https://cdn.cocoapods.org/
+    ```
+
+    ### Plugins
+
+    ```
+    cocoapods-deintegrate : 1.0.5
+    cocoapods-plugins     : 1.0.0
+    cocoapods-search      : 1.0.1
+    cocoapods-trunk       : 1.6.0
+    cocoapods-try         : 1.2.0
+    ```
+
+    ### Podfile
+
+    ```ruby
+    # Dynamically Generated Podfile for iOS Build
+    # Generated on: $(date)
+    # This Podfile includes all necessary fixes for iOS build issues
+
+    # Uncomment this line to define a global platform for your project
+    platform :ios, '13.0' # Updated to 13.0 for Firebase compatibility
+
+    # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+    ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+    project 'Runner', {
+      'Debug' => :debug,
+      'Profile' => :release,
+      'Release' => :release,
+    }
+
+    def flutter_root
+      generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+      unless File.exist?(generated_xcode_build_settings_path)
+        raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+      end
+
+      File.foreach(generated_xcode_build_settings_path) do |line|
+        matches = line.match(/FLUTTER_ROOT=(.*)/)
+        return matches[1].strip if matches
+      end
+      raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+    end
+
+    require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+    flutter_ios_podfile_setup
+
+    target 'Runner' do
+      use_frameworks!
+      use_modular_headers!
+
+      flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+    end
+
+    post_install do |installer|
+      puts "🔧 Applying comprehensive post-install fixes..."
+
+      installer.pods_project.targets.each do |target|
+        flutter_additional_ios_build_settings(target)
+
+        # Set minimum deployment target for all pods
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0' # Updated to 13.0
+
+          # Fix for CocoaPods configuration warning
+          if config.base_configuration_reference
+            config.base_configuration_reference = nil
+          end
+        end
+
+        # Fix GoogleUtilities header file issues
+        if target.name == 'GoogleUtilities'
+          puts "🔧 Fixing GoogleUtilities header paths..."
+          target.build_configurations.each do |config|
+            # Add comprehensive header search paths for GoogleUtilities
+            config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Common'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Environment'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Logger'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Network'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Reachability'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/UserDefaults'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted/Public'
+          end
+        end
+
+        # Remove CwlCatchException if present (prevents Swift compiler errors)
+        if target.name == 'CwlCatchException' || target.name == 'CwlCatchExceptionSupport'
+          puts "🔧 Removing #{target.name} from build to prevent Swift compiler errors"
+          target.build_configurations.each do |config|
+            config.build_settings['EXCLUDED_ARCHS[sdk=iphoneos*]'] = 'arm64'
+            config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+            config.build_settings['SWIFT_VERSION'] = '5.0'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
+            config.build_settings['DEFINES_MODULE'] = 'NO'
+          end
+        end
+
+        # Fix for url_launcher_ios module issues
+        if target.name == 'url_launcher_ios'
+          puts "🔧 Fixing url_launcher_ios module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for flutter_inappwebview_ios module issues
+        if target.name == 'flutter_inappwebview_ios'
+          puts "🔧 Fixing flutter_inappwebview_ios module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for firebase_messaging module issues
+        if target.name == 'firebase_messaging'
+          puts "🔧 Fixing firebase_messaging module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for firebase_core module issues
+        if target.name == 'firebase_core'
+          puts "🔧 Fixing firebase_core module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+      end
+
+      # Fix GoogleUtilities header files after installation
+      google_utilities_path = File.join(installer.sandbox.root, 'GoogleUtilities')
+      if Dir.exist?(google_utilities_path)
+        puts "🔧 Fixing GoogleUtilities header files..."
+
+        # Define the problematic headers and their expected locations
+        header_mappings = {
+          'IsAppEncrypted.h' => [
+            'third_party/IsAppEncrypted/IsAppEncrypted.h',
+            'third_party/IsAppEncrypted/Public/IsAppEncrypted.h'
+          ],
+          'GULUserDefaults.h' => [
+            'GoogleUtilities/UserDefaults/GULUserDefaults.h',
+            'GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h'
+          ],
+          'GULSceneDelegateSwizzler.h' => [
+            'GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h',
+            'GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h'
+          ],
+          'GULReachabilityChecker.h' => [
+            'GoogleUtilities/Reachability/GULReachabilityChecker.h',
+            'GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h'
+          ],
+          'GULNetworkURLSession.h' => [
+            'GoogleUtilities/Network/GULNetworkURLSession.h',
+            'GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h'
+          ]
+        }
+
+        # Copy headers to all expected locations
+        header_mappings.each do |header_name, expected_paths|
+          # Find the actual header file
+          actual_header = nil
+          Dir.glob(File.join(google_utilities_path, '**', header_name)).each do |found_header|
+            actual_header = found_header
+            break
+          end
+
+          if actual_header
+            puts "  ✅ Found #{header_name} at: #{actual_header}"
+
+            # Copy to all expected locations
+            expected_paths.each do |expected_path|
+              target_dir = File.join(google_utilities_path, File.dirname(expected_path))
+              target_file = File.join(target_dir, header_name)
+
+              unless Dir.exist?(target_dir)
+                FileUtils.mkdir_p(target_dir)
+                puts "    ✅ Created directory: #{target_dir}"
+              end
+
+              unless File.exist?(target_file)
+                begin
+                  FileUtils.cp(actual_header, target_file)
+                  puts "    ✅ Copied #{header_name} to: #{target_file}"
+                rescue => e
+                  puts "    ⚠️ Could not copy #{header_name}: #{e.message}"
+                  # Try symbolic link as fallback
+                  begin
+                    FileUtils.ln_sf(actual_header, target_file)
+                    puts "    ✅ Created symbolic link for #{header_name} to: #{target_file}"
+                  rescue => e2
+                    puts "    ❌ Could not create symbolic link for #{header_name}: #{e2.message}"
+                  end
+                end
+              end
+            end
+          else
+            puts "  ⚠️ Could not find #{header_name}"
+          end
+        end
+
+        # Also copy all .h files to their Public directories for broader coverage
+        Dir.glob(File.join(google_utilities_path, '**', '*.h')).each do |header_file|
+          relative_path = Pathname.new(header_file).relative_path_from(Pathname.new(google_utilities_path))
+          public_dir = File.join(File.dirname(header_file), 'Public', File.dirname(relative_path))
+
+          unless Dir.exist?(public_dir)
+            FileUtils.mkdir_p(public_dir)
+          end
+
+          public_header = File.join(public_dir, File.basename(header_file))
+          unless File.exist?(public_header)
+            FileUtils.cp(header_file, public_header)
+          end
+        end
+      end
+
+      # Suppress master specs repo warning
+      puts "✅ CocoaPods installation completed successfully with all fixes applied"
+    end
+    ```
+
+    ### Error
+
+    ```
+    Errno::ENOENT - No such file or directory @ rb_check_realpath_internal - /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `realpath'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `realpath'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `reference_for_path'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:269:in `add_file_reference'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:228:in `block (2 levels) in add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:227:in `map'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:227:in `block in add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `each'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `flat_map'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:99:in `block in add_source_files_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:149:in `message'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:98:in `add_source_files_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:49:in `install!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:102:in `block in install_file_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:149:in `message'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:100:in `install_file_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/single_pods_project_generator.rb:17:in `generate!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:320:in `block in create_and_save_projects'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:64:in `section'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:315:in `create_and_save_projects'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:307:in `generate_pods_project'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:183:in `integrate'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:170:in `install!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/command/install.rb:52:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/claide-1.1.0/lib/claide/command.rb:334:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/command.rb:52:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/bin/pod:55:in `<top (required)>'
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod:25:in `load'
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod:25:in `<main>'
+    ```
+
+    ――― TEMPLATE END ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+    [!] Oh no, an error occurred.
+
+    Search for existing GitHub issues similar to yours:
+    https://github.com/CocoaPods/CocoaPods/search?q=No+such+file+or+directory+%40+rb_check_realpath_internal+-+%2FUsers%2Fbuilder%2Fclone%2Fios%2FPods%2FGoogleUtilities%2FGoogleUtilities%2FAppDelegateSwizzler%2FPublic%2FGoogleUtilities%2FGULAppDelegateSwizzler.h&type=Issues
+
+    If none exists, create a ticket, with the template displayed above, on:
+    https://github.com/CocoaPods/CocoaPods/issues/new
+
+    Be sure to first read the contributing guide for details on how to properly submit a ticket:
+    https://github.com/CocoaPods/CocoaPods/blob/master/CONTRIBUTING.md
+
+    Don't forget to anonymize any private data!
+
+    Looking for related issues on cocoapods/cocoapods...
+    Found no similar issues. To create a new issue, please visit:
+    https://github.com/cocoapods/cocoapods/issues/new
+
+Error running pod install
 
 
 Build failed :|
 Step 11 script `🏗️ Build and Archive iOS (.ipa)` exited with status code 1
+Running pod install...                                           1,100ms
+CocoaPods' output:
+↳
+      Preparing
+
+    Analyzing dependencies
+
+    Inspecting targets to integrate
+      Using `ARCHS` setting to build architectures of target `Pods-Runner`: (``)
+
+    Finding Podfile changes
+      - Flutter
+      - connectivity_plus
+      - firebase_core
+      - firebase_messaging
+      - flutter_inappwebview_ios
+      - flutter_local_notifications
+      - fluttertoast
+      - package_info_plus
+      - path_provider_foundation
+      - permission_handler_apple
+      - shared_preferences_foundation
+      - url_launcher_ios
+
+    Fetching external sources
+    -> Fetching podspec for `Flutter` from `Flutter`
+    -> Fetching podspec for `connectivity_plus` from `.symlinks/plugins/connectivity_plus/ios`
+    -> Fetching podspec for `firebase_core` from `.symlinks/plugins/firebase_core/ios`
+    firebase_core: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
+    -> Fetching podspec for `firebase_messaging` from `.symlinks/plugins/firebase_messaging/ios`
+    firebase_messaging: Using Firebase SDK version '11.15.0' defined in 'firebase_core'
+    -> Fetching podspec for `flutter_inappwebview_ios` from `.symlinks/plugins/flutter_inappwebview_ios/ios`
+    -> Fetching podspec for `flutter_local_notifications` from `.symlinks/plugins/flutter_local_notifications/ios`
+    -> Fetching podspec for `fluttertoast` from `.symlinks/plugins/fluttertoast/ios`
+    -> Fetching podspec for `package_info_plus` from `.symlinks/plugins/package_info_plus/ios`
+    -> Fetching podspec for `path_provider_foundation` from `.symlinks/plugins/path_provider_foundation/darwin`
+    -> Fetching podspec for `permission_handler_apple` from `.symlinks/plugins/permission_handler_apple/ios`
+    -> Fetching podspec for `shared_preferences_foundation` from `.symlinks/plugins/shared_preferences_foundation/darwin`
+    -> Fetching podspec for `url_launcher_ios` from `.symlinks/plugins/url_launcher_ios/ios`
+
+    Resolving dependencies of `Podfile`
+      CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_3_5.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/12.0.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/11.15.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/3/5/Firebase/11.15.0/Firebase.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_4_2_c.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.16.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_6_8_6.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/8/6/OrderedSet/6.0.3/OrderedSet.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_8_b_d.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/8/b/d/FirebaseCore/12.0.0/FirebaseCore.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_2_d_6.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/d/6/FirebaseMessaging/12.0.0/FirebaseMessaging.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/8/6/OrderedSet/6.0.3/OrderedSet.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/8/b/d/FirebaseCore/11.15.0/FirebaseCore.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_8_4.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_7_9_1.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/7/9/1/FirebaseCoreInternal/12.0.0/FirebaseCoreInternal.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/d/6/FirebaseMessaging/11.15.0/FirebaseMessaging.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_2_f_7.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/f/7/FirebaseInstallations/12.0.0/FirebaseInstallations.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_6_a.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/6/a/GoogleDataTransport/10.1.0/GoogleDataTransport.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_6_1_e.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/2/f/7/FirebaseInstallations/11.15.0/FirebaseInstallations.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: all_pods_versions_0_b_5.txt exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/b/5/PromisesObjC/2.4.0/PromisesObjC.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/6/1/e/nanopb/3.30910.0/nanopb.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/7/9/1/FirebaseCoreInternal/11.15.0/FirebaseCoreInternal.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/8/4/GoogleUtilities/8.1.0/GoogleUtilities.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/b/5/PromisesObjC/2.4.0/PromisesObjC.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/0/6/a/GoogleDataTransport/10.1.0/GoogleDataTransport.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.16.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.13.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.13.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/3.0.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.10.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.5/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.2.2/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/2.0.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.22.4/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.17.0/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.12.1303/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+      CDN: trunk Relative path: Specs/4/2/c/FlutterMacOS/1.9.102/FlutterMacOS.podspec.json exists! Returning local because checking is only performed in repo update
+
+    Comparing resolved specification to the sandbox manifest
+      - Firebase
+      - FirebaseCore
+      - FirebaseCoreInternal
+      - FirebaseInstallations
+      - FirebaseMessaging
+      - Flutter
+      - GoogleDataTransport
+      - GoogleUtilities
+      - OrderedSet
+      - PromisesObjC
+      - connectivity_plus
+      - firebase_core
+      - firebase_messaging
+      - flutter_inappwebview_ios
+      - flutter_local_notifications
+      - fluttertoast
+      - nanopb
+      - package_info_plus
+      - path_provider_foundation
+      - permission_handler_apple
+      - shared_preferences_foundation
+      - url_launcher_ios
+
+    Downloading dependencies
+
+    -> Using Firebase (11.15.0)
+
+    -> Using FirebaseCore (11.15.0)
+
+    -> Using FirebaseCoreInternal (11.15.0)
+
+    -> Using FirebaseInstallations (11.15.0)
+
+    -> Using FirebaseMessaging (11.15.0)
+
+    -> Using Flutter (1.0.0)
+
+    -> Using GoogleDataTransport (10.1.0)
+
+    -> Using GoogleUtilities (8.1.0)
+
+    -> Using OrderedSet (6.0.3)
+
+    -> Using PromisesObjC (2.4.0)
+
+    -> Using connectivity_plus (0.0.1)
+
+    -> Using firebase_core (3.15.2)
+
+    -> Using firebase_messaging (15.2.10)
+
+    -> Using flutter_inappwebview_ios (0.0.1)
+
+    -> Using flutter_local_notifications (0.0.1)
+
+    -> Using fluttertoast (0.0.2)
+
+    -> Using nanopb (3.30910.0)
+
+    -> Using package_info_plus (0.4.5)
+
+    -> Using path_provider_foundation (0.0.1)
+
+    -> Using permission_handler_apple (9.3.0)
+
+    -> Using shared_preferences_foundation (0.0.1)
+
+    -> Using url_launcher_ios (0.0.1)
+      - Running pre install hooks
+      - Running pre integrate hooks
+
+    Generating Pods project
+      - Creating Pods project
+      - Installing files into Pods project
+        - Adding source files
+      CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+
+    ――― MARKDOWN TEMPLATE ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+    ### Command
+
+    ```
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod install --verbose
+    ```
+
+    ### Report
+
+    * What did you do?
+
+    * What did you expect to happen?
+
+    * What happened instead?
+
+
+    ### Stack
+
+    ```
+       CocoaPods : 1.16.2
+            Ruby : ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [arm64-darwin24]
+        RubyGems : 3.6.9
+            Host : macOS 15.5 (24F74)
+           Xcode : 16.4 (16F6)
+             Git : git version 2.50.0
+    Ruby lib dir : /Users/builder/.rbenv/versions/3.3.6/lib
+    Repositories : master - git - https://github.com/CocoaPods/Specs.git @ 0d75200eca7807b710f36b5ab7e4b7582526b931
+
+                   trunk - CDN - https://cdn.cocoapods.org/
+    ```
+
+    ### Plugins
+
+    ```
+    cocoapods-deintegrate : 1.0.5
+    cocoapods-plugins     : 1.0.0
+    cocoapods-search      : 1.0.1
+    cocoapods-trunk       : 1.6.0
+    cocoapods-try         : 1.2.0
+    ```
+
+    ### Podfile
+
+    ```ruby
+    # Dynamically Generated Podfile for iOS Build
+    # Generated on: $(date)
+    # This Podfile includes all necessary fixes for iOS build issues
+
+    # Uncomment this line to define a global platform for your project
+    platform :ios, '13.0' # Updated to 13.0 for Firebase compatibility
+
+    # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+    ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+    project 'Runner', {
+      'Debug' => :debug,
+      'Profile' => :release,
+      'Release' => :release,
+    }
+
+    def flutter_root
+      generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+      unless File.exist?(generated_xcode_build_settings_path)
+        raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+      end
+
+      File.foreach(generated_xcode_build_settings_path) do |line|
+        matches = line.match(/FLUTTER_ROOT=(.*)/)
+        return matches[1].strip if matches
+      end
+      raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+    end
+
+    require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+    flutter_ios_podfile_setup
+
+    target 'Runner' do
+      use_frameworks!
+      use_modular_headers!
+
+      flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+    end
+
+    post_install do |installer|
+      puts "🔧 Applying comprehensive post-install fixes..."
+
+      installer.pods_project.targets.each do |target|
+        flutter_additional_ios_build_settings(target)
+
+        # Set minimum deployment target for all pods
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0' # Updated to 13.0
+
+          # Fix for CocoaPods configuration warning
+          if config.base_configuration_reference
+            config.base_configuration_reference = nil
+          end
+        end
+
+        # Fix GoogleUtilities header file issues
+        if target.name == 'GoogleUtilities'
+          puts "🔧 Fixing GoogleUtilities header paths..."
+          target.build_configurations.each do |config|
+            # Add comprehensive header search paths for GoogleUtilities
+            config.build_settings['HEADER_SEARCH_PATHS'] ||= ['$(inherited)']
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Common'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Environment'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Logger'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Network'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/Reachability'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/GoogleUtilities/UserDefaults'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted'
+            config.build_settings['HEADER_SEARCH_PATHS'] << '$(PODS_ROOT)/GoogleUtilities/third_party/IsAppEncrypted/Public'
+          end
+        end
+
+        # Remove CwlCatchException if present (prevents Swift compiler errors)
+        if target.name == 'CwlCatchException' || target.name == 'CwlCatchExceptionSupport'
+          puts "🔧 Removing #{target.name} from build to prevent Swift compiler errors"
+          target.build_configurations.each do |config|
+            config.build_settings['EXCLUDED_ARCHS[sdk=iphoneos*]'] = 'arm64'
+            config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+            config.build_settings['SWIFT_VERSION'] = '5.0'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
+            config.build_settings['DEFINES_MODULE'] = 'NO'
+          end
+        end
+
+        # Fix for url_launcher_ios module issues
+        if target.name == 'url_launcher_ios'
+          puts "🔧 Fixing url_launcher_ios module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for flutter_inappwebview_ios module issues
+        if target.name == 'flutter_inappwebview_ios'
+          puts "🔧 Fixing flutter_inappwebview_ios module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for firebase_messaging module issues
+        if target.name == 'firebase_messaging'
+          puts "🔧 Fixing firebase_messaging module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+
+        # Fix for firebase_core module issues
+        if target.name == 'firebase_core'
+          puts "🔧 Fixing firebase_core module configuration..."
+          target.build_configurations.each do |config|
+            config.build_settings['DEFINES_MODULE'] = 'YES'
+            config.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
+          end
+        end
+      end
+
+      # Fix GoogleUtilities header files after installation
+      google_utilities_path = File.join(installer.sandbox.root, 'GoogleUtilities')
+      if Dir.exist?(google_utilities_path)
+        puts "🔧 Fixing GoogleUtilities header files..."
+
+        # Define the problematic headers and their expected locations
+        header_mappings = {
+          'IsAppEncrypted.h' => [
+            'third_party/IsAppEncrypted/IsAppEncrypted.h',
+            'third_party/IsAppEncrypted/Public/IsAppEncrypted.h'
+          ],
+          'GULUserDefaults.h' => [
+            'GoogleUtilities/UserDefaults/GULUserDefaults.h',
+            'GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h'
+          ],
+          'GULSceneDelegateSwizzler.h' => [
+            'GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.h',
+            'GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h'
+          ],
+          'GULReachabilityChecker.h' => [
+            'GoogleUtilities/Reachability/GULReachabilityChecker.h',
+            'GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h'
+          ],
+          'GULNetworkURLSession.h' => [
+            'GoogleUtilities/Network/GULNetworkURLSession.h',
+            'GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h'
+          ]
+        }
+
+        # Copy headers to all expected locations
+        header_mappings.each do |header_name, expected_paths|
+          # Find the actual header file
+          actual_header = nil
+          Dir.glob(File.join(google_utilities_path, '**', header_name)).each do |found_header|
+            actual_header = found_header
+            break
+          end
+
+          if actual_header
+            puts "  ✅ Found #{header_name} at: #{actual_header}"
+
+            # Copy to all expected locations
+            expected_paths.each do |expected_path|
+              target_dir = File.join(google_utilities_path, File.dirname(expected_path))
+              target_file = File.join(target_dir, header_name)
+
+              unless Dir.exist?(target_dir)
+                FileUtils.mkdir_p(target_dir)
+                puts "    ✅ Created directory: #{target_dir}"
+              end
+
+              unless File.exist?(target_file)
+                begin
+                  FileUtils.cp(actual_header, target_file)
+                  puts "    ✅ Copied #{header_name} to: #{target_file}"
+                rescue => e
+                  puts "    ⚠️ Could not copy #{header_name}: #{e.message}"
+                  # Try symbolic link as fallback
+                  begin
+                    FileUtils.ln_sf(actual_header, target_file)
+                    puts "    ✅ Created symbolic link for #{header_name} to: #{target_file}"
+                  rescue => e2
+                    puts "    ❌ Could not create symbolic link for #{header_name}: #{e2.message}"
+                  end
+                end
+              end
+            end
+          else
+            puts "  ⚠️ Could not find #{header_name}"
+          end
+        end
+
+        # Also copy all .h files to their Public directories for broader coverage
+        Dir.glob(File.join(google_utilities_path, '**', '*.h')).each do |header_file|
+          relative_path = Pathname.new(header_file).relative_path_from(Pathname.new(google_utilities_path))
+          public_dir = File.join(File.dirname(header_file), 'Public', File.dirname(relative_path))
+
+          unless Dir.exist?(public_dir)
+            FileUtils.mkdir_p(public_dir)
+          end
+
+          public_header = File.join(public_dir, File.basename(header_file))
+          unless File.exist?(public_header)
+            FileUtils.cp(header_file, public_header)
+          end
+        end
+      end
+
+      # Suppress master specs repo warning
+      puts "✅ CocoaPods installation completed successfully with all fixes applied"
+    end
+    ```
+
+    ### Error
+
+    ```
+    Errno::ENOENT - No such file or directory @ rb_check_realpath_internal - /Users/builder/clone/ios/Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `realpath'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `realpath'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:326:in `reference_for_path'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/project.rb:269:in `add_file_reference'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:228:in `block (2 levels) in add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:227:in `map'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:227:in `block in add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `each'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `flat_map'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:217:in `add_file_accessors_paths_to_pods_group'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:99:in `block in add_source_files_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:149:in `message'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:98:in `add_source_files_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator/file_references_installer.rb:49:in `install!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:102:in `block in install_file_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:149:in `message'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:100:in `install_file_references'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer/xcode/single_pods_project_generator.rb:17:in `generate!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:320:in `block in create_and_save_projects'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/user_interface.rb:64:in `section'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:315:in `create_and_save_projects'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:307:in `generate_pods_project'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:183:in `integrate'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/installer.rb:170:in `install!'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/command/install.rb:52:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/claide-1.1.0/lib/claide/command.rb:334:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/lib/cocoapods/command.rb:52:in `run'
+    /Users/builder/.rbenv/versions/3.3.6/lib/ruby/gems/3.3.0/gems/cocoapods-1.16.2/bin/pod:55:in `<top (required)>'
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod:25:in `load'
+    /Users/builder/.rbenv/versions/3.3.6/bin/pod:25:in `<main>'
+    ```
+
+    ――― TEMPLATE END ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+    [!] Oh no, an error occurred.
+
+    Search for existing GitHub issues similar to yours:
+    https://github.com/CocoaPods/CocoaPods/search?q=No+such+file+or+directory+%40+rb_check_realpath_internal+-+%2FUsers%2Fbuilder%2Fclone%2Fios%2FPods%2FGoogleUtilities%2FGoogleUtilities%2FAppDelegateSwizzler%2FPublic%2FGoogleUtilities%2FGULAppDelegateSwizzler.h&type=Issues
+
+    If none exists, create a ticket, with the template displayed above, on:
+    https://github.com/CocoaPods/CocoaPods/issues/new
+
+    Be sure to first read the contributing guide for details on how to properly submit a ticket:
+    https://github.com/CocoaPods/CocoaPods/blob/master/CONTRIBUTING.md
+
+    Don't forget to anonymize any private data!
+
+    Looking for related issues on cocoapods/cocoapods...
+    Found no similar issues. To create a new issue, please visit:
+    https://github.com/cocoapods/cocoapods/issues/new
+
+Error running pod install
+
+
+Build failed :|
+Step 11 script `🏗️ Build and Archive iOS (.ipa)` exited with status code 1
+
+📦 Export IPA
+< 1s
+⬆️ Upload to TestFlight (optional)
+< 1s
+✉️ Email Notification
+< 1s
+Validate Build Results
+< 1s
+Publishing
+< 1s
+Cleaning up
+< 1s
+Step 11 script `🏗️ Build and Archive iOS (.ipa)` exited with status code 1
+
