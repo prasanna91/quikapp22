@@ -66,16 +66,16 @@ class EnvConfig {
   static const int splashDuration = ${SPLASH_DURATION:-4};
   
   // Bottom Menu Configuration
-  static const String bottomMenuItems = "${BOTTOMMENU_ITEMS:-[]}";
-  static const String bottomMenuBgColor = "${BOTTOMMENU_BG_COLOR:-#FFFFFF}";
-  static const String bottomMenuIconColor = "${BOTTOMMENU_ICON_COLOR:-#000000}";
-  static const String bottomMenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-#000000}";
-  static const String bottomMenuFont = "${BOTTOMMENU_FONT:-System}";
-  static const double bottomMenuFontSize = ${BOTTOMMENU_FONT_SIZE:-12.0};
-  static const bool bottomMenuFontBold = ${BOTTOMMENU_FONT_BOLD:-false};
-  static const bool bottomMenuFontItalic = ${BOTTOMMENU_FONT_ITALIC:-false};
-  static const String bottomMenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-#000000}";
-  static const String bottomMenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-above}";
+  static const String bottommenuItems = r'${BOTTOMMENU_ITEMS:-[]}';
+  static const String bottommenuBgColor = "${BOTTOMMENU_BG_COLOR:-#FFFFFF}";
+  static const String bottommenuIconColor = "${BOTTOMMENU_ICON_COLOR:-#000000}";
+  static const String bottommenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-#000000}";
+  static const String bottommenuFont = "${BOTTOMMENU_FONT:-System}";
+  static const double bottommenuFontSize = ${BOTTOMMENU_FONT_SIZE:-12.0};
+  static const bool bottommenuFontBold = ${BOTTOMMENU_FONT_BOLD:-false};
+  static const bool bottommenuFontItalic = ${BOTTOMMENU_FONT_ITALIC:-false};
+  static const String bottommenuActiveTabColor = "${BOTTOMMENU_ACTIVE_TAB_COLOR:-#000000}";
+  static const String bottommenuIconPosition = "${BOTTOMMENU_ICON_POSITION:-above}";
   
   // Firebase Configuration
   static const String firebaseConfigIos = "${FIREBASE_CONFIG_IOS:-}";
