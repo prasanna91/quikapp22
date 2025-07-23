@@ -230,7 +230,7 @@ fi)
   static const int splashDuration = ${SPLASH_DURATION:-3};
 
   // Bottom Menu Configuration
-  static const String bottommenuItems = """${BOTTOMMENU_ITEMS:-[]}""";
+  static const String bottommenuItems = r'${BOTTOMMENU_ITEMS:-[]}';
   static const String bottommenuBgColor = "${BOTTOMMENU_BG_COLOR:-#FFFFFF}";
   static const String bottommenuIconColor = "${BOTTOMMENU_ICON_COLOR:-#000000}";
   static const String bottommenuTextColor = "${BOTTOMMENU_TEXT_COLOR:-#000000}";
