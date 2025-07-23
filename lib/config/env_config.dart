@@ -6,20 +6,20 @@
 
 class EnvConfig {
   // App Metadata
-  static const String appId = "1003";
-  static const String versionName = "1.0.1";
+  static const String appId = "";
+  static const String versionName = "1.0.0";
   static const int versionCode = 1;
-  static const String appName = "Twinklub App";
-  static const String orgName = "JPR Garments";
-  static const String webUrl = "https://twinklub.com/";
-  static const String userName = "prasannasrie";
-  static const String emailId = "prasannasrinivasan32@gmail.com";
+  static const String appName = "QuikApp";
+  static const String orgName = "";
+  static const String webUrl = "";
+  static const String userName = "";
+  static const String emailId = "";
   static const String branch = "main";
   static const String workflowId = "ios-workflow";
 
   // Package Identifiers
   static const String pkgName = "";
-  static const String bundleId = "com.twinklub.twinklub";
+  static const String bundleId = "";
 
   // Feature Flags (converted to bool)
   static const bool pushNotify = true;
@@ -41,57 +41,61 @@ class EnvConfig {
   static const bool isStorage = true;
 
   // UI/Branding
-  static const String logoUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
-  static const String splashUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/twinklub_png_logo.png";
+  static const String logoUrl = "";
+  static const String splashUrl = "";
   static const String splashBg = "";
-  static const String splashBgColor = "#cbdbf5";
-  static const String splashTagline = "TWINKLUB";
-  static const String splashTaglineColor = "#a30237";
-  static const String splashAnimation = "zoom";
+  static const String splashBgColor = "#FFFFFF";
+  static const String splashTagline = "";
+  static const String splashTaglineColor = "#000000";
+  static const String splashBgUrl = "";
+  static const String splashAnimation = "none";
   static const int splashDuration = 4;
-
+  
   // Bottom Menu Configuration
-  static const String bottommenuItems =
-      r'[{"label":"Home","icon":{"type":"preset","name":"home_outlined"},"url":"https://twinklub.com/"},{"label":"New Arraivals","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/card.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/new-arrivals"},{"label":"Collections","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/about.svg","icon_size":"24"},"url":"https://www.twinklub.com/collections/all"},{"label":"Contact","icon":{"type":"custom","icon_url":"https://raw.githubusercontent.com/prasanna91/QuikApp/main/contact.svg","icon_size":"24"},"url":"https://www.twinklub.com/account"}]';
+  static const String bottommenuItems = r'[]';
   static const String bottommenuBgColor = "#FFFFFF";
-  static const String bottommenuIconColor = "#6d6e8c";
-  static const String bottommenuTextColor = "#6d6e8c";
-  static const String bottommenuFont = "DM Sans";
-  static const double bottommenuFontSize = 12;
+  static const String bottommenuIconColor = "#000000";
+  static const String bottommenuTextColor = "#000000";
+  static const String bottommenuFont = "System";
+  static const double bottommenuFontSize = 12.0;
   static const bool bottommenuFontBold = false;
   static const bool bottommenuFontItalic = false;
-  static const String bottommenuActiveTabColor = "#a30237";
+  static const String bottommenuActiveTabColor = "#000000";
   static const String bottommenuIconPosition = "above";
-
+  
   // Firebase Configuration
+  static const String firebaseConfigIos = "";
   static const String firebaseConfigAndroid = "";
-  static const String firebaseConfigIos =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/GoogleService-Info-TK.plist";
-
-  // Android Signing
+  
+  // iOS Signing
+  static const String appleTeamId = "";
+  static const String profileType = "app-store";
+  static const bool isTestflight = false;
+  
+  // Email Configuration
+  static const bool enableEmailNotifications = false;
+  static const String emailSmtpServer = "";
+  static const int emailSmtpPort = 587;
+  static const String emailSmtpUser = "";
+  static const String emailSmtpPass = "";
+  
+  // APNS Configuration
+  static const String apnsKeyId = "";
+  static const String apnsAuthKeyUrl = "";
+  
+  // Android Keystore
   static const String keyStoreUrl = "";
   static const String cmKeystorePassword = "";
   static const String cmKeyAlias = "";
   static const String cmKeyPassword = "";
-
-  // iOS Signing
-  static const String appleTeamId = "";
-  static const String apnsKeyId = "V566SWNF69";
-  static const String apnsAuthKeyUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/AuthKey_V566SWNF69.p8";
-  static const String certPassword = "qwerty123";
-  static const String profileUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Twinklub_AppStore.mobileprovision";
-  static const String certP12Url =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/Certificates.p12";
-  static const String certCerUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/ios_distribution17-07.cer";
-  static const String certKeyUrl =
-      "https://raw.githubusercontent.com/prasanna91/QuikApp/main/private.key";
-  static const String profileType = "app-store";
-  static const String appStoreConnectKeyIdentifier = "S95LCWAH99";
+  
+  // App Store Connect
+  static const String appStoreConnectKeyIdentifier = "";
+  static const String appStoreConnectIssuerId = "";
+  static const String appStoreConnectApiKeyUrl = "";
+  
+  // Workflow
+  static const String workflowId = "ios-workflow";
 
   // Build Environment
   static const String buildId = "unknown";
@@ -103,9 +107,7 @@ class EnvConfig {
   static bool get isAndroidBuild => workflowId.startsWith('android');
   static bool get isIosBuild => workflowId.contains('ios');
   static bool get isCombinedBuild => workflowId == 'combined';
-  static bool get hasFirebase =>
-      firebaseConfigAndroid.isNotEmpty || firebaseConfigIos.isNotEmpty;
+  static bool get hasFirebase => firebaseConfigAndroid.isNotEmpty || firebaseConfigIos.isNotEmpty;
   static bool get hasKeystore => keyStoreUrl.isNotEmpty;
-  static bool get hasIosSigning =>
-      certPassword.isNotEmpty && profileUrl.isNotEmpty;
+  static bool get hasIosSigning => appleTeamId.isNotEmpty && profileType.isNotEmpty;
 }
